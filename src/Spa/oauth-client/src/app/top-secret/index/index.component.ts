@@ -17,15 +17,18 @@ export class IndexComponent implements OnInit {
   constructor(private authService: AuthService, private topSecretService: TopSecretService, private spinner: NgxSpinnerService) {
   }
 
-  ngOnInit() {    
+  ngOnInit() {
+    console.log('aqui van los...');
     this.busy = true;
     this.spinner.show();
     this.topSecretService.fetchTopSecretData(this.authService.authorizationHeaderValue)
     .pipe(finalize(() => {
+
+
       this.spinner.hide();
       this.busy = false;
     })).subscribe(
-    result => {         
+    result => {
       this.claims = result;
    });
   }
