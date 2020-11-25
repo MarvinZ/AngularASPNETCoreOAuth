@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Resource.Api.Models;
 using System.Security.Claims;
 
 namespace Resource.Api
@@ -21,10 +23,15 @@ namespace Resource.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public static void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddScoped<NinjaRepository>();
+            services.AddScoped<Kinder2021Context>();
+
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;                
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(o =>
             {
                 o.Authority = "http://localhost:5000";
@@ -53,11 +60,25 @@ namespace Resource.Api
                 app.UseDeveloperExceptionPage();
             }
 
+
+
             app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
+
 
             app.UseAuthentication();
 
-            app.UseMvc();
+            app.UseRouting();
+
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+
         }
     }
 }
