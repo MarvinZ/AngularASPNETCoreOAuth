@@ -7,6 +7,11 @@ namespace Resource.Api.Models
 {
     public partial class Parent
     {
+        public Parent()
+        {
+            Payments = new HashSet<Payment>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string CountryId { get; set; }
@@ -23,5 +28,7 @@ namespace Resource.Api.Models
         public DateTime? LastModificationDatetime { get; set; }
         public DateTime? DeactivateDatetime { get; set; }
         public string DeactivateUser { get; set; }
+
+        public virtual ICollection<Payment> Payments { get; set; }
     }
 }

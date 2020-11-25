@@ -23,6 +23,7 @@ namespace Resource.Api.Models
         public virtual DbSet<GroupTeacher> GroupTeachers { get; set; }
         public virtual DbSet<Level> Levels { get; set; }
         public virtual DbSet<Parent> Parents { get; set; }
+        public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<StudentParent> StudentParents { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
@@ -41,8 +42,6 @@ namespace Resource.Api.Models
             modelBuilder.Entity<Cycle>(entity =>
             {
                 entity.ToTable("Cycle");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
 
@@ -67,8 +66,6 @@ namespace Resource.Api.Models
             {
                 entity.ToTable("Group");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
 
                 entity.Property(e => e.CreateUser)
@@ -89,13 +86,13 @@ namespace Resource.Api.Models
                     .WithMany(p => p.Groups)
                     .HasForeignKey(d => d.CycleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Group__CycleId__00200768");
+                    .HasConstraintName("FK__Group__CycleId__2FCF1A8A");
 
                 entity.HasOne(d => d.Level)
                     .WithMany(p => p.Groups)
                     .HasForeignKey(d => d.LevelId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Group__LevelId__7F2BE32F");
+                    .HasConstraintName("FK__Group__LevelId__2EDAF651");
             });
 
             modelBuilder.Entity<GroupStudent>(entity =>
@@ -122,13 +119,13 @@ namespace Resource.Api.Models
                     .WithMany()
                     .HasForeignKey(d => d.GroupId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GroupStud__Group__05D8E0BE");
+                    .HasConstraintName("FK__GroupStud__Group__32AB8735");
 
                 entity.HasOne(d => d.Student)
                     .WithMany()
                     .HasForeignKey(d => d.StudentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GroupStud__Stude__04E4BC85");
+                    .HasConstraintName("FK__GroupStud__Stude__31B762FC");
             });
 
             modelBuilder.Entity<GroupTeacher>(entity =>
@@ -155,20 +152,18 @@ namespace Resource.Api.Models
                     .WithMany()
                     .HasForeignKey(d => d.GroupId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GroupTeac__Group__03F0984C");
+                    .HasConstraintName("FK__GroupTeac__Group__3587F3E0");
 
                 entity.HasOne(d => d.Teacher)
                     .WithMany()
                     .HasForeignKey(d => d.TeacherId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GroupTeac__Teach__02FC7413");
+                    .HasConstraintName("FK__GroupTeac__Teach__3493CFA7");
             });
 
             modelBuilder.Entity<Level>(entity =>
             {
                 entity.ToTable("Level");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
 
@@ -192,8 +187,6 @@ namespace Resource.Api.Models
             modelBuilder.Entity<Parent>(entity =>
             {
                 entity.ToTable("Parent");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Address)
                     .IsRequired()
@@ -240,11 +233,36 @@ namespace Resource.Api.Models
                 entity.Property(e => e.RegistrationDate).HasColumnType("datetime");
             });
 
+            modelBuilder.Entity<Payment>(entity =>
+            {
+                entity.ToTable("Payment");
+
+                entity.Property(e => e.Amount).HasColumnType("decimal(10, 4)");
+
+                entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.CreateUser)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.DeactivateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.DeactivateUser).HasMaxLength(100);
+
+                entity.Property(e => e.LastModificationDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.LastModifiedUser).HasMaxLength(100);
+
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.Payments)
+                    .HasForeignKey(d => d.ParentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Payment__ParentI__3864608B");
+            });
+
             modelBuilder.Entity<Student>(entity =>
             {
                 entity.ToTable("Student");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Birthday).HasColumnType("datetime");
 
@@ -299,20 +317,18 @@ namespace Resource.Api.Models
                     .WithMany()
                     .HasForeignKey(d => d.ParentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__StudentPa__Paren__06CD04F7");
+                    .HasConstraintName("FK__StudentPa__Paren__25518C17");
 
                 entity.HasOne(d => d.Student)
                     .WithMany()
                     .HasForeignKey(d => d.StudentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__StudentPa__Stude__07C12930");
+                    .HasConstraintName("FK__StudentPa__Stude__2645B050");
             });
 
             modelBuilder.Entity<Teacher>(entity =>
             {
                 entity.ToTable("Teacher");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Address)
                     .IsRequired()
