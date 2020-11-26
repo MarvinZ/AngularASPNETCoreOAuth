@@ -24,7 +24,11 @@ namespace Resource.Api
         public static void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddScoped<NinjaRepository>();
+            //services.AddScoped<NinjaRepository>();
+            services.AddScoped<StudentRepository>();
+            services.AddScoped<ParentRepository>();
+            services.AddScoped<TeacherRepository>();
+            services.AddScoped<GroupRepository>();
             services.AddScoped<Kinder2021Context>();
 
 

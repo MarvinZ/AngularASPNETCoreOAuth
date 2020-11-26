@@ -12,17 +12,21 @@ namespace Resource.Api.Controllers
    // [Authorize(Policy = "ApiReader")]
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentsController : ControllerBase
+    public class PeopleController : ControllerBase
     {
-        NinjaRepository _repo;
-        public StudentsController(NinjaRepository repo)
+        StudentRepository _StudentsRepo;
+        ParentRepository _ParentsRepo;
+        TeacherRepository _TeachersRepo;
+        public PeopleController(StudentRepository repo_student, ParentRepository repo_parent, TeacherRepository repo_teacher)
         {
-            _repo = repo;
+            _StudentsRepo = repo_student;
+            _ParentsRepo = repo_parent;
+            _TeachersRepo = repo_teacher;
         }
 
         [HttpPost]
         [Route("GetStudentsByParentId")]
-        public ActionResult<IEnumerable<string>> GetStudentsByParentId(requestDTO request)
+        public ActionResult<IEnumerable<string>> GetStudentsByParentId(basicRequest request)
         {
             using (var context = new Kinder2021Context())
             {
@@ -41,7 +45,7 @@ namespace Resource.Api.Controllers
 
         [HttpPost]
         [Route("GetStudentsByGroupId")]
-        public ActionResult<IEnumerable<string>> GetStudentsByGroupId(requestDTO request)
+        public ActionResult<IEnumerable<string>> GetStudentsByGroupId(basicRequest request)
         {
             using (var context = new Kinder2021Context())
             {
@@ -61,7 +65,7 @@ namespace Resource.Api.Controllers
 
         [HttpPost]
         [Route("CreateStudent")]
-        public bool CreateStudent(newStudentDTO request)
+        public bool CreateStudent(newPersonDTO request)
         {
             try
             {
@@ -95,9 +99,9 @@ namespace Resource.Api.Controllers
 
         [HttpPost]
         [Route("GetAllStudents")]
-        public List<Student> GetAllStudents (newStudentDTO request)
+        public List<Student> GetAllStudents ()
         {
-            return _repo.GetAllNinjas();
+            return _StudentsRepo.GetAllStudents();
         }
     }
 }
