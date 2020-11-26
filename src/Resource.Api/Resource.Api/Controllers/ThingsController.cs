@@ -18,9 +18,7 @@ namespace Resource.Api.Controllers
         public ThingsController(GroupRepository GroupsRepo)
         {
             _GroupsRepo = GroupsRepo;
-        }
-
-        
+        }       
 
 
         [HttpPost]
@@ -46,5 +44,35 @@ namespace Resource.Api.Controllers
         {
             return _GroupsRepo.GetAllGroups();
         }
+
+        [HttpPost]
+        [Route("EnrollStudent")]
+        public bool EnrollStudent(GroupRequestDTO request)
+        {
+            return _GroupsRepo.EnrollStudent(request.groupId, request.StudentId);
+        }
+
+        [HttpPost]
+        [Route("AssignTeacher")]
+        public bool AssignTeacher(GroupRequestDTO request)
+        {
+            return _GroupsRepo.AssignTeacher(request.groupId, request.TeacherId);
+        }
+
+        [HttpPost]
+        [Route("UnEnrollStudent")]
+        public bool UnEnrollStudent(GroupRequestDTO request)
+        {
+            return _GroupsRepo.UnEnrollStudent(request.groupId, request.StudentId);
+        }
+
+        [HttpPost]
+        [Route("UnAssignTeacher")]
+        public bool UnAssignTeacher(GroupRequestDTO request)
+        {
+            return _GroupsRepo.UnAssignTeacher(request.groupId, request.TeacherId);
+        }
+
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Resource.Api.Controllers
+namespace Resource.Api
 {
 
     public class BasicRequest
@@ -14,11 +14,19 @@ namespace Resource.Api.Controllers
     {
         public string Name { get; set; }
         public string LastName1 { get; set; }
-        public DateTime requestDate { get; set; }
+        public DateTime RequestDate { get; set; }
     }
 
     public class NewThingDTO
     {
+        public DateTime requestDate { get; set; }
+    }
+     
+        public class GroupRequestDTO
+    {
+        public int groupId { get; set; }
+        public int StudentId { get; set; }
+        public int TeacherId { get; set; }
         public DateTime requestDate { get; set; }
     }
 

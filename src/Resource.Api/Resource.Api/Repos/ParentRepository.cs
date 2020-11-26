@@ -1,4 +1,5 @@
 ﻿using Resource.Api.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,5 +23,34 @@ namespace Resource.Api
         {
             return _context.Parents.ToList();
         }
+   
+
+    public bool CreateParent(NewPersonDTO request)
+    {
+        try
+        {
+            var newRecord = new Parent()
+            {
+                CreateDatetime = DateTime.UtcNow,
+                Name = request.Name,
+                LastName1 = request.LastName1,
+                LastName2 = request.LastName1,
+                Birthday = Convert.ToDateTime("2018-12-1"),
+                CreateUser = "Admin",
+                RegistrationDate = DateTime.UtcNow
+
+            };
+            _context.Parents.Add(newRecord);
+            _context.SaveChanges();
+
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
     }
+    }
+
+
 }

@@ -57,6 +57,38 @@ namespace Resource.Api.Controllers
 
 
         [HttpPost]
+        [Route("CreatePArent")]
+        public bool CreateParent(NewPersonDTO request)
+        {
+            try
+            {
+                return _ParentsRepo.CreateParent(request);
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+
+        [HttpPost]
+        [Route("CreateTeacher")]
+        public bool CreateTeacher(NewPersonDTO request)
+        {
+            try
+            {
+                return _TeachersRepo.CreateTeacher(request);
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+
+        [HttpPost]
         [Route("GetAllStudents")]
         public List<Student> GetAllStudents()
         {
