@@ -9,7 +9,7 @@ using Resource.Api.Models;
 
 namespace Resource.Api.Controllers
 {
-   // [Authorize(Policy = "ApiReader")]
+    // [Authorize(Policy = "ApiReader")]
     [Route("api/[controller]")]
     [ApiController]
     public class PeopleController : ControllerBase
@@ -26,80 +26,39 @@ namespace Resource.Api.Controllers
 
         [HttpPost]
         [Route("GetStudentsByParentId")]
-        public ActionResult<IEnumerable<string>> GetStudentsByParentId(basicRequest request)
+        public ActionResult<List<StudentDTO>> GetStudentsByParentId(BasicRequest request)
         {
-            using (var context = new Kinder2021Context())
-            {
-                var students = context.Students.Join(context.StudentParents, student => student.Id,
-                    studentParent => studentParent.Student.Id,
-                                    (student, studentParent) => new {
-                                        Name = student.Name,
-                                        Lastname = student.LastName1,
-                                        ParentId = studentParent.ParentId
-                                    }).Where(e => e.ParentId == request.ParentId).ToList();
-
-
-                return new JsonResult(students);
-            }
+            return new JsonResult(_StudentsRepo.GetStudentsByParentId(request.ParentId));
         }
 
         [HttpPost]
         [Route("GetStudentsByGroupId")]
-        public ActionResult<IEnumerable<string>> GetStudentsByGroupId(basicRequest request)
+        public ActionResult<List<StudentDTO>> GetStudentsByGroupId(BasicRequest request)
         {
-            using (var context = new Kinder2021Context())
-            {
-                var students = context.Students.Join(context.GroupStudents, student => student.Id,
-                    groupStudent => groupStudent.Student.Id,
-                                    (student, groupStudents) => new {
-                                        Name = student.Name,
-                                        Lastname = student.LastName1,
-                                        GroupId = groupStudents.GroupId
-                                    }).Where(e => e.GroupId == request.GroupId).ToList();
+            return new JsonResult(_StudentsRepo.GetStudentsByGroupId(request.ParentId));
 
-
-                return new JsonResult(students);
-            }
         }
 
 
         [HttpPost]
         [Route("CreateStudent")]
-        public bool CreateStudent(newPersonDTO request)
+        public bool CreateStudent(NewPersonDTO request)
         {
             try
             {
-                using (var context = new Kinder2021Context())
-                {
-                    var student = new Student()
-                    {
-                        CreateDatetime = DateTime.UtcNow,
-                        Name = request.Name,
-                        LastName1 = request.LastName1,
-                        LastName2 = request.LastName1,
-                        Birthday = Convert.ToDateTime("2018-12-1"),
-                        CreateUser = "Admin",
-                        RegistrationDate = DateTime.UtcNow
-
-                    };
-                    context.Students.Add(student);
-                    context.SaveChanges();
-
-                    return true;
-                }
+                return _StudentsRepo.CreateStudent(request);
             }
             catch (Exception)
             {
 
                 return false;
             }
-           
         }
 
 
         [HttpPost]
         [Route("GetAllStudents")]
-        public List<Student> GetAllStudents ()
+        public List<Student> GetAllStudents()
         {
             return _StudentsRepo.GetAllStudents();
         }

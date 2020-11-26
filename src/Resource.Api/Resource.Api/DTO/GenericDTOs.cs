@@ -3,23 +3,22 @@
 namespace Resource.Api.Controllers
 {
 
-    public class basicRequest
+    public class BasicRequest
     {
         public int ParentId { get; set; }
         public int GroupId { get; set; }
         public DateTime requestDate { get; set; }
 
     }
-    public class newPersonDTO
+    public class NewPersonDTO
     {
         public string Name { get; set; }
         public string LastName1 { get; set; }
         public DateTime requestDate { get; set; }
     }
 
-    public class newThingDTO
+    public class NewThingDTO
     {
-
         public DateTime requestDate { get; set; }
     }
 

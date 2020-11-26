@@ -25,7 +25,7 @@ namespace Resource.Api.Controllers
 
         [HttpPost]
         [Route("CreateGroup")]
-        public bool CreateGroup(newThingDTO request)
+        public bool CreateGroup(NewThingDTO request)
         {
             try
             {
