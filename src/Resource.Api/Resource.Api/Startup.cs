@@ -29,6 +29,7 @@ namespace Resource.Api
             services.AddScoped<ParentRepository>();
             services.AddScoped<TeacherRepository>();
             services.AddScoped<GroupRepository>();
+            services.AddScoped<DocumentRepository>();
             services.AddScoped<Kinder2021Context>();
 
 

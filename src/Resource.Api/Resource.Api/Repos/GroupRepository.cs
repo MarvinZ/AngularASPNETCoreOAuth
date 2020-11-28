@@ -104,6 +104,9 @@ namespace Resource.Api
 
         }
 
-
+        public List<Document> GetAllDocumentsByStudent(int studentId)
+        {
+            return _context.Documents.Where(e => e.StudentId == studentId).ToList();
+        }
     }
 }

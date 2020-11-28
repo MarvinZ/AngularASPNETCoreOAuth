@@ -9,16 +9,18 @@ using Resource.Api.Models;
 
 namespace Resource.Api.Controllers
 {
-   // [Authorize(Policy = "ApiReader")]
+    // [Authorize(Policy = "ApiReader")]
     [Route("api/[controller]")]
     [ApiController]
     public class ThingsController : ControllerBase
     {
+        DocumentRepository _DocumentsRepo;
         GroupRepository _GroupsRepo;
-        public ThingsController(GroupRepository GroupsRepo)
+        public ThingsController(GroupRepository GroupsRepo, DocumentRepository DocumentsRepo)
         {
             _GroupsRepo = GroupsRepo;
-        }       
+            _DocumentsRepo = DocumentsRepo;
+        }
 
 
         [HttpPost]
@@ -34,13 +36,13 @@ namespace Resource.Api.Controllers
 
                 return false;
             }
-           
+
         }
 
 
         [HttpPost]
         [Route("GetAllGroups")]
-        public List<Group> GetAllGroups ()
+        public List<Group> GetAllGroups()
         {
             return _GroupsRepo.GetAllGroups();
         }
@@ -73,6 +75,11 @@ namespace Resource.Api.Controllers
             return _GroupsRepo.UnAssignTeacher(request.groupId, request.TeacherId);
         }
 
-
+        [HttpPost]
+        [Route("GetAllDocumentsByStudent")] // and groupid...
+        public List<Document> GetAllDocumentsByStudent(GroupRequestDTO request)
+        {
+            return _GroupsRepo.GetAllDocumentsByStudent(request.StudentId);
+        }
     }
 }
