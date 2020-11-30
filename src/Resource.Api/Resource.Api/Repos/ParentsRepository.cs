@@ -12,10 +12,10 @@ namespace Resource.Api
     }
 
 
-    public class ParentRepository : IParentRepository
+    public class ParentsRepository : IParentRepository
     {
         Kinder2021Context _context;
-        public ParentRepository(Kinder2021Context context)
+        public ParentsRepository(Kinder2021Context context)
         {
             _context = context;
         }

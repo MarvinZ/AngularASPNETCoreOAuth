@@ -21,10 +21,10 @@ namespace Resource.Api
     }
 
 
-    public class GroupRepository : IGroupRepository
+    public class GroupsRepository : IGroupRepository
     {
         Kinder2021Context _context;
-        public GroupRepository(Kinder2021Context context)
+        public GroupsRepository(Kinder2021Context context)
         {
             _context = context;
         }

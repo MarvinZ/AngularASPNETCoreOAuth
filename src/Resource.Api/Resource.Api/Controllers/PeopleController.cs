@@ -14,10 +14,10 @@ namespace Resource.Api.Controllers
     [ApiController]
     public class PeopleController : ControllerBase
     {
-        StudentRepository _StudentsRepo;
-        ParentRepository _ParentsRepo;
-        TeacherRepository _TeachersRepo;
-        public PeopleController(StudentRepository repo_student, ParentRepository repo_parent, TeacherRepository repo_teacher)
+        StudentsRepository _StudentsRepo;
+        ParentsRepository _ParentsRepo;
+        TeachersRepository _TeachersRepo;
+        public PeopleController(StudentsRepository repo_student, ParentsRepository repo_parent, TeachersRepository repo_teacher)
         {
             _StudentsRepo = repo_student;
             _ParentsRepo = repo_parent;

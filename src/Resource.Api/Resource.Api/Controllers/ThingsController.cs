@@ -14,9 +14,9 @@ namespace Resource.Api.Controllers
     [ApiController]
     public class ThingsController : ControllerBase
     {
-        DocumentRepository _DocumentsRepo;
-        GroupRepository _GroupsRepo;
-        public ThingsController(GroupRepository GroupsRepo, DocumentRepository DocumentsRepo)
+        DocumentsRepository _DocumentsRepo;
+        GroupsRepository _GroupsRepo;
+        public ThingsController(GroupsRepository GroupsRepo, DocumentsRepository DocumentsRepo)
         {
             _GroupsRepo = GroupsRepo;
             _DocumentsRepo = DocumentsRepo;

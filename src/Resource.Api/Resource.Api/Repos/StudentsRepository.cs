@@ -13,10 +13,10 @@ namespace Resource.Api
     }
 
 
-    public class StudentRepository : IStudentRepository
+    public class StudentsRepository : IStudentRepository
     {
         Kinder2021Context _context;
-        public StudentRepository(Kinder2021Context context)
+        public StudentsRepository(Kinder2021Context context)
         {
             _context = context;
         }

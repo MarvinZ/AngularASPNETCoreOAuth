@@ -25,11 +25,12 @@ namespace Resource.Api
         {
 
             //services.AddScoped<NinjaRepository>();
-            services.AddScoped<StudentRepository>();
-            services.AddScoped<ParentRepository>();
-            services.AddScoped<TeacherRepository>();
-            services.AddScoped<GroupRepository>();
-            services.AddScoped<DocumentRepository>();
+            services.AddScoped<StudentsRepository>();
+            services.AddScoped<ParentsRepository>();
+            services.AddScoped<TeachersRepository>();
+            services.AddScoped<GroupsRepository>();
+            services.AddScoped<DocumentsRepository>();
+            services.AddScoped<PaymentsRepository>();
             services.AddScoped<Kinder2021Context>();
 
 

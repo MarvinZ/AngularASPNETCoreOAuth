@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div *ngIf="!busy" class="col-md-8">
+      <h3>Payments</h3>
+      <table class="table small">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Student </th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let claim of claims; let i = index" [attr.data-index]="i">
+            <td>{{claim.id}}</td>
+            <td>{{claim.amount}}</td>
+            <td>{{claim.student}}</td>
+
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <ngx-spinner></ngx-spinner>
+</div>

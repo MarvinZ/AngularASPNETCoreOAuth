@@ -21,6 +21,7 @@ import { ShellModule } from './shell/shell.module';
 import { TopSecretModule } from './top-secret/top-secret.module';
 import { GroupsModule } from './groups/groups.module';
 import { StudentsModule } from './students/students.module';
+import { PaymentsModule } from './payments/payments.module';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -36,7 +37,7 @@ import { SharedModule } from './shared/shared.module';
     AccountModule,
     TopSecretModule,
 
-    GroupsModule,StudentsModule,
+    GroupsModule, StudentsModule, PaymentsModule,
     AppRoutingModule,
     ShellModule,
     SharedModule

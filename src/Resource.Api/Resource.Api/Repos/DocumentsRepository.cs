@@ -11,10 +11,10 @@ namespace Resource.Api
     }
 
 
-    public class DocumentRepository : IDocumentRepository
+    public class DocumentsRepository : IDocumentRepository
     {
         Kinder2021Context _context;
-        public DocumentRepository(Kinder2021Context context)
+        public DocumentsRepository(Kinder2021Context context)
         {
             _context = context;
         }
