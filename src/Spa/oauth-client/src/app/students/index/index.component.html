@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div *ngIf="!busy" class="col-md-8">
+      <h3>Students</h3>
+      <table class="table small">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name </th>
+            <th scope="col">Last names </th>
+            <th scope="col">Birthday</th>
+            <th scope="col">Parents</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let claim of claims; let i = index" [attr.data-index]="i">
+            <td>{{claim.id}}</td>
+            <td>{{claim.name}}</td>
+            <td>{{claim.lastname1 +' ' + claim.lastname2}}</td>
+            <td>{{claim.birthday}}</td>
+            <td></td>
+
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <ngx-spinner></ngx-spinner>
+</div>
