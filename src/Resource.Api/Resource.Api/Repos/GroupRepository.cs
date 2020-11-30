@@ -8,7 +8,16 @@ namespace Resource.Api
 
     public interface IGroupRepository
     {
-        List<Group> GetAllGroups();
+        List<GroupDTO> GetAllGroups();
+
+        public bool EnrollStudent(int groupId, int studentId);
+        public bool UnEnrollStudent(int groupId, int studentId);
+
+        public bool AssignTeacher(int groupId, int teacherId);
+        public bool UnAssignTeacher(int groupId, int teacherId);
+
+        public List<Document> GetAllDocumentsByStudent(int studentId);
+
     }
 
 
@@ -19,9 +28,20 @@ namespace Resource.Api
         {
             _context = context;
         }
-        public List<Group> GetAllGroups()
+        public List<GroupDTO> GetAllGroups()
         {
-            return _context.Groups.ToList();
+            var result = _context.Groups.Select(c => new GroupDTO
+            {
+                CycleName = c.Cycle.Name,
+                AmountOfStudents = 99,
+                CreateUser = c.CreateUser,
+                CreateDatetime = c.CreateDatetime,
+                LevelName = c.Level.Name,
+                GroupShortname = c.GroupShortname,
+                Id = c.Id
+            }).ToList();
+
+            return result;
         }
 
         public bool EnrollStudent(int groupId, int studentId)

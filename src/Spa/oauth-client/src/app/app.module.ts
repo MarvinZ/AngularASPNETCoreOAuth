@@ -15,11 +15,12 @@ import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
 
 /* Module Imports */
 import { CoreModule } from './core/core.module';
-import { HomeModule }  from './home/home.module';
-import { AccountModule }  from './account/account.module';
+import { HomeModule } from './home/home.module';
+import { AccountModule } from './account/account.module';
 import { ShellModule } from './shell/shell.module';
 import { TopSecretModule } from './top-secret/top-secret.module';
-import { SharedModule }   from './shared/shared.module';
+import { GroupsModule } from './groups/groups.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -27,15 +28,16 @@ import { SharedModule }   from './shared/shared.module';
     AuthCallbackComponent
   ],
   imports: [
-    BrowserModule,  
-    HttpClientModule, 
+    BrowserModule,
+    HttpClientModule,
     CoreModule,
     HomeModule,
     AccountModule,
-    TopSecretModule,   
+    TopSecretModule,
+    GroupsModule,
     AppRoutingModule,
-    ShellModule,   
-    SharedModule    
+    ShellModule,
+    SharedModule
   ],
   providers: [
     ConfigService,

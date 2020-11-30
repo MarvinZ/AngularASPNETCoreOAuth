@@ -9,7 +9,7 @@ using Resource.Api.Models;
 
 namespace Resource.Api.Controllers
 {
-    // [Authorize(Policy = "ApiReader")]
+    //[Authorize(Policy = "ApiReader")]
     [Route("api/[controller]")]
     [ApiController]
     public class ThingsController : ControllerBase
@@ -42,7 +42,7 @@ namespace Resource.Api.Controllers
 
         [HttpPost]
         [Route("GetAllGroups")]
-        public List<Group> GetAllGroups()
+        public List<GroupDTO> GetAllGroups()
         {
             return _GroupsRepo.GetAllGroups();
         }

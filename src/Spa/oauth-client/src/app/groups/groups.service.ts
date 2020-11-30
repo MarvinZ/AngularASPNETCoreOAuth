@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders  } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { BaseService } from "../shared/base.service";
+import { BaseService } from '../shared/base.service';
 import { ConfigService } from '../shared/config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class TopSecretService extends BaseService {
+export class GroupsService extends BaseService {
 
   constructor(private http: HttpClient, private configService: ConfigService) {
     super();
@@ -18,7 +18,7 @@ export class TopSecretService extends BaseService {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
+        'Content-Type': 'application/json',
         'Authorization': token
       })
     };
