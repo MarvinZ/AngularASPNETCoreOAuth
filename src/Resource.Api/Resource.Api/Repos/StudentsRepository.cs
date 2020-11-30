@@ -44,6 +44,9 @@ namespace Resource.Api
           groupStudent => groupStudent.Student.Id,
                           (student, groupStudents) => new StudentDTO
                           {
+                              Id = student.Id,
+                              Birthday = student.Birthday,
+                              RegistrationDate = student.RegistrationDate,
                               Name = student.Name,
                               Lastnames = student.LastName1 + " " + student.LastName2,
                           }).ToList();
