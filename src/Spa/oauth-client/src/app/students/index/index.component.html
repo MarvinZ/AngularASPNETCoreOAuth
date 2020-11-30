@@ -2,28 +2,49 @@
   <div class="row">
     <div *ngIf="!busy" class="col-md-8">
       <h3>Students</h3>
-      <table class="table small">
-        <thead>
-          <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Name </th>
-            <th scope="col">Last names </th>
-            <th scope="col">Birthday</th>
-            <th scope="col">Parents</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let claim of claims; let i = index" [attr.data-index]="i">
-            <td>{{claim.id}}</td>
-            <td>{{claim.name}}</td>
-            <td>{{claim.lastname1 +' ' + claim.lastname2}}</td>
-            <td>{{claim.birthday}}</td>
-            <td></td>
+
+      <div *ngIf=" STATE=='CREATE_STUDENT'">
+        <h3>Add new student</h3>
+
+        Here you can create a student
+        <button (click) = "cancelCreateStudent()">Cancel</button>
+
+        <button>Save</button>
+      </div>
+
+      <div *ngIf=" STATE=='SEARCH_STUDENT'">
+        <button (click) = "openCreateStudent()"> + Create Student</button>
 
 
-          </tr>
-        </tbody>
-      </table>
+        Search and view all students
+
+        <hr>
+        <table class="table small">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Name </th>
+              <th scope="col">Last names </th>
+              <th scope="col">Birthday</th>
+              <th scope="col">Parents</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of students; let i = index" [attr.data-index]="i">
+              <td>{{student.id}}</td>
+              <td>{{student.name}}</td>
+              <td>{{student.lastname1 +' ' + student.lastname2}}</td>
+              <td>{{student.birthday}}</td>
+              <td></td>
+
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+
     </div>
   </div>
   <ngx-spinner></ngx-spinner>

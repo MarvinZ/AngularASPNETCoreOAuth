@@ -11,8 +11,9 @@ import { StudentsService } from '../students.service';
 })
 export class IndexComponent implements OnInit {
 
-  claims = null;
+  students = null;
   busy: boolean;
+  STATE = 'SEARCH_STUDENT';
 
   constructor(private authService: AuthService, private service: StudentsService, private spinner: NgxSpinnerService) {
   }
@@ -29,7 +30,17 @@ export class IndexComponent implements OnInit {
         this.busy = false;
       })).subscribe(
         result => {
-          this.claims = result;
+          this.students = result;
         });
   }
+
+
+  cancelCreateStudent() {
+    this.STATE = 'SEARCH_STUDENT';
+   }
+
+   openCreateStudent() {
+    this.STATE = 'CREATE_STUDENT';
+   }
+
 }
