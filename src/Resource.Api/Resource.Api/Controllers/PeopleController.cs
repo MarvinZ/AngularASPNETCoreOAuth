@@ -35,7 +35,7 @@ namespace Resource.Api.Controllers
         [Route("GetStudentsByGroupId")]
         public ActionResult<List<StudentDTO>> GetStudentsByGroupId(BasicRequest request)
         {
-            return new JsonResult(_StudentsRepo.GetStudentsByGroupId(request.ParentId));
+            return new JsonResult(_StudentsRepo.GetStudentsByGroupId(request.GroupId));
 
         }
 

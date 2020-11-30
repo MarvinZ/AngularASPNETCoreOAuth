@@ -10,11 +10,12 @@ import { ConfigService } from '../shared/config.service';
 
 export class GroupsService extends BaseService {
 
+
   constructor(private http: HttpClient, private configService: ConfigService) {
     super();
   }
 
-  fetchTopSecretData(token: string) {
+  getAllActiveGroups(token: string) {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -24,5 +25,23 @@ export class GroupsService extends BaseService {
     };
 
     return this.http.post(this.configService.resourceApiURI + '/things/GetAllGroups', httpOptions).pipe(catchError(this.handleError));
+  }
+
+
+  getStudentsForGroup(token: string, groupId: number) {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
+
+    const payload = {
+      GroupId: groupId
+    };
+
+    return this.http.post(this.configService.resourceApiURI + '/people/GetStudentsByGroupId',
+      payload, httpOptions).pipe(catchError(this.handleError));
   }
 }

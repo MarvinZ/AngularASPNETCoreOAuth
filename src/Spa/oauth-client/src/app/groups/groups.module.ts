@@ -7,13 +7,17 @@ import { GroupsService } from '../groups/groups.service';
 
 import { GroupsRoutingModule } from './groups.routing-module';
 
+import { FormsModule } from '@angular/forms';
+
+
 @NgModule({
   declarations: [IndexComponent],
   providers: [GroupsService],
   imports: [
     CommonModule,
     GroupsRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ]
 })
 export class GroupsModule { }

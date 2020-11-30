@@ -1,32 +1,76 @@
 <div class="container">
   <div class="row">
     <div *ngIf="!busy" class="col-md-8">
-      <h3>Groups</h3>
-      <table class="table small">
-        <thead>
-          <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Cycle </th>
-            <th scope="col">Level </th>
-            <th scope="col">Group</th>
-            <th scope="col">Students</th>
-            <th scope="col">Teachers</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let claim of claims; let i = index" [attr.data-index]="i">
-            <td>{{claim.id}}</td>
-            <td>{{claim.cycleName}}</td>
-            <td>{{claim.levelName}}</td>
-            <td>{{claim.groupShortname}}</td>
-            <td></td>
-            <th>
-               <button>Students</button>
-            </th>
 
-          </tr>
-        </tbody>
-      </table>
+      <div *ngIf="GroupSwitch == 'GROUPLIST'">
+        <h3>Groups</h3>
+
+        <table class="table small">
+          <thead>
+            <tr>
+              <th scope="col">Cycle </th>
+              <th scope="col">Level </th>
+              <th scope="col">Group</th>
+              <th scope="col">Students</th>
+              <th scope="col">Teachers</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let group of groups; let i = index" [attr.data-index]="i">
+              <td>{{group.cycleName}}</td>
+              <td>{{group.levelName}}</td>
+              <td>{{group.groupShortname}}</td>
+
+              <th>
+                <button (click)="viewStudents(group.id)">Students</button>
+              </th>
+
+              <td></td>
+
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+
+      <div *ngIf=" GroupSwitch=='VIEWSTUDENTS'">
+        Display Students for {{SelectedGroup}}
+
+        <h3>Students</h3>
+
+
+        <button (click)=" backToGroups()">Back to Groups</button>
+        <hr>
+
+        <table class="table small">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Name </th>
+              <th scope="col">Last names </th>
+              <th scope="col">Birthday</th>
+              <th scope="col">Parents</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of students; let i = index" [attr.data-index]="i">
+              <td>{{student.id}}</td>
+              <td>{{student.name}}</td>
+              <td>{{student.lastname1 +' ' + student.lastname2}}</td>
+              <td>{{student.birthday}}</td>
+              <td></td>
+
+
+            </tr>
+          </tbody>
+        </table>
+
+
+        <hr>
+        <button (click)=" backToGroups()">Back to Groups</button>
+      </div>
+
     </div>
   </div>
   <ngx-spinner></ngx-spinner>

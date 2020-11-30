@@ -11,25 +11,63 @@ import { GroupsService } from '../groups.service';
 })
 export class IndexComponent implements OnInit {
 
-  claims = null;
+  students = null;
+  groups = null;
   busy: boolean;
+
+
+  GroupSwitch = 'GROUPLIST';
+
+  showME = true;
+
+  SelectedGroup: number;
+
+
 
   constructor(private authService: AuthService, private service: GroupsService, private spinner: NgxSpinnerService) {
   }
 
   ngOnInit() {
-    console.log('aqui van los...');
+
     this.busy = true;
     this.spinner.show();
-    this.service.fetchTopSecretData(this.authService.authorizationHeaderValue)
+    this.service.getAllActiveGroups(this.authService.authorizationHeaderValue)
       .pipe(finalize(() => {
-
 
         this.spinner.hide();
         this.busy = false;
       })).subscribe(
         result => {
-          this.claims = result;
+          this.groups = result;
         });
   }
+
+  viewStudents(selectedGroup: number) {
+    this.SelectedGroup = selectedGroup;
+    this.getStudentsForGroup(selectedGroup);
+    this.GroupSwitch = 'VIEWSTUDENTS';
+
+  }
+
+  backToGroups() {
+    this.GroupSwitch = 'GROUPLIST';
+    this.SelectedGroup = 0;
+  }
+
+  getStudentsForGroup(selectedGroup: number) {
+
+
+    this.busy = true;
+    this.spinner.show();
+    this.service.getStudentsForGroup(this.authService.authorizationHeaderValue, selectedGroup)
+      .pipe(finalize(() => {
+        this.spinner.hide();
+        this.busy = false;
+      })).subscribe(
+        result => {
+          this.students = result;
+        });
+  }
+
+
 }

@@ -30,6 +30,7 @@ import { SharedModule } from './shared/shared.module';
     AuthCallbackComponent
   ],
   imports: [
+
     BrowserModule,
     HttpClientModule,
     CoreModule,
