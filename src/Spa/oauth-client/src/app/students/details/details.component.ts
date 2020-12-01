@@ -58,6 +58,9 @@ export class DetailsComponent implements OnInit {
     }
     const fileToUpload = files[0] as File;
     const formData = new FormData();
+    formData.append('StudentId', this.selectedStudent);
+    formData.append('GroupId', '1');  // HAAAAARDCODED!!!!
+
     formData.append('file', fileToUpload, fileToUpload.name);
     this.http.post('http://localhost:5050/api/Upload', formData, { reportProgress: true, observe: 'events' })
       .subscribe(event => {

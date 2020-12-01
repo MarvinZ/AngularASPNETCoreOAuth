@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,12 +10,23 @@ namespace Resource.Api.Controllers
     [ApiController]
     public class UploadController : ControllerBase
     {
+        DocumentsRepository _DocumentsRepo;
+
+        public UploadController(DocumentsRepository DocumentsRepo)
+        {
+            _DocumentsRepo = DocumentsRepo;
+        }
+
         [HttpPost, DisableRequestSizeLimit]
         public IActionResult Upload()
         {
             try
             {
                 var file = Request.Form.Files[0];
+                var dict = Request.Form.ToDictionary(x => x.Key, x => x.Value.ToString());
+                var studentId = int.Parse(dict["StudentId"]);
+                var groupId = int.Parse(dict["GroupId"]);
+
                 var folderName = Path.Combine("Resources", "Images");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
@@ -28,8 +40,14 @@ namespace Resource.Api.Controllers
                     {
                         file.CopyTo(stream);
                     }
+                    var success = _DocumentsRepo.CreateDocument(studentId, groupId, dbPath, fileName);
 
-                    return Ok(new { dbPath });
+                    if (success)
+                    {
+                        return Ok(new { dbPath });
+                    }
+                    return BadRequest();
+
                 }
                 else
                 {
@@ -42,37 +60,6 @@ namespace Resource.Api.Controllers
             }
         }
 
-        //public IActionResult Upload()
-        //{
-        //    try
-        //    {
-        //        var files = Request.Form.Files;
-        //        var folderName = Path.Combine("StaticFiles", "Images");
-        //        var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
-        //        if (files.Any(f => f.Length == 0))
-        //        {
-        //            return BadRequest();
-        //        }
-
-        //        foreach (var file in files)
-        //        {
-        //            var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-        //            var fullPath = Path.Combine(pathToSave, fileName);
-        //            var dbPath = Path.Combine(folderName, fileName);
-
-        //            using (var stream = new FileStream(fullPath, FileMode.Create))
-        //            {
-        //                file.CopyTo(stream);
-        //            }
-        //        }
-
-        //        return Ok("All the files are successfully uploaded.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, "Internal server error");
-        //    }
-        //}
     }
 }

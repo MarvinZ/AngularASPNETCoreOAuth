@@ -1,4 +1,5 @@
 ﻿using Resource.Api.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,6 +22,31 @@ namespace Resource.Api
         public List<Student> GetAllDocuments()
         {
             return _context.Students.ToList();
+        }
+
+        public bool CreateDocument(int studentId, int groupId, string dbPath, string title)
+        {
+            try
+            {
+                var newDoc = new Document()
+                {
+                    FileLocation = dbPath,
+                    GroupId = groupId,
+                    StudentId = studentId,
+                    Title = title,
+                    CreateDatetime = DateTime.UtcNow,
+                    CreateUser = "admin",
+
+                };
+                _context.Documents.Add(newDoc);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
         }
     }
 }

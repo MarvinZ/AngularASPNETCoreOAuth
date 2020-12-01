@@ -18,6 +18,7 @@ namespace Resource.Api.Models
         }
 
         public virtual DbSet<Cycle> Cycles { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<GroupStudent> GroupStudents { get; set; }
         public virtual DbSet<GroupTeacher> GroupTeachers { get; set; }
@@ -33,7 +34,7 @@ namespace Resource.Api.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.;Database=Kinder2021;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Kinder2021;Integrated Security=True");
             }
         }
 
@@ -60,6 +61,43 @@ namespace Resource.Api.Models
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(250);
+            });
+
+            modelBuilder.Entity<Document>(entity =>
+            {
+                entity.ToTable("Document");
+
+                entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.CreateUser)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.DeactivateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.DeactivateUser).HasMaxLength(100);
+
+                entity.Property(e => e.FileLocation)
+                    .HasMaxLength(400)
+                    .HasColumnName("fileLocation");
+
+                entity.Property(e => e.LastModificationDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.LastModifiedUser).HasMaxLength(100);
+
+                entity.Property(e => e.Title).HasMaxLength(200);
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.Documents)
+                    .HasForeignKey(d => d.GroupId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Document__GroupI__3F115E1A");
+
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.Documents)
+                    .HasForeignKey(d => d.StudentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Document__Studen__3E1D39E1");
             });
 
             modelBuilder.Entity<Group>(entity =>
@@ -119,13 +157,13 @@ namespace Resource.Api.Models
                     .WithMany()
                     .HasForeignKey(d => d.GroupId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GroupStud__Group__32AB8735");
+                    .HasConstraintName("FK__GroupStud__Group__40F9A68C");
 
                 entity.HasOne(d => d.Student)
                     .WithMany()
                     .HasForeignKey(d => d.StudentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GroupStud__Stude__31B762FC");
+                    .HasConstraintName("FK__GroupStud__Stude__40058253");
             });
 
             modelBuilder.Entity<GroupTeacher>(entity =>

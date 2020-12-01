@@ -7,6 +7,11 @@ namespace Resource.Api.Models
 {
     public partial class Group
     {
+        public Group()
+        {
+            Documents = new HashSet<Document>();
+        }
+
         public int Id { get; set; }
         public int CycleId { get; set; }
         public int LevelId { get; set; }
@@ -20,5 +25,6 @@ namespace Resource.Api.Models
 
         public virtual Cycle Cycle { get; set; }
         public virtual Level Level { get; set; }
+        public virtual ICollection<Document> Documents { get; set; }
     }
 }

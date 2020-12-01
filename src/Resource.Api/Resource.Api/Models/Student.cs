@@ -7,6 +7,11 @@ namespace Resource.Api.Models
 {
     public partial class Student
     {
+        public Student()
+        {
+            Documents = new HashSet<Document>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string LastName1 { get; set; }
@@ -19,5 +24,7 @@ namespace Resource.Api.Models
         public DateTime? LastModificationDatetime { get; set; }
         public DateTime? DeactivateDatetime { get; set; }
         public string DeactivateUser { get; set; }
+
+        public virtual ICollection<Document> Documents { get; set; }
     }
 }

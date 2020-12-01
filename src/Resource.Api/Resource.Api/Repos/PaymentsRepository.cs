@@ -55,8 +55,8 @@ namespace Resource.Api
             }
             catch (Exception)
             {
-
-                return false;            }
+                return false;
+            }
         }
 
 
