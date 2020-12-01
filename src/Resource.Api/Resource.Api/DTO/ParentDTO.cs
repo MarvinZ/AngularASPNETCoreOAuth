@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Resource.Api
 {
-    public class StudentDTO
+    public class ParentDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,11 +12,8 @@ namespace Resource.Api
         public DateTime RegistrationDate { get; set; }
 
         // more
-
-        public int ParentId { get; set; }
+ 
         public string LastName1 { get; internal set; }
         public string LastName2 { get; internal set; }
-
-        public List<ParentDTO> Parents { get; internal set; }
     }
 }

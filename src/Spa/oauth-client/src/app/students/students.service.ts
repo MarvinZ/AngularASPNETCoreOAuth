@@ -25,4 +25,24 @@ export class StudentsService extends BaseService {
 
     return this.http.post(this.configService.resourceApiURI + '/people/GetAllStudents', httpOptions).pipe(catchError(this.handleError));
   }
+
+
+  getStudentDetails(token: string, StudentId: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
+
+    const payload = {
+      StudentId
+    };
+
+    return this.http.post(this.configService.resourceApiURI + '/people/GetStudentDetails', payload,
+      httpOptions).pipe(catchError(this.handleError));
+  }
+
+
+
 }

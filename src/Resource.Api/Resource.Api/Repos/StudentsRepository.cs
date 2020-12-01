@@ -62,7 +62,7 @@ namespace Resource.Api
                     CreateDatetime = DateTime.UtcNow,
                     Name = request.Name,
                     LastName1 = request.LastName1,
-                    LastName2 = request.LastName1,
+                    LastName2 = request.LastName2,
                     Birthday = Convert.ToDateTime("2018-12-1"),
                     CreateUser = "Admin",
                     RegistrationDate = DateTime.UtcNow
@@ -79,7 +79,50 @@ namespace Resource.Api
             }
         }
 
+        public StudentDTO GetStudentDetails(int studentId)
+        {
+            try
+            {
+                var result = new StudentDTO();
+                var tempRes = _context.Students.Where(e => e.Id == studentId).Select(student => new StudentDTO
+                {
+                    Id = student.Id,
+                    Birthday = student.Birthday,
+                    RegistrationDate = student.RegistrationDate,
+                    Name = student.Name,
+                    Lastnames = student.LastName1 + " " + student.LastName2,
+                }).FirstOrDefault();
 
+                if (tempRes != null)
+                {
+                    var parents = _context.Parents.Join(_context.StudentParents.Where(e => e.StudentId == studentId),
+                        parent => parent.Id,
+                        studentParent => studentParent.ParentId,
+                        (parent, studentParent) => new ParentDTO
+                        {
+                            Name = parent.Name,
+                            Lastnames = parent.LastName1 + " " + parent.LastName2,
+                        }).ToList();
+
+                    if (parents != null)
+                    {
+                        tempRes.Parents = new List<ParentDTO>();
+
+                        foreach (var par in parents)
+                        {
+                            tempRes.Parents.Add(par);
+                        }
+                    }
+                }
+                return tempRes;
+
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
 
     } // end of calss
 } //end of namespace

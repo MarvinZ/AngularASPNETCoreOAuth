@@ -14,6 +14,7 @@ export class DetailsComponent implements OnInit {
 
   busy: boolean;
   selectedStudent: string;
+  student: any;
 
   constructor(private route: ActivatedRoute, private authService: AuthService,
               private service: StudentsService, private spinner: NgxSpinnerService) {
@@ -24,16 +25,16 @@ export class DetailsComponent implements OnInit {
     this.spinner.show();
     this.selectedStudent = this.route.snapshot.paramMap.get('id');
 
-    // this.service.fetchTopSecretData(this.authService.authorizationHeaderValue)
-    //   .pipe(finalize(() => {
+    this.service.getStudentDetails(this.authService.authorizationHeaderValue, +this.selectedStudent)
+      .pipe(finalize(() => {
 
 
-    //     this.spinner.hide();
-    //     this.busy = false;
-    //   })).subscribe(
-    //     result => {
-    //       this.students = result;
-    //     });
+        this.spinner.hide();
+        this.busy = false;
+      })).subscribe(
+        result => {
+          this.student = result;
+        });
 
 
 

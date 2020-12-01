@@ -94,5 +94,11 @@ namespace Resource.Api.Controllers
         {
             return _StudentsRepo.GetAllStudents();
         }
+
+        [Route("GetStudentDetails")]
+        public StudentDTO GetStudentDetails(StudentRequestDTO request)
+        {
+            return _StudentsRepo.GetStudentDetails(request.StudentId);
+        }
     }
 }

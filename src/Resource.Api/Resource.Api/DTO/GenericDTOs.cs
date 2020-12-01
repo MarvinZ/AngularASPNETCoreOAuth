@@ -15,6 +15,7 @@ namespace Resource.Api
         public string Name { get; set; }
         public string LastName1 { get; set; }
         public DateTime RequestDate { get; set; }
+        public string LastName2 { get; internal set; }
     }
 
     public class NewThingDTO
@@ -37,6 +38,14 @@ namespace Resource.Api
         public int groupId { get; set; }
         public int StudentId { get; set; }
         public int TeacherId { get; set; }
+        public DateTime requestDate { get; set; }
+    }
+
+    public class StudentRequestDTO
+    {
+  
+        public int StudentId { get; set; }
+  
         public DateTime requestDate { get; set; }
     }
 
