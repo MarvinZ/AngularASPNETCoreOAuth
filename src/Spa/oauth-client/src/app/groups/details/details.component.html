@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row">
+    <div *ngIf="!busy" class="col-md-8">
+      <h3>Group Details</h3>
+
+
+      The group {{selectedGroup}} details go here!!!
+
+
+      {{group | json}}
+
+
+
+      <h3>Students</h3>
+
+
+      <a class=" " routerLink="/groups">Back to all Groups</a>
+
+      <hr>
+      <table class="table small">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name </th>
+            <th scope="col">Last names </th>
+            <th scope="col">Birthday</th>
+            <th scope="col">Parents</th>
+            <th> Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students; let i = index" [attr.data-index]="i">
+            <td>{{student.id}}</td>
+            <td>{{student.name}}</td>
+            <td>{{student.lastname1 +' ' + student.lastname2}}</td>
+            <td>{{student.birthday}}</td>
+            <td>
+              <a class="" routerLink="/students/{{student.id}}">Details</a>
+
+            </td>
+
+
+          </tr>
+        </tbody>
+      </table>
+
+
+      <hr>
+      <a class=" " routerLink="/groups">Back to all Groups</a>
+
+      <hr>
+      <div class="row" style="margin-bottom:15px;">
+        <div class="col-md-3">
+          <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+          <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
+        </div>
+        <div class="col-md-4">
+          <span class="upload" *ngIf="progress > 0">
+            {{progress}}%
+          </span>
+          <span class="upload" *ngIf="message">
+            {{message}}
+          </span>
+        </div>
+      </div>
+      <hr>
+      <hr>
+      <hr>
+
+    </div>
+  </div>
+  <ngx-spinner></ngx-spinner>
+</div>

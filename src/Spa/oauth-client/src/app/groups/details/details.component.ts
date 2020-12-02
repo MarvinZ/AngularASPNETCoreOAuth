@@ -3,38 +3,40 @@ import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../core/authentication/auth.service';
-import { StudentsService } from '../students.service';
+import { GroupsService } from '../groups.service';
 
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpEventType, HttpClient } from '@angular/common/http';
 
 
 @Component({
-  selector: 'app-students-details',
+  selector: 'app-group-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit {
 
   busy: boolean;
-  selectedStudent: string;
-  student: any;
+  selectedGroup: string;
+  group: any;
+  students = null;
+
 
   public progress: number;
   public message: string;
   @Output() public UploadFinished = new EventEmitter();
 
   constructor(private route: ActivatedRoute, private authService: AuthService,
-              private service: StudentsService, private spinner: NgxSpinnerService,
+              private service: GroupsService, private spinner: NgxSpinnerService,
               private http: HttpClient) {
   }
 
   ngOnInit() {
     this.busy = true;
     this.spinner.show();
-    this.selectedStudent = this.route.snapshot.paramMap.get('id');
+    this.selectedGroup = this.route.snapshot.paramMap.get('id');
 
-    this.service.getStudentDetails(this.authService.authorizationHeaderValue, +this.selectedStudent)
+    this.service.getGroupDetails(this.authService.authorizationHeaderValue, +this.selectedGroup)
       .pipe(finalize(() => {
 
 
@@ -42,10 +44,10 @@ export class DetailsComponent implements OnInit {
         this.busy = false;
       })).subscribe(
         result => {
-          this.student = result;
+          this.group = result;
         });
 
-
+    this.getStudentsForGroup(+this.selectedGroup);
 
     this.spinner.hide();
     this.busy = false;
@@ -58,8 +60,8 @@ export class DetailsComponent implements OnInit {
     }
     const fileToUpload = files[0] as File;
     const formData = new FormData();
-    formData.append('StudentId', this.selectedStudent);
-    formData.append('GroupId', '0');  // 0 means no group, since this is a personal doc
+    formData.append('GroupId', this.selectedGroup);
+    formData.append('StudentId', '0');  // 0 means no student, since this is a personal doc
 
     formData.append('file', fileToUpload, fileToUpload.name);
     this.http.post('http://localhost:5050/api/Upload', formData, { reportProgress: true, observe: 'events' })
@@ -72,5 +74,22 @@ export class DetailsComponent implements OnInit {
         }
       });
   }
+
+  getStudentsForGroup(selectedGroup: number) {
+
+
+    this.busy = true;
+    this.spinner.show();
+    this.service.getStudentsForGroup(this.authService.authorizationHeaderValue, selectedGroup)
+      .pipe(finalize(() => {
+        this.spinner.hide();
+        this.busy = false;
+      })).subscribe(
+        result => {
+          this.students = result;
+        });
+  }
+
+
 
 }

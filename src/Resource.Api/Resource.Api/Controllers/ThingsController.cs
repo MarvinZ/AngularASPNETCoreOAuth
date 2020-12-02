@@ -81,5 +81,13 @@ namespace Resource.Api.Controllers
         {
             return _GroupsRepo.GetAllDocumentsByStudent(request.StudentId);
         }
+
+        [Route("GetGroupDetails")]
+        public GroupDTO GetGroupDetails(GroupRequestDTO request)
+        {
+            return _GroupsRepo.GetGroupDetails(request.groupId);
+        }
+
+
     }
 }

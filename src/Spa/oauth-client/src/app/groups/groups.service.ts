@@ -20,7 +20,7 @@ export class GroupsService extends BaseService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': token
+        Authorization: token
       })
     };
 
@@ -44,4 +44,27 @@ export class GroupsService extends BaseService {
     return this.http.post(this.configService.resourceApiURI + '/people/GetStudentsByGroupId',
       payload, httpOptions).pipe(catchError(this.handleError));
   }
+
+
+
+
+  getGroupDetails(token: string, GroupId: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
+
+    const payload = {
+      GroupId
+    };
+
+
+    return this.http.post(this.configService.resourceApiURI + '/things/GetGroupDetails', payload,
+      httpOptions).pipe(catchError(this.handleError));
+  }
+
+
+
 }

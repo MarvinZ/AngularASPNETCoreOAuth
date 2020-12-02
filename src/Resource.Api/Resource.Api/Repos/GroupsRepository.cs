@@ -104,6 +104,54 @@ namespace Resource.Api
 
         }
 
+        public GroupDTO GetGroupDetails(int groupId)
+        {
+            try
+            {
+                var result = new GroupDTO();
+                var tempRes = _context.Groups.Where(e => e.Id == groupId).Select(group => new GroupDTO
+                {
+                    Id = group.Id,
+                    CycleName = group.Cycle.Name,
+                    LevelName = group.Level.Name              
+                    
+
+
+
+
+                }).FirstOrDefault();
+
+                //if (tempRes != null)
+                //{
+                //    var parents = _context.Parents.Join(_context.StudentParents.Where(e => e.StudentId == studentId),
+                //        parent => parent.Id,
+                //        studentParent => studentParent.ParentId,
+                //        (parent, studentParent) => new ParentDTO
+                //        {
+                //            Name = parent.Name,
+                //            Lastnames = parent.LastName1 + " " + parent.LastName2,
+                //        }).ToList();
+
+                //    if (parents != null)
+                //    {
+                //        tempRes.Parents = new List<ParentDTO>();
+
+                //        foreach (var par in parents)
+                //        {
+                //            tempRes.Parents.Add(par);
+                //        }
+                //    }
+                //}
+                return tempRes;
+
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
         public bool UnAssignTeacher(int groupId, int teacherId)
         {
             try

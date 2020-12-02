@@ -90,14 +90,12 @@ namespace Resource.Api.Models
                 entity.HasOne(d => d.Group)
                     .WithMany(p => p.Documents)
                     .HasForeignKey(d => d.GroupId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Document__GroupI__3F115E1A");
+                    .HasConstraintName("FK__Document__GroupI__489AC854");
 
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.Documents)
                     .HasForeignKey(d => d.StudentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Document__Studen__3E1D39E1");
+                    .HasConstraintName("FK__Document__Studen__47A6A41B");
             });
 
             modelBuilder.Entity<Group>(entity =>

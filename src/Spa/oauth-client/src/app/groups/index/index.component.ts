@@ -11,12 +11,11 @@ import { GroupsService } from '../groups.service';
 })
 export class IndexComponent implements OnInit {
 
-  students = null;
   groups = null;
   busy: boolean;
 
 
-  GroupSwitch = 'GROUPLIST';
+  // GroupSwitch = 'GROUPLIST';
 
   showME = true;
 
@@ -42,32 +41,19 @@ export class IndexComponent implements OnInit {
         });
   }
 
-  viewStudents(selectedGroup: number) {
-    this.SelectedGroup = selectedGroup;
-    this.getStudentsForGroup(selectedGroup);
-    this.GroupSwitch = 'VIEWSTUDENTS';
+  // viewStudents(selectedGroup: number) {
+  //   this.SelectedGroup = selectedGroup;
+  //   this.getStudentsForGroup(selectedGroup);
+  //   this.GroupSwitch = 'VIEWSTUDENTS';
 
-  }
+  // }
 
-  backToGroups() {
-    this.GroupSwitch = 'GROUPLIST';
-    this.SelectedGroup = 0;
-  }
-
-  getStudentsForGroup(selectedGroup: number) {
+  // backToGroups() {
+  //   this.GroupSwitch = 'GROUPLIST';
+  //   this.SelectedGroup = 0;
+  // }
 
 
-    this.busy = true;
-    this.spinner.show();
-    this.service.getStudentsForGroup(this.authService.authorizationHeaderValue, selectedGroup)
-      .pipe(finalize(() => {
-        this.spinner.hide();
-        this.busy = false;
-      })).subscribe(
-        result => {
-          this.students = result;
-        });
-  }
 
 
 }

@@ -36,11 +36,12 @@ namespace Resource.Api.Controllers
                     var fullPath = Path.Combine(pathToSave, fileName);
                     var dbPath = Path.Combine(folderName, fileName);
 
+                    var success = false;
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
                         file.CopyTo(stream);
                     }
-                    var success = _DocumentsRepo.CreateDocument(studentId, groupId, dbPath, fileName);
+                    success = _DocumentsRepo.CreateDocument(studentId, groupId, dbPath, fileName);
 
                     if (success)
                     {

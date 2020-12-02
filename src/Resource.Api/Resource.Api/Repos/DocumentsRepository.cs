@@ -24,15 +24,15 @@ namespace Resource.Api
             return _context.Students.ToList();
         }
 
-        public bool CreateDocument(int studentId, int groupId, string dbPath, string title)
+        public bool CreateDocument(int? studentId, int? groupId, string dbPath, string title)
         {
             try
             {
                 var newDoc = new Document()
                 {
                     FileLocation = dbPath,
-                    GroupId = groupId,
-                    StudentId = studentId,
+                    GroupId = groupId == 0 ? null : groupId,
+                    StudentId = studentId == 0 ? null : studentId,
                     Title = title,
                     CreateDatetime = DateTime.UtcNow,
                     CreateUser = "admin",
@@ -48,5 +48,9 @@ namespace Resource.Api
                 return false;
             }
         }
+
+
+
+
     }
 }

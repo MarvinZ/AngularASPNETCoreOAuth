@@ -8,8 +8,8 @@ namespace Resource.Api.Models
     public partial class Document
     {
         public int Id { get; set; }
-        public int GroupId { get; set; }
-        public int StudentId { get; set; }
+        public int? StudentId { get; set; }
+        public int? GroupId { get; set; }
         public string Title { get; set; }
         public string FileLocation { get; set; }
         public DateTime CreateDatetime { get; set; }
