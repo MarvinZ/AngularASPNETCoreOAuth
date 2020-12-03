@@ -8,13 +8,17 @@ import { StudentsService } from '../students/students.service';
 
 import { StudentsRoutingModule } from './students.routing-module';
 
+import { FormsModule } from '@angular/forms';
+
+
 @NgModule({
   declarations: [IndexComponent, DetailsComponent],
   providers: [StudentsService],
   imports: [
     CommonModule,
     StudentsRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ]
 })
 export class StudentsModule { }

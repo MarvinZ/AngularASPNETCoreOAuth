@@ -18,10 +18,14 @@ export class DetailsComponent implements OnInit {
 
   busy: boolean;
   selectedStudent: string;
-  student: any;
+  student: any = [];
 
   public progress: number;
   public message: string;
+
+  submitted = false;
+
+
   @Output() public UploadFinished = new EventEmitter();
 
   constructor(private route: ActivatedRoute, private authService: AuthService,
@@ -50,6 +54,8 @@ export class DetailsComponent implements OnInit {
     this.spinner.hide();
     this.busy = false;
 
+
+
   }
 
   public uploadFile = (files) => {
@@ -72,5 +78,7 @@ export class DetailsComponent implements OnInit {
         }
       });
   }
+
+  onSubmit() { this.submitted = true; }
 
 }
