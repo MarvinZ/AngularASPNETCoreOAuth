@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { IndexComponent } from './index/index.component';
 import { DetailsComponent } from './details/details.component';
+import { CreateComponent } from './create/create.component';
 
 import { StudentsService } from '../students/students.service';
 
@@ -12,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [IndexComponent, DetailsComponent],
+  declarations: [IndexComponent, DetailsComponent, CreateComponent],
   providers: [StudentsService],
   imports: [
     CommonModule,

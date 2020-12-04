@@ -13,7 +13,7 @@
       <a class=" " routerLink="/students">Back to all students</a>
 
 
-    <!-- <hr>
+      <!-- <hr>
       <hr>
       <hr>
       <div class="row" style="margin-bottom:15px;">
@@ -37,8 +37,8 @@
 
 
 
-    <!-- name -->
-    <!-- <label class="" attr.for="{{student.name}}">Name:</label>
+      <!-- name -->
+      <!-- <label class="" attr.for="{{student.name}}">Name:</label>
 
 
       <input id="name" name="name" class="form-control" required minlength="4" appForbiddenName="bob"
@@ -61,12 +61,17 @@
 
 
 
-  </div>
+    </div>
   </div>
   <div class="row">
     <div [hidden]="submitted">
-      <h1>Hero Form</h1>
+
       <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+
+        <img width="250" height="300"
+          src="https://mk0salkeizk12or7kyfk.kinstacdn.com/wp-content/uploads/2019/07/jumpstart_kinder_2019.jpg" alt="">
+
+
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" class="form-control" id="name" required [(ngModel)]="student.name" name="name"
@@ -78,11 +83,33 @@
 
         <div class="form-group">
           <label for="lastname1">Last name</label>
-          <input type="text" class="form-control" id="lastname1" [(ngModel)]="student.lastnames" name="lastname1" #lastname1="ngModel">
+          <input type="text" class="form-control" id="lastname1" [(ngModel)]="student.lastnames" name="lastname1"
+            #lastname1="ngModel">
           <div [hidden]="lastname1.valid || lastname1.pristine" class="alert alert-danger">
             Lastname is required
           </div>
         </div>
+
+
+        <div class="form-group">
+          <label for="lastname2">Last name</label>
+          <input type="text" class="form-control" id="lastname2" [(ngModel)]="student.lastnames" name="lastname2"
+            #lastname2="ngModel">
+          <div [hidden]="lastname2.valid || lastname2.pristine" class="alert alert-danger">
+            Lastname is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="birthday">Birthday</label>
+          <input type="text" class="form-control" id="birthday" [(ngModel)]="student.birthday" name="birthday"
+            #birthday="ngModel">
+          <div [hidden]="birthday.valid || birthday.pristine" class="alert alert-danger">
+            Birthday is required
+          </div>
+        </div>
+
+
         <!--
         <div class="form-group">
           <label for="power">Hero Power</label>
