@@ -3,50 +3,43 @@
     <div *ngIf="!busy" class="col-md-8">
       <h3>Students</h3>
 
-      <div *ngIf=" STATE=='CREATE_STUDENT'">
-        <h3>Add new student</h3>
-        <a class=" " routerLink="/addStudent">Open group</a>
 
-        Here you can create a student
-        <button (click) = "cancelCreateStudent()">Cancel</button>
-
-        <button>Save</button>
-      </div>
-
-      <div *ngIf=" STATE=='SEARCH_STUDENT'">
-        <button (click) = "openCreateStudent()"> + Create Student</button>
+      <a class=" " routerLink="/addStudent">Add Student</a>
 
 
-        Search and view all students
-
-        <hr>
-        <table class="table small">
-          <thead>
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Name </th>
-              <th scope="col">Last names </th>
-              <th scope="col">Birthday</th>
-              <th scope="col">Parents</th>
-              <th> Details</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let student of students; let i = index" [attr.data-index]="i">
-              <td>{{student.id}}</td>
-              <td>{{student.name}}</td>
-              <td>{{student.lastname1 +' ' + student.lastname2}}</td>
-              <td>{{student.birthday}}</td>
-              <td>
-                <a class="" routerLink="/students/{{student.id}}">Details</a>
-
-              </td>
 
 
-            </tr>
-          </tbody>
-        </table>
-      </div>
+
+
+
+      <hr>
+      <table class="table small">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name </th>
+            <th scope="col">Last names </th>
+            <th scope="col">Birthday</th>
+            <th scope="col">Parents</th>
+            <th> Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students; let i = index" [attr.data-index]="i">
+            <td>{{student.id}}</td>
+            <td>{{student.name}}</td>
+            <td>{{student.lastname1 +' ' + student.lastname2}}</td>
+            <td>{{student.birthday}}</td>
+            <td>
+              <a class="" routerLink="/students/{{student.id}}">Details</a>
+
+            </td>
+
+
+          </tr>
+        </tbody>
+      </table>
+
 
 
 

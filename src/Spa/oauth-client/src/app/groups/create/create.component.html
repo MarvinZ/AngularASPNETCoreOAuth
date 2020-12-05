@@ -1,10 +1,76 @@
 <div class="container">
   <div class="row">
     <div *ngIf="!busy" class="col-md-8">
+      <div class="row">
 
         <h3>Add new group</h3>
 
         <a class=" " routerLink="/groups">Back to all Groups</a>
+
+
+        {{testMe | json}}
+
+
+
+      </div>
+
+
+      <div class="row">
+        <div [hidden]="submitted">
+
+          <form (ngSubmit)="onSubmit()" #newGroupForm="ngForm">
+
+            <img width="250" height="300"
+              src="https://mk0salkeizk12or7kyfk.kinstacdn.com/wp-content/uploads/2019/07/jumpstart_kinder_2019.jpg"
+              alt="">
+
+
+            <div class="form-group">
+              <label for="name">Nombre del Grupo:</label>
+              <input type="text" class="form-control" id="name" required [(ngModel)]="newGroup.name" name="name"
+                #name="ngModel">
+              <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                Name is required
+              </div>
+            </div>
+
+
+
+
+
+            <div class="form-group">
+              <label for="power">Nivel</label>
+              <select class="form-control" id="levelname" required [(ngModel)]="newGroup.levelId" name="levelName"
+                #levelName="ngModel">
+                <option *ngFor="let lev of levels" [value]="lev.id">{{lev.name}}</option>
+              </select>
+
+
+            </div>
+
+
+            <div class="form-group">
+              <label for="power">Ciclo</label>
+              <select class="form-control" id="levelname" required [(ngModel)]="newGroup.cycleId" name="ciclename"
+                #ciclename="ngModel">
+                <option *ngFor="let cyc of cycles" [value]="cyc.id">{{cyc.name}}</option>
+              </select>
+
+
+            </div>
+
+
+
+            <button type="submit" class="btn btn-success" [disabled]="!newGroupForm.form.valid">Submit</button>
+            <button type="button" class="btn btn-default" (click)="newHero(); newGroupForm.reset()">New Hero</button>
+          </form>
+        </div>
+
+
+
+
+
+      </div>
 
 
     </div>

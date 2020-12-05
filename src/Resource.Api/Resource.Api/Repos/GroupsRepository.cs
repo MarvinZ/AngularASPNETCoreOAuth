@@ -104,6 +104,17 @@ namespace Resource.Api
 
         }
 
+        public CatalogDTO GetCatalog()
+        {
+            var result = new CatalogDTO()
+            {
+                Cycles = _context.Cycles.Where(e => e.DeactivateDatetime == null).ToList(),
+                Levels = _context.Levels.Where(e => e.DeactivateDatetime == null).ToList()
+
+            };
+            return result;
+        }
+
         public GroupDTO GetGroupDetails(int groupId)
         {
             try
@@ -113,8 +124,8 @@ namespace Resource.Api
                 {
                     Id = group.Id,
                     CycleName = group.Cycle.Name,
-                    LevelName = group.Level.Name              
-                    
+                    LevelName = group.Level.Name
+
 
 
 

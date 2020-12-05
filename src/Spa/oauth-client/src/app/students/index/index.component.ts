@@ -13,13 +13,12 @@ export class IndexComponent implements OnInit {
 
   students = null;
   busy: boolean;
-  STATE = 'SEARCH_STUDENT';
 
   constructor(private authService: AuthService, private service: StudentsService, private spinner: NgxSpinnerService) {
   }
 
   ngOnInit() {
-    console.log('aqui van los...');
+
     this.busy = true;
     this.spinner.show();
     this.service.fetchTopSecretData(this.authService.authorizationHeaderValue)
@@ -35,12 +34,6 @@ export class IndexComponent implements OnInit {
   }
 
 
-  cancelCreateStudent() {
-    this.STATE = 'SEARCH_STUDENT';
-   }
 
-   openCreateStudent() {
-    this.STATE = 'CREATE_STUDENT';
-   }
 
 }
