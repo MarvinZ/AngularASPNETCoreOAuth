@@ -23,6 +23,16 @@ namespace Resource.Api
         public DateTime requestDate { get; set; }
     }
 
+    public class NewGroupDTO
+    {
+        public int LevelId { get; set; }
+        public int CycleId { get; set; }
+        public string ShortName { get; set; }
+        public DateTime requestDate { get; set; }
+    }
+
+
+
     public class NewPaymentDTO
     {
         public int ParentId { get; set; }

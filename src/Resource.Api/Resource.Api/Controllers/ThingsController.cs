@@ -25,13 +25,13 @@ namespace Resource.Api.Controllers
 
         [HttpPost]
         [Route("CreateGroup")]
-        public bool CreateGroup(NewThingDTO request)
+        public bool CreateGroup(NewGroupDTO request)
         {
             try
             {
-                return true;
+                return _GroupsRepo.CreateGroup(request.LevelId, request.CycleId, request.ShortName);
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
                 return false;

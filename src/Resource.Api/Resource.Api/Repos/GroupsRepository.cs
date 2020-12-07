@@ -44,6 +44,29 @@ namespace Resource.Api
             return result;
         }
 
+        public bool CreateGroup(int levelId, int cycleId, string shortName)
+        {
+            try
+            {
+                var newGroup = new Group()
+                {
+                    LevelId = levelId,
+                    CycleId = cycleId,
+                    GroupShortname = shortName,
+                    CreateDatetime = DateTime.UtcNow,
+                    CreateUser = "ADMIN"
+                };
+                _context.Groups.Add(newGroup);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+
         public bool EnrollStudent(int groupId, int studentId)
         {
             try

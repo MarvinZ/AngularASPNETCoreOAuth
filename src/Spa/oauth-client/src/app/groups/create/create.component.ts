@@ -22,6 +22,8 @@ export class CreateComponent implements OnInit {
   levels: any = [];
   cycles: any = [];
 
+  openGroupResult: any = [];
+
 
   constructor(private authService: AuthService, private service: GroupsService, private spinner: NgxSpinnerService,
               private sharedservice: SharedService) {
@@ -37,11 +39,23 @@ export class CreateComponent implements OnInit {
     this.spinner.hide();
     this.busy = false;
     this.newGroup = {
-      name: 'some group name that is hardcoded',
+      name: '',
       cycleId: 1,
       levelId: 1
     };
 
+  }
+
+
+  openGroup() {
+    this.service.openGroup(this.authService.authorizationHeaderValue, +this.newGroup.cycleId, +this.newGroup.levelId, this.newGroup.name)
+      .pipe(finalize(() => {
+        this.spinner.hide();
+        this.busy = false;
+      })).subscribe(
+        result => {
+          this.openGroupResult = result;
+        });
   }
 
 

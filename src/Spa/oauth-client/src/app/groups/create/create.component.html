@@ -18,7 +18,7 @@
       <div class="row">
         <div [hidden]="submitted">
 
-          <form (ngSubmit)="onSubmit()" #newGroupForm="ngForm">
+          <form (ngSubmit)="openGroup()" #newGroupForm="ngForm">
 
             <img width="250" height="300"
               src="https://mk0salkeizk12or7kyfk.kinstacdn.com/wp-content/uploads/2019/07/jumpstart_kinder_2019.jpg"
@@ -51,7 +51,7 @@
 
             <div class="form-group">
               <label for="power">Ciclo</label>
-              <select class="form-control" id="levelname" required [(ngModel)]="newGroup.cycleId" name="ciclename"
+              <select class="form-control" id="ciclename" required [(ngModel)]="newGroup.cycleId" name="ciclename"
                 #ciclename="ngModel">
                 <option *ngFor="let cyc of cycles" [value]="cyc.id">{{cyc.name}}</option>
               </select>

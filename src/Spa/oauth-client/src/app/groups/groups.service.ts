@@ -47,7 +47,6 @@ export class GroupsService extends BaseService {
 
 
 
-
   getGroupDetails(token: string, GroupId: number) {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -64,6 +63,26 @@ export class GroupsService extends BaseService {
     return this.http.post(this.configService.resourceApiURI + '/things/GetGroupDetails', payload,
       httpOptions).pipe(catchError(this.handleError));
   }
+
+
+  openGroup(token: string, CycleId: number, LevelId: number, ShortName: string) {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
+
+    const payload = {
+      LevelId, CycleId, ShortName
+    };
+
+
+    return this.http.post(this.configService.resourceApiURI + '/things/CreateGroup', payload,
+      httpOptions).pipe(catchError(this.handleError));
+  }
+
 
 
 
