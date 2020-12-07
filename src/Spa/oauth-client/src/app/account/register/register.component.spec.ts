@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AuthService } from '../../core/authentication/auth.service';
 import { By } from '@angular/platform-browser';
 import { MockAuthService } from '../../shared/mocks/mock-auth.service';
@@ -12,7 +12,7 @@ describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule,NgxSpinnerModule],
       declarations: [RegisterComponent],
@@ -42,7 +42,7 @@ describe('RegisterComponent', () => {
     });
   });
   
-  it('should show invalid email tip', async(() => {
+  it('should show invalid email tip', waitForAsync(() => {
 
   fixture.whenStable().then(() => {
       let input = fixture.debugElement.query(By.css('#email'));

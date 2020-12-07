@@ -16,7 +16,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
 
-import {ButtonModule} from 'primeng/button';
 
 
 
@@ -53,7 +52,7 @@ import { SharedModule } from './shared/shared.module';
     ShellModule,
     SharedModule,
 
-    ButtonModule
+
   ],
   providers: [
     ConfigService,

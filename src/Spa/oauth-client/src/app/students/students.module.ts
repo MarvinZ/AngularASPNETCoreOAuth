@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 
 import { SelectButtonModule } from 'primeng/selectbutton';
 
+import { ButtonModule } from 'primeng/button';
 
 
 @NgModule({
@@ -23,7 +24,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     StudentsRoutingModule,
     SharedModule,
     FormsModule,
-    SelectButtonModule
+    SelectButtonModule, ButtonModule
   ]
 })
 export class StudentsModule { }

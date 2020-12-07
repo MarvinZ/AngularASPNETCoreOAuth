@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AuthService } from '../../core/authentication/auth.service';
 import { MockAuthService } from '../../shared/mocks/mock-auth.service';
@@ -10,7 +10,7 @@ describe('IndexComponent', () => {
   let component: IndexComponent;
   let fixture: ComponentFixture<IndexComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ IndexComponent ],
       imports: [NgxSpinnerModule],
