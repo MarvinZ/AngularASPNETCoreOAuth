@@ -4,9 +4,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../core/authentication/auth.service';
 import { StudentsService } from '../students.service';
-
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpEventType, HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class DetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private authService: AuthService,
               private service: StudentsService, private spinner: NgxSpinnerService,
-              private http: HttpClient) {
+              private http: HttpClient, private toastr: ToastrService) {
   }
 
   ngOnInit() {

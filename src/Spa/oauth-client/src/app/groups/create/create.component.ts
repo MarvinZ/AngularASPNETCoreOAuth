@@ -4,6 +4,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../core/authentication/auth.service';
 import { GroupsService } from '../groups.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-groups-create',
@@ -26,7 +28,7 @@ export class CreateComponent implements OnInit {
 
 
   constructor(private authService: AuthService, private service: GroupsService, private spinner: NgxSpinnerService,
-              private sharedservice: SharedService) {
+              private sharedservice: SharedService, private toastr: ToastrService, private router: Router) {
   }
 
   ngOnInit() {
@@ -40,14 +42,17 @@ export class CreateComponent implements OnInit {
     this.busy = false;
     this.newGroup = {
       name: '',
-      cycleId: 1,
-      levelId: 1
+      cycleId: null,
+      levelId: null
     };
 
   }
 
 
   openGroup() {
+
+    this.busy = true;
+    this.spinner.show();
     this.service.openGroup(this.authService.authorizationHeaderValue, +this.newGroup.cycleId, +this.newGroup.levelId, this.newGroup.name)
       .pipe(finalize(() => {
         this.spinner.hide();
@@ -55,6 +60,9 @@ export class CreateComponent implements OnInit {
       })).subscribe(
         result => {
           this.openGroupResult = result;
+          this.toastr.success('El grupo se ha creado correctamente', 'GRUPO');
+          this.router.navigateByUrl('/groups');
+
         });
   }
 

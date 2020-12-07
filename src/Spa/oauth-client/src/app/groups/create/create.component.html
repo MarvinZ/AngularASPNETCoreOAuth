@@ -10,10 +10,7 @@
 
         {{testMe | json}}
 
-
-
       </div>
-
 
       <div class="row">
         <div [hidden]="submitted">
@@ -23,7 +20,6 @@
             <img width="250" height="300"
               src="https://mk0salkeizk12or7kyfk.kinstacdn.com/wp-content/uploads/2019/07/jumpstart_kinder_2019.jpg"
               alt="">
-
 
             <div class="form-group">
               <label for="name">Nombre del Grupo:</label>
@@ -36,15 +32,12 @@
 
 
 
-
-
             <div class="form-group">
               <label for="power">Nivel</label>
               <select class="form-control" id="levelname" required [(ngModel)]="newGroup.levelId" name="levelName"
                 #levelName="ngModel">
                 <option *ngFor="let lev of levels" [value]="lev.id">{{lev.name}}</option>
               </select>
-
 
             </div>
 
@@ -56,19 +49,12 @@
                 <option *ngFor="let cyc of cycles" [value]="cyc.id">{{cyc.name}}</option>
               </select>
 
-
             </div>
 
-
-
             <button type="submit" class="btn btn-success" [disabled]="!newGroupForm.form.valid">Submit</button>
-            <button type="button" class="btn btn-default" (click)="newHero(); newGroupForm.reset()">New Hero</button>
+            <button type="button" class="btn btn-default" (click)=" newGroupForm.reset()">Reset</button>
           </form>
         </div>
-
-
-
-
 
       </div>
 
