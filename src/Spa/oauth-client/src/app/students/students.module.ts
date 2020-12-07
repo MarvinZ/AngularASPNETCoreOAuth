@@ -11,6 +11,9 @@ import { StudentsRoutingModule } from './students.routing-module';
 
 import { FormsModule } from '@angular/forms';
 
+import { SelectButtonModule } from 'primeng/selectbutton';
+
+
 
 @NgModule({
   declarations: [IndexComponent, DetailsComponent, CreateComponent],
@@ -19,7 +22,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     StudentsRoutingModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    SelectButtonModule
   ]
 })
 export class StudentsModule { }

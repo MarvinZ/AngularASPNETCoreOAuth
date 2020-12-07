@@ -7,6 +7,11 @@
         <a class=" " routerLink="/students">Back to all students</a>
 
 
+        <p-selectButton [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-selectButton>
+
+        <button pButton type="button" label="Click" ></button>
+        <p-button label="Click" ></p-button>
+
     </div>
   </div>
   <ngx-spinner></ngx-spinner>

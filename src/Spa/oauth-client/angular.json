@@ -27,8 +27,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/styles.scss",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/saga-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assets/styles.scss"
             ],
             "scripts": [],
             "es5BrowserSupport": true

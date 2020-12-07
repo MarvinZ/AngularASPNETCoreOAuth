@@ -25,6 +25,8 @@
     "ngx-spinner": "^7.2.0",
     "ngx-toastr": "11.3.3",
     "oidc-client": "^1.10.1",
+    "primeicons": "^4.1.0",
+    "primeng": "^11.0.0-rc.2",
     "rxjs": "^6.6.3",
     "tslib": "^1.14.1",
     "zone.js": "~0.8.26"
