@@ -1,18 +1,113 @@
 <div class="container">
   <div class="row">
-    <div *ngIf="!busy" class="col-md-8">
+    <div *ngIf="!busy" class="col-md-12">
 
-        <h3>Add new student</h3>
+      <h3>Agregar nuevo estudiante</h3>
 
-        <a class=" " routerLink="/students">Back to all students</a>
+      <a class=" " routerLink="/students">Regresar a la lista de estudiantes</a>
+
+      <hr>
+
+      <form (ngSubmit)="addStudent()" #newGroupForm="ngForm">
 
 
-        <p-selectButton [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-selectButton>
 
-        <button pButton type="button" label="Click" ></button>
-        <p-button label="Click" ></p-button>
+        <div class="row">
+          <div class="p-field p-col-12 p-md-4 form-group">
+
+            <span class="p-float-label">
+              <input id="float-input" type="text" pInputText [(ngModel)]="newStudent.name" name="nombre" required>
+              <label for="float-input">Nombre</label>
+            </span>
+          </div>
+          <div class="p-field p-col-12 p-md-4 form-group">
+
+            <span class="p-float-label">
+              <input id="float-input" type="text" pInputText [(ngModel)]="newStudent.lastname1" name="lastname1"
+                required>
+              <label for="float-input">Primer Apellido</label>
+            </span>
+          </div>
+          <div class="p-field p-col-12 p-md-4 form-group">
+
+            <span class="p-float-label">
+              <input id="float-input" type="text" pInputText [(ngModel)]="newStudent.lastname2" name="lastname2">
+              <label for="float-input">Segundo Apellido</label>
+            </span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="p-field p-col-12 p-md-4 form-group">
+            <span class="p-float-label">
+              <p-selectButton [options]="genres" [(ngModel)]="newStudent.genre" optionLabel="name" name="genre"
+                required></p-selectButton>
+            </span>
+          </div>
+
+          <div class="p-field p-col-12 p-md-4 form-group">
+            <span class="p-float-label">
+              <p-calendar inputId="calendar" [(ngModel)]="newStudent.birthday" name="birthday" required></p-calendar>
+              <label for="calendar">Fecha Nacimiento</label>
+            </span>
+          </div>
+
+
+        </div>
+
+
+        <button type="submit" class="btn btn-success" [disabled]="!newGroupForm.form.valid">Submit</button>
+        <button type="button" class="btn btn-default" (click)=" newGroupForm.reset()">Reset</button>
+      </form>
+
+
+      <hr>
+
+      <a class=" " routerLink="/students">Regresar a la lista de estudiantes</a>
+
+
+
+
+
+
+      <!--
+      <hr>
+      <hr>
+      <div class="p-field p-col-12 p-md-4">
+        <span class="p-float-label">
+          <p-inputMask inputId="telephoneInput" mask="9999-9999" [(ngModel)]="telephoneInput"></p-inputMask>
+          <label for="telephoneInput">Teléfono</label>
+        </span>
+      </div>
+      <hr>
+
+      <hr>
+
+
+      <div class="p-field p-col-12 p-md-4">
+        <span class="p-float-label">
+          <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="genres" [(ngModel)]="selectedGenre"
+            optionLabel="name"></p-dropdown>
+          <label for="dropdown">Dropdown</label>
+        </span>
+      </div>
+
+      <hr>
+
+      <div class="p-field p-col-12 p-md-4">
+        <span class="p-float-label">
+          <textarea inputId="textarea" rows="3" cols="30" [(ngModel)]="someText" pInputTextarea></textarea>
+          <label for="textarea">Textarea</label>
+        </span>
+      </div>
+
+      <hr>
+
+ -->
+
+
+
 
     </div>
+    <ngx-spinner></ngx-spinner>
   </div>
-  <ngx-spinner></ngx-spinner>
-</div>

@@ -124,5 +124,31 @@ namespace Resource.Api
             }
         }
 
+        public bool AddStudent(string name, string lastName1, string lastName2, DateTime birthday, char genre)
+        {
+
+            try
+            {
+                var newStudent = new Student()
+                {
+                    
+                    Name = name, 
+                    LastName2 = lastName2, 
+                    LastName1 = lastName1, 
+                    Birthday = birthday,
+                    RegistrationDate = DateTime.UtcNow,
+                    CreateDatetime = DateTime.UtcNow,
+                    CreateUser = "ADMIN"
+                };
+                _context.Students.Add(newStudent);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
     } // end of calss
 } //end of namespace

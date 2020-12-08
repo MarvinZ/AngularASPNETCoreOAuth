@@ -10,6 +10,7 @@ import { ConfigService } from '../shared/config.service';
 
 export class StudentsService extends BaseService {
 
+
   constructor(private http: HttpClient, private configService: ConfigService) {
     super();
   }
@@ -40,6 +41,22 @@ export class StudentsService extends BaseService {
     };
 
     return this.http.post(this.configService.resourceApiURI + '/people/GetStudentDetails', payload,
+      httpOptions).pipe(catchError(this.handleError));
+  }
+
+  addStudent(token: string, Name: string, Lastname1: string, Lastname2: string, Genre: string, Birthday: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
+
+    const payload = {
+      Name, Lastname1, Lastname2, Birthday
+    };
+
+    return this.http.post(this.configService.resourceApiURI + '/people/AddStudent ', payload,
       httpOptions).pipe(catchError(this.handleError));
   }
 

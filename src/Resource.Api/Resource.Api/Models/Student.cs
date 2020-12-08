@@ -25,6 +25,6 @@ namespace Resource.Api.Models
         public DateTime? DeactivateDatetime { get; set; }
         public string DeactivateUser { get; set; }
 
-        public virtual ICollection<Document> Documents { get; set; }
+        public virtual ICollection<Document> Documents { get; set; }     
     }
 }

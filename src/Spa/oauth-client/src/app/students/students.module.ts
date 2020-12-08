@@ -12,8 +12,17 @@ import { StudentsRoutingModule } from './students.routing-module';
 import { FormsModule } from '@angular/forms';
 
 import { SelectButtonModule } from 'primeng/selectbutton';
+import {CalendarModule} from 'primeng/calendar';
+import {DropdownModule} from 'primeng/dropdown';
+import {InputMaskModule} from 'primeng/inputmask';
+import {InputSwitchModule} from 'primeng/inputswitch';
+import {InputTextModule} from 'primeng/inputtext';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
-import { ButtonModule } from 'primeng/button';
+
+
+
+
 
 
 @NgModule({
@@ -24,7 +33,7 @@ import { ButtonModule } from 'primeng/button';
     StudentsRoutingModule,
     SharedModule,
     FormsModule,
-    SelectButtonModule, ButtonModule
+    SelectButtonModule, CalendarModule, DropdownModule, InputMaskModule, InputSwitchModule, InputTextModule, InputTextareaModule
   ]
 })
 export class StudentsModule { }

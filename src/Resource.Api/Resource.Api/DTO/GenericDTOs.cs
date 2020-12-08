@@ -14,8 +14,11 @@ namespace Resource.Api
     {
         public string Name { get; set; }
         public string LastName1 { get; set; }
+        public string LastName2 { get;  set; }
+        public char Genre { get; set; }
+        public DateTime Birthday { get; set; }
         public DateTime RequestDate { get; set; }
-        public string LastName2 { get; internal set; }
+
     }
 
     public class NewThingDTO

@@ -95,10 +95,29 @@ namespace Resource.Api.Controllers
             return _StudentsRepo.GetAllStudents();
         }
 
+        [HttpPost]
         [Route("GetStudentDetails")]
         public StudentDTO GetStudentDetails(StudentRequestDTO request)
         {
             return _StudentsRepo.GetStudentDetails(request.StudentId);
+        }
+
+
+
+        [HttpPost]
+        [Route("AddStudent")]
+        public bool CreateGroup(NewPersonDTO request)
+        {
+            try
+            {
+                return _StudentsRepo.AddStudent(request.Name, request.LastName1, request.LastName2, request.Birthday, request.Genre);
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+
         }
     }
 }
