@@ -113,6 +113,29 @@ namespace Resource.Api
                             tempRes.Parents.Add(par);
                         }
                     }
+
+                    var groups = _context.Groups.Join(_context.GroupStudents.Where(e => e.StudentId == studentId),
+                        group => group.Id,
+                        groupStudent => groupStudent.GroupId,
+                        (group, groupStudent) => new GroupDTO
+                        {
+                            Id = group.Id,
+                            GroupShortname = group.GroupShortname,
+                            LevelName = group.Level.Name,
+                            CycleName = group.Cycle.Name,
+                            Status = "ACTIVEXXX"
+                        }).ToList();
+
+                    if (groups != null)
+                    {
+                        tempRes.Groups = new List<GroupDTO>();
+
+                        foreach (var g in groups)
+                        {
+                            tempRes.Groups.Add(g);
+                        }
+                    }
+
                 }
                 return tempRes;
 

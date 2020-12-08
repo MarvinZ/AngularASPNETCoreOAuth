@@ -18,7 +18,6 @@
           <tr>
             <th scope="col">Id</th>
             <th scope="col">Name </th>
-            <th scope="col">Last names </th>
             <th scope="col">Birthday</th>
             <th scope="col">Parents</th>
             <th> Details</th>
@@ -27,8 +26,10 @@
         <tbody>
           <tr *ngFor="let student of students; let i = index" [attr.data-index]="i">
             <td>{{student.id}}</td>
-            <td>{{student.name}}</td>
-            <td>{{student.lastname1 +' ' + student.lastname2}}</td>
+            <td>
+              <a class="" routerLink="/students/{{student.id}}">
+                {{student.name + ' '+ student.lastname1 +' ' + student.lastname2}}</a>
+            </td>
             <td>{{student.birthday}}</td>
             <td>
               <a class="" routerLink="/students/{{student.id}}">Details</a>

@@ -31,14 +31,14 @@
         <tbody>
           <tr *ngFor="let student of students; let i = index" [attr.data-index]="i">
             <td>{{student.id}}</td>
-            <td>{{student.name}}</td>
-            <td>{{student.lastname1 +' ' + student.lastname2}}</td>
+            <td>
+              <a class="" routerLink="/students/{{student.id}}">
+                {{student.name + ' '+ student.lastname1 +' ' + student.lastname2}}</a>
+            </td>
+            <td></td>
             <td>{{student.birthday}}</td>
             <td>
-              <a class="" routerLink="/students/{{student.id}}">Details</a>
-
             </td>
-
 
           </tr>
         </tbody>

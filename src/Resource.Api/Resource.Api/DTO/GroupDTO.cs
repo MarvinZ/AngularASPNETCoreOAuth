@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Resource.Api.Models
+namespace Resource.Api
 {
     public partial class GroupDTO
     {
@@ -16,6 +16,9 @@ namespace Resource.Api.Models
         public int AmountOfStudents { get; set; }
         public DateTime CreateDatetime { get; set; }
         public string CreateUser { get; set; }
+        public string Status { get; set; }
+
+
 
     }
 }

@@ -15,5 +15,7 @@ namespace Resource.Api
  
         public string LastName1 { get; internal set; }
         public string LastName2 { get; internal set; }
+        public string Phone { get; internal set; }
+        public string Email { get; internal set; }
     }
 }

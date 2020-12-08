@@ -127,10 +127,32 @@
     </div>
 
 
+  </div>
+
+  <div class="row">
 
 
+    <h3>Grupos</h3>
+    <div *ngFor="let group of student.groups">
+
+      {{group.groupShortname}} - {{group.cycleName}} - {{group.levelName}} - {{group.status}}
+      <hr>
+      <a class="" routerLink="/groups/{{group.id}}">Group Details</a>
+
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+
+    <h3>Encargados</h3>
+    <div *ngFor="let par of student.parents">
+      {{par.name}} - {{par.lastnames}} - {{par.email}} - {{par.phone}} <button> Email </button>
+
+    </div>
 
   </div>
+
+
 
   <ngx-spinner></ngx-spinner>
 </div>

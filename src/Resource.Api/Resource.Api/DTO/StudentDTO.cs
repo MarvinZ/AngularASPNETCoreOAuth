@@ -19,5 +19,6 @@ namespace Resource.Api
         public string LastName2 { get; internal set; }
 
         public List<ParentDTO> Parents { get; internal set; }
+        public List<GroupDTO> Groups { get; internal set; }
     }
 }
