@@ -13,16 +13,15 @@
               <th scope="col">Cycle </th>
               <th scope="col">Level </th>
               <th scope="col">Group</th>
-              <th scope="col">Details</th>
+
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let group of groups; let i = index" [attr.data-index]="i">
               <td>{{group.cycleName}}</td>
               <td>{{group.levelName}}</td>
-              <td>{{group.groupShortname}}</td>
-              <td>
-                <a class="" routerLink="/groups/{{group.id}}">Group Details</a>
+               <td>
+                <a class="" routerLink="/groups/{{group.id}}">G{{group.groupShortname}}</a>
               </td>
 
             </tr>
