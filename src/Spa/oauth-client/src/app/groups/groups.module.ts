@@ -11,6 +11,9 @@ import { GroupsRoutingModule } from './groups.routing-module';
 
 import { FormsModule } from '@angular/forms';
 
+import { DropdownModule } from 'primeng/dropdown';
+
+
 
 @NgModule({
   declarations: [IndexComponent, DetailsComponent, CreateComponent],
@@ -19,7 +22,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     GroupsRoutingModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    DropdownModule
   ]
 })
 export class GroupsModule { }

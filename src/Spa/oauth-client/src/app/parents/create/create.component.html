@@ -2,9 +2,9 @@
   <div class="row">
     <div *ngIf="!busy" class="col-md-12">
 
-      <h3>Agregar nuevo padre de familia para {{student}}</h3>
+      <h3>Agregar nuevo padre de familia para {{selectedStudent}}</h3>
 
-      <a class=" " routerLink="/parents">Regresar a la lista de encargados</a>
+      <a class=" " routerLink="/students/{{selectedStudent}}">Regresar al estudiante</a>
 
       <hr>
 
@@ -82,8 +82,9 @@
 
 
       <hr>
+      <a class=" " routerLink="/students/{{selectedStudent}}">Regresar al estudiante</a>
 
-      <a class=" " routerLink="/parents">Regresar a la lista de encargados</a>
+      <a class=" " routerLink="/parents">Ir a la lista de encargados</a>
 
 
 

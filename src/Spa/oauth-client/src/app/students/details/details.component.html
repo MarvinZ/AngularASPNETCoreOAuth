@@ -129,6 +129,8 @@
 
   </div>
 
+
+  <hr><hr><hr>
   <div class="row">
 
 
@@ -140,15 +142,50 @@
       <a class="" routerLink="/groups/{{group.id}}">Group Details</a>
 
     </div>
+
+    <div *ngIf="openAddToGroup; else elseBlock">Grupos disponibles
+
+      <div class="p-field p-col-12 p-md-4">
+        <span class="p-float-label">
+          <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableGroups" [(ngModel)]="selectedGroup"
+            optionLabel="name"></p-dropdown>
+          <label for="dropdown">Dropdown</label>
+        </span>
+      </div>
+
+      <button (click)="Enroll()">
+        Matricular
+      </button>
+
+      <button (click)="openAddToGroup = false;">
+        Cancelar
+      </button>
+
+      <div>
+
+      </div>
+    </div>
+<ng-template #elseBlock>
+
+  <button (click)="openAddToGroup = true;">
+    Agregar a grupo
+  </button>
+</ng-template>
+
   </div>
-  <hr>
+  <hr><hr><hr>
   <div class="row">
 
     <h3>Encargados</h3>
     <div *ngFor="let par of student.parents">
       {{par.name}} - {{par.lastnames}} - {{par.email}} - {{par.phone}} <button> Email </button>
 
+
+
     </div>
+
+    <a class=" " routerLink="/addParent/{{student.id}}">Agregue padres o encargados </a>
+
 
   </div>
 

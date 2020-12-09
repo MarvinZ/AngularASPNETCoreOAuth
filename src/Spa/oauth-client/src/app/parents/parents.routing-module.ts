@@ -11,7 +11,7 @@ import { AuthGuard } from '../core/authentication/auth.guard';
 const routes: Routes = [
   Shell.childRoutes([
     { path: 'parents', component: IndexComponent, canActivate: [AuthGuard] },
-    { path: 'addParent', component: CreateComponent, canActivate: [AuthGuard] },
+    { path: 'addParent/:studentId', component: CreateComponent, canActivate: [AuthGuard] },
     { path: 'parents/:id', component: DetailsComponent, canActivate: [AuthGuard] }
   ])
 ];

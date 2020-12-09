@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
@@ -32,14 +32,19 @@ export class CreateComponent implements OnInit {
 
   telephoneInput: number;
 
-  student: 'Ramoncito';
+
+
+  selectedStudent: string;
 
   newParent: { name: string; lastname1: string; lastname2: string; email: string; phone: string; birthday: string; genre: string; };
   addStudentResult: any;
 
 
   constructor(private authService: AuthService, private service: ParentsService, private spinner: NgxSpinnerService,
-              private toastr: ToastrService, private router: Router) {
+              private toastr: ToastrService, private router: Router, private route: ActivatedRoute) {
+
+    this.selectedStudent = this.route.snapshot.paramMap.get('studentId');
+
 
     this.genres = [
       { name: 'Mujer', code: 'F' },

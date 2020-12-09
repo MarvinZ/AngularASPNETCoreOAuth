@@ -9,6 +9,7 @@ import { HttpEventType, HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 
 
+
 @Component({
   selector: 'app-students-details',
   templateUrl: './details.component.html',
@@ -24,6 +25,9 @@ export class DetailsComponent implements OnInit {
   public message: string;
 
   submitted = false;
+  openAddToGroup = false;
+  availableGroups: AvailableGroup[];
+  selectedGroup: AvailableGroup;
 
 
   @Output() public UploadFinished = new EventEmitter();
@@ -31,6 +35,13 @@ export class DetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private authService: AuthService,
               private service: StudentsService, private spinner: NgxSpinnerService,
               private http: HttpClient, private toastr: ToastrService) {
+
+    this.availableGroups = [
+      { name: 'grupo 1', code: '11' },
+      { name: 'grupo 2', code: '77' }
+    ];
+
+
   }
 
   ngOnInit() {
@@ -41,7 +52,6 @@ export class DetailsComponent implements OnInit {
     this.service.getStudentDetails(this.authService.authorizationHeaderValue, +this.selectedStudent)
       .pipe(finalize(() => {
 
-
         this.spinner.hide();
         this.busy = false;
       })).subscribe(
@@ -49,12 +59,8 @@ export class DetailsComponent implements OnInit {
           this.student = result;
         });
 
-
-
     this.spinner.hide();
     this.busy = false;
-
-
 
   }
 
@@ -81,4 +87,16 @@ export class DetailsComponent implements OnInit {
 
   onSubmit() { this.submitted = true; }
 
+
+  Enroll() {
+    console.log(this.selectedGroup);
+  }
+
+
+
+}
+
+interface AvailableGroup {
+  name: string;
+  code: string;
 }

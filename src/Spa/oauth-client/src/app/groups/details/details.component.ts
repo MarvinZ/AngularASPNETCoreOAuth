@@ -20,6 +20,14 @@ export class DetailsComponent implements OnInit {
   selectedGroup: string;
   group: any;
   students = null;
+  openAddTeacherToGroup = false;
+
+  availableTeachers: AvailableTeacher[];
+
+
+  selectedTeacher: AvailableTeacher;
+
+
 
 
   public progress: number;
@@ -29,6 +37,12 @@ export class DetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private authService: AuthService,
               private service: GroupsService, private spinner: NgxSpinnerService,
               private http: HttpClient) {
+
+    this.availableTeachers = [
+      { name: 'MArio Corrales', code: '11' },
+      { name: 'Tatiana malavassi', code: '77' }
+    ];
+
   }
 
   ngOnInit() {
@@ -38,7 +52,6 @@ export class DetailsComponent implements OnInit {
 
     this.service.getGroupDetails(this.authService.authorizationHeaderValue, +this.selectedGroup)
       .pipe(finalize(() => {
-
 
         this.spinner.hide();
         this.busy = false;
@@ -76,8 +89,6 @@ export class DetailsComponent implements OnInit {
   }
 
   getStudentsForGroup(selectedGroup: number) {
-
-
     this.busy = true;
     this.spinner.show();
     this.service.getStudentsForGroup(this.authService.authorizationHeaderValue, selectedGroup)
@@ -90,6 +101,15 @@ export class DetailsComponent implements OnInit {
         });
   }
 
+  AddTeacherToGroup() {
+    console.log(this.selectedTeacher);
+  }
 
 
+
+}
+
+interface AvailableTeacher {
+  name: string;
+  code: string;
 }

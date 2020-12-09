@@ -10,6 +10,7 @@
       {{group | json}}
 
 
+<hr>
 
       <h3>Students</h3>
 
@@ -66,6 +67,46 @@
       <hr>
       <hr>
       <hr>
+
+
+      <div class="row">
+        <h3>Teachers</h3>
+
+
+        <p>
+          aqui van las teachers del grupo
+        </p>
+
+        <div *ngIf="openAddTeacherToGroup; else elseBlock">Teachers disponibles
+
+          <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+              <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableTeachers" [(ngModel)]="selectedTeacher"
+                optionLabel="name"></p-dropdown>
+              <label for="dropdown">Teachers</label>
+            </span>
+          </div>
+
+          <button (click)="AddTeacherToGroup()">
+            Matricular
+          </button>
+
+          <button (click)="openAddTeacherToGroup = false;">
+            Cancelar
+          </button>
+
+          <div>
+
+          </div>
+        </div>
+    <ng-template #elseBlock>
+
+      <button (click)="openAddTeacherToGroup = true;">
+        Agregar   teacher
+      </button>
+    </ng-template>
+
+      </div>
 
     </div>
   </div>
