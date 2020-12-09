@@ -23,34 +23,105 @@ namespace Resource.Api
         {
             return _context.Parents.ToList();
         }
-   
 
-    public bool CreateParent(NewPersonDTO request)
-    {
-        try
+
+        public bool AddParent(string name, string lastName1, string lastName2, DateTime birthday, char genre, string email, string phone)
         {
-            var newRecord = new Parent()
+
+            try
             {
-                CreateDatetime = DateTime.UtcNow,
-                Name = request.Name,
-                LastName1 = request.LastName1,
-                LastName2 = request.LastName1,
-                Birthday = Convert.ToDateTime("2018-12-1"),
-                CreateUser = "Admin",
-                RegistrationDate = DateTime.UtcNow
+                var newParent = new Parent()
+                {
 
-            };
-            _context.Parents.Add(newRecord);
-            _context.SaveChanges();
+                    Name = name,
+                    LastName2 = lastName2,
+                    LastName1 = lastName1,
+                    Birthday = birthday,
+                    RegistrationDate = DateTime.UtcNow,
+                    CreateDatetime = DateTime.UtcNow,
+                    CreateUser = "ADMIN",
+                    Address = "some address that should not be here...",
+                    Email = email,
+                    Phone = phone,
+                    CountryId = "IDIOTA"
+                };
+                _context.Parents.Add(newParent);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
 
-            return true;
         }
-        catch (Exception)
+
+        public ParentDTO GetParentDetails(int parentId)
         {
-            return false;
+            try
+            {
+                var result = new StudentDTO();
+                var tempRes = _context.Parents.Where(e => e.Id == parentId).Select(student => new ParentDTO
+                {
+                    Id = student.Id,
+                    Birthday = student.Birthday,
+                    RegistrationDate = student.RegistrationDate,
+                    Name = student.Name,
+                    Lastnames = student.LastName1 + " " + student.LastName2,
+                }).FirstOrDefault();
+
+                if (tempRes != null)
+                {
+                    var parents = _context.Parents.Join(_context.StudentParents.Where(e => e.StudentId == parentId),
+                        parent => parent.Id,
+                        studentParent => studentParent.ParentId,
+                        (parent, studentParent) => new ParentDTO
+                        {
+                            Name = parent.Name,
+                            Lastnames = parent.LastName1 + " " + parent.LastName2,
+                        }).ToList();
+
+                    //if (parents != null)
+                    //{
+                    //    tempRes.Parents = new List<ParentDTO>();
+
+                    //    foreach (var par in parents)
+                    //    {
+                    //        tempRes.Parents.Add(par);
+                    //    }
+                    //}
+
+                    var groups = _context.Groups.Join(_context.GroupStudents.Where(e => e.StudentId == parentId),
+                        group => group.Id,
+                        groupStudent => groupStudent.GroupId,
+                        (group, groupStudent) => new GroupDTO
+                        {
+                            Id = group.Id,
+                            GroupShortname = group.GroupShortname,
+                            LevelName = group.Level.Name,
+                            CycleName = group.Cycle.Name,
+                            Status = "ACTIVEXXX"
+                        }).ToList();
+
+                    //if (groups != null)
+                    //{
+                    //    tempRes.Groups = new List<GroupDTO>();
+
+                    //    foreach (var g in groups)
+                    //    {
+                    //        tempRes.Groups.Add(g);
+                    //    }
+                    //}
+
+                }
+                return tempRes;
+
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
         }
     }
-    }
-
-
 }

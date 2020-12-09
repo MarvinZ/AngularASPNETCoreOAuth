@@ -24,32 +24,106 @@ namespace Resource.Api
             return _context.Teachers.ToList();
         }
 
-        public bool CreateTeacher(NewPersonDTO request)
+        public TeacherDTO GetTeacherDetails(int teacherId)
         {
             try
             {
-                var newRecord = new Teacher()
+
+                var tempRes = _context.Teachers.Where(e => e.Id == teacherId).Select(student => new TeacherDTO
                 {
-                    CreateDatetime = System.DateTime.UtcNow,
-                    Name = request.Name,
-                    LastName1 = request.LastName1,
-                    LastName2 = request.LastName1,
-                    Birthday = Convert.ToDateTime("2018-12-1"),
-                    CreateUser = "Admin",
-                    RegistrationDate = DateTime.UtcNow
+                    Id = student.Id,
+                    Birthday = student.Birthday,
+                    RegistrationDate = student.RegistrationDate,
+                    Name = student.Name,
+                    Lastnames = student.LastName1 + " " + student.LastName2,
+                }).FirstOrDefault();
 
-                };
-                _context.Teachers.Add(newRecord);
-                _context.SaveChanges();
+                if (tempRes != null)
+                {
+                    var parents = _context.Parents.Join(_context.StudentParents.Where(e => e.StudentId == teacherId),
+                        parent => parent.Id,
+                        studentParent => studentParent.ParentId,
+                        (parent, studentParent) => new ParentDTO
+                        {
+                            Name = parent.Name,
+                            Lastnames = parent.LastName1 + " " + parent.LastName2,
+                        }).ToList();
 
-                return true;
+                    if (parents != null)
+                    {
+                        tempRes.Parents = new List<ParentDTO>();
+
+                        foreach (var par in parents)
+                        {
+                            tempRes.Parents.Add(par);
+                        }
+                    }
+
+                    var groups = _context.Groups.Join(_context.GroupStudents.Where(e => e.StudentId == teacherId),
+                        group => group.Id,
+                        groupStudent => groupStudent.GroupId,
+                        (group, groupStudent) => new GroupDTO
+                        {
+                            Id = group.Id,
+                            GroupShortname = group.GroupShortname,
+                            LevelName = group.Level.Name,
+                            CycleName = group.Cycle.Name,
+                            Status = "ACTIVEXXX"
+                        }).ToList();
+
+                    if (groups != null)
+                    {
+                        tempRes.Groups = new List<GroupDTO>();
+
+                        foreach (var g in groups)
+                        {
+                            tempRes.Groups.Add(g);
+                        }
+                    }
+
+                }
+                return tempRes;
+
             }
             catch (Exception)
             {
-                return false;
+
+                return null;
             }
         }
 
+
+
+        public bool AddTeacher(string name, string lastName1, string lastName2, DateTime birthday, char genre, string email, string phone)
+        {
+
+            try
+            {
+                var newTeacher = new Teacher()
+                {
+
+                    Name = name,
+                    LastName2 = lastName2,
+                    LastName1 = lastName1,
+                    Birthday = birthday,
+                    RegistrationDate = DateTime.UtcNow,
+                    CreateDatetime = DateTime.UtcNow,
+                    CreateUser = "ADMIN",
+                    Address = "some address that should not be here...",
+                    Email = email,
+                    Phone = phone,
+                    CountryId = "IDIOTA"
+                };
+                _context.Teachers.Add(newTeacher);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
     }
 
 

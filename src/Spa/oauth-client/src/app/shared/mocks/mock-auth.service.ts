@@ -1,18 +1,18 @@
 import { of } from 'rxjs';
 
-export class MockAuthService {  
-    
-    authNavStatus$ = of(true);
+export class MockAuthService {
 
-    register(userRegistration: any) {    
-        return of('');
-      }
+  authNavStatus$ = of(true);
 
-    isAuthenticated(): boolean {
-       return false;
-      }  
-      
-      get authorizationHeaderValue(): string {
-        return '';
-      }
+  register(userRegistration: any) {
+    return of('');
+  }
+
+  isAuthenticated(): boolean {
+    return false;
+  }
+
+  get authorizationHeaderValue(): string {
+    return '';
+  }
 }

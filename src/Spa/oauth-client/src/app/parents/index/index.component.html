@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div *ngIf="!busy" class="col-md-8">
+      <h3>Parents</h3>
+
+
+      <a class=" " routerLink="/addParent">Add Parent</a>
+
+
+
+      <hr>
+      <table class="table small">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name </th>
+            <th scope="col">Birthday</th>
+            <th scope="col">Parents</th>
+            <th> Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let parent of parents; let i = index" [attr.data-index]="i">
+            <td>{{parent.id}}</td>
+            <td>
+              <a class="" routerLink="/parents/{{parent.id}}">
+                {{parent.name + ' '+ parent.lastname1 +' ' + parent.lastname2}}</a>
+            </td>
+            <td>{{parent.birthday}}</td>
+            <td>
+              <a class="" routerLink="/parents/{{parent.id}}">Details</a>
+
+            </td>
+
+
+          </tr>
+        </tbody>
+      </table>
+
+
+
+
+    </div>
+  </div>
+  <ngx-spinner></ngx-spinner>
+</div>

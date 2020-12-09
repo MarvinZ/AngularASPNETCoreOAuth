@@ -39,55 +39,50 @@ namespace Resource.Api.Controllers
 
         }
 
+        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
+        //[HttpPost]
+        //[Route("CreateStudent")]
+        //public bool CreateStudent(NewPersonDTO request)
+        //{
+        //    try
+        //    {
+        //        return _StudentsRepo.CreateStudent(request);
+        //    }
+        //    catch (Exception)
+        //    {
 
-        [HttpPost]
-        [Route("CreateStudent")]
-        public bool CreateStudent(NewPersonDTO request)
-        {
-            try
-            {
-                return _StudentsRepo.CreateStudent(request);
-            }
-            catch (Exception)
-            {
+        //        return false;
+        //    }
+        //}
+        //[HttpPost]
+        //[Route("CreateParent")]
+        //public bool CreateParent(NewPersonDTO request)
+        //{
+        //    try
+        //    {
+        //        return _ParentsRepo.CreateParent(request);
+        //    }
+        //    catch (Exception)
+        //    {
 
-                return false;
-            }
-        }
+        //        return false;
+        //    }
+        //}
+        //[HttpPost]
+        //[Route("CreateTeacher")]
+        //public bool CreateTeacher(NewPersonDTO request)
+        //{
+        //    try
+        //    {
+        //        return _TeachersRepo.CreateTeacher(request);
+        //    }
+        //    catch (Exception)
+        //    {
 
-
-        [HttpPost]
-        [Route("CreatePArent")]
-        public bool CreateParent(NewPersonDTO request)
-        {
-            try
-            {
-                return _ParentsRepo.CreateParent(request);
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
-        }
-
-
-        [HttpPost]
-        [Route("CreateTeacher")]
-        public bool CreateTeacher(NewPersonDTO request)
-        {
-            try
-            {
-                return _TeachersRepo.CreateTeacher(request);
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
-        }
-
-
+        //        return false;
+        //    }
+        //}
+        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
         [HttpPost]
         [Route("GetAllStudents")]
         public List<Student> GetAllStudents()
@@ -96,21 +91,86 @@ namespace Resource.Api.Controllers
         }
 
         [HttpPost]
+        [Route("GetAllParents")]
+        public List<Parent> GetAllParents()
+        {
+            return _ParentsRepo.GetAllParents();
+        }
+
+        [HttpPost]
+        [Route("GetAllTeachers")]
+        public List<Teacher> GetAllTeachers()
+        {
+            return _TeachersRepo.GetAllTeachers();
+        }
+
+        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
+
+        [HttpPost]
         [Route("GetStudentDetails")]
         public StudentDTO GetStudentDetails(StudentRequestDTO request)
         {
             return _StudentsRepo.GetStudentDetails(request.StudentId);
         }
 
+        [HttpPost]
+        [Route("GetParentDetails")]
+        public ParentDTO GetParentDetails(ParentRequestDTO request)
+        {
+            return _ParentsRepo.GetParentDetails(request.ParentId);
+        }
+
+        [HttpPost]
+        [Route("GetTeacherDetails")]
+        public TeacherDTO GetTeacherDetails(TeacherRequestDTO request)
+        {
+            return _TeachersRepo.GetTeacherDetails(request.TeacherId);
+        }
+
+        /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
 
 
         [HttpPost]
         [Route("AddStudent")]
-        public bool CreateGroup(NewPersonDTO request)
+        public bool AddStudent(NewPersonDTO request)
         {
             try
             {
                 return _StudentsRepo.AddStudent(request.Name, request.LastName1, request.LastName2, request.Birthday, request.Genre);
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+
+        }
+
+
+        [HttpPost]
+        [Route("AddParent")]
+        public bool AddParent(NewPersonDTO request)
+        {
+            try
+            {
+                return _ParentsRepo.AddParent(request.Name, request.LastName1, request.LastName2, request.Birthday, request.Genre, request.Email, request.Phone);
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+
+        }
+
+
+        [HttpPost]
+        [Route("AddTeacher")]
+        public bool AddTeacher(NewPersonDTO request)
+        {
+            try
+            {
+                return _TeachersRepo.AddTeacher(request.Name, request.LastName1, request.LastName2, request.Birthday, request.Genre, request.Email, request.Phone);
             }
             catch (Exception e)
             {

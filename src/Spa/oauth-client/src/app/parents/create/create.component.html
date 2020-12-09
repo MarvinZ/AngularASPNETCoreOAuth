@@ -2,13 +2,13 @@
   <div class="row">
     <div *ngIf="!busy" class="col-md-12">
 
-      <h3>Agregar nuevo estudiante</h3>
+      <h3>Agregar nuevo padre de familia para {{student}}</h3>
 
-      <a class=" " routerLink="/parents">Regresar a la lista de parents</a>
+      <a class=" " routerLink="/students">Regresar a la lista de estudiantes</a>
 
       <hr>
 
-      <form (ngSubmit)="addStudent()" #newGroupForm="ngForm">
+      <form (ngSubmit)="addParent()" #newGroupForm="ngForm">
 
 
 
@@ -16,14 +16,14 @@
           <div class="p-field p-col-12 p-md-4 form-group">
 
             <span class="p-float-label">
-              <input id="float-input" type="text" pInputText [(ngModel)]="newStudent.name" name="nombre" required>
+              <input id="float-input" type="text" pInputText [(ngModel)]="newParent.name" name="nombre" required>
               <label for="float-input">Nombre</label>
             </span>
           </div>
           <div class="p-field p-col-12 p-md-4 form-group">
 
             <span class="p-float-label">
-              <input id="float-input" type="text" pInputText [(ngModel)]="newStudent.lastname1" name="lastname1"
+              <input id="float-input" type="text" pInputText [(ngModel)]="newParent.lastname1" name="lastname1"
                 required>
               <label for="float-input">Primer Apellido</label>
             </span>
@@ -31,7 +31,7 @@
           <div class="p-field p-col-12 p-md-4 form-group">
 
             <span class="p-float-label">
-              <input id="float-input" type="text" pInputText [(ngModel)]="newStudent.lastname2" name="lastname2">
+              <input id="float-input" type="text" pInputText [(ngModel)]="newParent.lastname2" name="lastname2">
               <label for="float-input">Segundo Apellido</label>
             </span>
           </div>
@@ -40,14 +40,14 @@
         <div class="row">
           <div class="p-field p-col-12 p-md-4 form-group">
             <span class="p-float-label">
-              <p-selectButton [options]="genres" [(ngModel)]="newStudent.genre" optionLabel="name" name="genre"
-                required></p-selectButton>
+              <p-selectButton [options]="genres" [(ngModel)]="newParent.genre" optionLabel="name" name="genre" required>
+              </p-selectButton>
             </span>
           </div>
 
           <div class="p-field p-col-12 p-md-4 form-group">
             <span class="p-float-label">
-              <p-calendar inputId="calendar" [(ngModel)]="newStudent.birthday" name="birthday" required></p-calendar>
+              <p-calendar inputId="calendar" [(ngModel)]="newParent.birthday" name="birthday" required></p-calendar>
               <label for="calendar">Fecha Nacimiento</label>
             </span>
           </div>
@@ -56,6 +56,26 @@
         </div>
 
 
+        <div class="row">
+
+          <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+              <p-inputMask inputId="telephoneInput" mask="9999-9999" [(ngModel)]="newParent.phone" name="phone"></p-inputMask>
+              <label for="telephoneInput">Teléfono</label>
+            </span>
+          </div>
+
+          <div class="p-field p-col-12 p-md-4 form-group">
+
+            <span class="p-float-label">
+              <input id="float-input" type="text" pInputText [(ngModel)]="newParent.email" name="email" required>
+              <label for="float-input">Email</label>
+            </span>
+          </div>
+
+
+        </div>
+
         <button type="submit" class="btn btn-success" [disabled]="!newGroupForm.form.valid">Submit</button>
         <button type="button" class="btn btn-default" (click)=" newGroupForm.reset()">Reset</button>
       </form>
@@ -63,7 +83,7 @@
 
       <hr>
 
-      <a class=" " routerLink="/parents">Regresar a la lista de parents</a>
+      <a class=" " routerLink="/students">Regresar a la lista de estudiantes</a>
 
 
 

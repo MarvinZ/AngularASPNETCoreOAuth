@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div *ngIf="!busy" class="col-md-8">
+      <h3>Teachers</h3>
+
+
+      <a class=" " routerLink="/addTeacher">Add Teacher</a>
+
+
+
+
+      <hr>
+      <table class="table small">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name </th>
+            <th scope="col">Birthday</th>
+            <th scope="col">Parents</th>
+            <th> Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let teacher of teachers; let i = index" [attr.data-index]="i">
+            <td>{{teacher.id}}</td>
+            <td>
+              <a class="" routerLink="/teachers/{{teacher.id}}">
+                {{teacher.name + ' '+ teacher.lastname1 +' ' + teacher.lastname2}}</a>
+            </td>
+            <td>{{teacher.birthday}}</td>
+            <td>
+              <a class="" routerLink="/teachers/{{teacher.id}}">Details</a>
+
+            </td>
+
+
+          </tr>
+        </tbody>
+      </table>
+
+
+
+
+    </div>
+  </div>
+  <ngx-spinner></ngx-spinner>
+</div>

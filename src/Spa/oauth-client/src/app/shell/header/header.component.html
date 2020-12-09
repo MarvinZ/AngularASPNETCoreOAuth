@@ -9,9 +9,11 @@
          <a class="p-2 text-light" routerLink="/login">Login</a>
       </nav>
       <nav *ngIf="isAuthenticated" class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-light" routerLink="/groups">Groups</a>
-        <a class="p-2 text-light" routerLink="/students">Students</a>
-        <a class="p-2 text-light" routerLink="/payments">Payments</a>
+        <a class="p-2 text-light" routerLink="/groups">Grupos</a>
+        <a class="p-2 text-light" routerLink="/students">Estudiantes</a>
+        <a class="p-2 text-light" routerLink="/teachers">Profesoras</a>
+        <a class="p-2 text-light" routerLink="/parents">Padres de familia</a>
+        <a class="p-2 text-light" routerLink="/payments">Financias</a>
         <!-- <a class="p-2 text-light" routerLink="/topsecret">Top Secret Area</a> -->
          <a class="p-2 text-light" (click)="signout()" href="javascript:void(0)">Signout {{name}}</a>
       </nav>
