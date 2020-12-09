@@ -179,5 +179,55 @@ namespace Resource.Api.Controllers
             }
 
         }
+
+
+
+        [HttpPost]
+        [Route("AddTeacherToGroup")]
+        public bool AddTeacherToGroup(RelationshipRequestDTO request)
+        {
+            try
+            {
+                return _TeachersRepo.AddTeacherToGroup(request.TeacherId, request.GroupId);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+
+        [HttpPost]
+        [Route("AddStudentToGroup")]
+        public bool AddStudentToGroup(RelationshipRequestDTO request)
+        {
+            try
+            {
+                return _StudentsRepo.AddStudentToGroup(request.StudentId, request.GroupId);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+
+        [HttpPost]
+        [Route("AddParentToStudent")]
+        public bool AddParentToStudent(RelationshipRequestDTO request)
+        {
+            try
+            {
+                return _StudentsRepo.AddParentToStudent(request.StudentId, request.ParentId);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+
+
+
     }
 }

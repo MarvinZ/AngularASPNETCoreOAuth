@@ -124,6 +124,28 @@ namespace Resource.Api
             }
 
         }
+
+        public bool AddTeacherToGroup(int teacherId, int groupId)
+        {
+            try
+            {
+                var newRelationship = new GroupTeacher()
+                {
+                    TeacherId = teacherId,
+                    CreateDatetime = DateTime.UtcNow,
+                    CreateUser = "ADMIN",
+                    GroupId = groupId
+                };
+                _context.GroupTeachers.Add(newRelationship);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+        }
     }
 
 

@@ -78,5 +78,17 @@ namespace Resource.Api
 
         public DateTime requestDate { get; set; }
     }
-    
+
+
+    public class RelationshipRequestDTO
+    {
+
+        public int ParentId { get; set; }
+        public int StudentId { get; set; }
+        public int GroupId { get; set; }
+        public int TeacherId { get; set; }
+
+        public DateTime requestDate { get; set; }
+    }
+
 }

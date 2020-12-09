@@ -154,10 +154,10 @@ namespace Resource.Api
             {
                 var newStudent = new Student()
                 {
-                    
-                    Name = name, 
-                    LastName2 = lastName2, 
-                    LastName1 = lastName1, 
+
+                    Name = name,
+                    LastName2 = lastName2,
+                    LastName1 = lastName1,
                     Birthday = birthday,
                     RegistrationDate = DateTime.UtcNow,
                     CreateDatetime = DateTime.UtcNow,
@@ -172,6 +172,50 @@ namespace Resource.Api
                 return false;
             }
 
+        }
+
+        public bool AddStudentToGroup(int studentId, int groupId)
+        {
+            try
+            {
+                var newRelationship = new GroupStudent()
+                {
+                    StudentId = studentId,
+                    CreateDatetime = DateTime.UtcNow,
+                    CreateUser = "ADMIN",
+                    GroupId = groupId
+                };
+                _context.GroupStudents.Add(newRelationship);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+        }
+
+        public bool AddParentToStudent(int studentId, int parentId)
+        {
+            try
+            {
+                var newRelationship = new StudentParent()
+                {
+                    StudentId = studentId,
+                    ParentId = parentId,
+                    CreateDatetime = DateTime.UtcNow,
+                    CreateUser = "ADMIN"
+                };
+                _context.StudentParents.Add(newRelationship);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
         }
     } // end of calss
 } //end of namespace
