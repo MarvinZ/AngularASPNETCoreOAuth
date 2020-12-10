@@ -11,6 +11,7 @@ import { ConfigService } from '../shared/config.service';
 export class GroupsService extends BaseService {
 
 
+
   constructor(private http: HttpClient, private configService: ConfigService) {
     super();
   }
@@ -83,7 +84,24 @@ export class GroupsService extends BaseService {
       httpOptions).pipe(catchError(this.handleError));
   }
 
+  RemoveFromGroup(authorizationHeaderValue: string, GroupId: number, StudentId: number) {
 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: authorizationHeaderValue
+      })
+    };
+
+    const payload = {
+      GroupId, StudentId
+    };
+    console.log(payload);
+
+    return this.http.post(this.configService.resourceApiURI + '/people/RemoveStudentFromGroup', payload,
+      httpOptions).pipe(catchError(this.handleError));
+
+  }
 
 
 }

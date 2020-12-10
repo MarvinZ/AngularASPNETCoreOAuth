@@ -10,6 +10,7 @@ namespace Resource.Api.Models
         public Group()
         {
             Documents = new HashSet<Document>();
+            GroupStudents = new HashSet<GroupStudent>();
         }
 
         public int Id { get; set; }
@@ -26,5 +27,6 @@ namespace Resource.Api.Models
         public virtual Cycle Cycle { get; set; }
         public virtual Level Level { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
+        public virtual ICollection<GroupStudent> GroupStudents { get; set; }
     }
 }

@@ -133,8 +133,6 @@ namespace Resource.Api.Models
 
             modelBuilder.Entity<GroupStudent>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("GroupStudent");
 
                 entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
@@ -152,16 +150,16 @@ namespace Resource.Api.Models
                 entity.Property(e => e.LastModifiedUser).HasMaxLength(100);
 
                 entity.HasOne(d => d.Group)
-                    .WithMany()
+                    .WithMany(p => p.GroupStudents)
                     .HasForeignKey(d => d.GroupId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GroupStud__Group__40F9A68C");
+                    .HasConstraintName("FK__GroupStud__Group__503BEA1C");
 
                 entity.HasOne(d => d.Student)
-                    .WithMany()
+                    .WithMany(p => p.GroupStudents)
                     .HasForeignKey(d => d.StudentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GroupStud__Stude__40058253");
+                    .HasConstraintName("FK__GroupStud__Stude__4F47C5E3");
             });
 
             modelBuilder.Entity<GroupTeacher>(entity =>

@@ -227,6 +227,52 @@ namespace Resource.Api.Controllers
 
         }
 
+        [HttpPost]
+        [Route("RemoveTeacherFromGroup")]
+        public bool RemoveTeacherFromGroup(RelationshipRequestDTO request)
+        {
+            try
+            {
+                return _TeachersRepo.RemoveTeacherFromGroup(request.TeacherId, request.GroupId);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+
+        [HttpPost]
+        [Route("RemoveStudentFromGroup")]
+        public bool RemoveStudentFromGroup(RelationshipRequestDTO request)
+        {
+            try
+            {
+                return _StudentsRepo.RemoveStudentFromGroup(request.StudentId, request.GroupId);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+
+        [HttpPost]
+        [Route("RemoveParentFromStudent")]
+        public bool RemoveParentFromStudent(RelationshipRequestDTO request)
+        {
+            try
+            {
+                return _StudentsRepo.RemoveParentFromStudent(request.StudentId, request.ParentId);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+
+
 
 
     }

@@ -1,4 +1,5 @@
-﻿using Resource.Api.Controllers;
+﻿using Microsoft.EntityFrameworkCore;
+using Resource.Api.Controllers;
 using Resource.Api.Models;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Resource.Api
 
         public List<StudentDTO> GetStudentsByParentId(int parentId)
         {
-            var students = _context.Students.Join(_context.StudentParents.Where(e => e.ParentId == parentId), student => student.Id,
+            var students = _context.Students.Join(_context.StudentParents.Where(e => e.ParentId == parentId && e.DeactivateDatetime == null), student => student.Id,
                 studentParent => studentParent.Student.Id,
                                 (student, studentParent) => new StudentDTO
                                 {
@@ -40,7 +41,7 @@ namespace Resource.Api
 
         public List<StudentDTO> GetStudentsByGroupId(int groupId)
         {
-            var students = _context.Students.Join(_context.GroupStudents.Where(e => e.GroupId == groupId), student => student.Id,
+            var students = _context.Students.Join(_context.GroupStudents.Where(e => e.GroupId == groupId && e.DeactivateDatetime == null), student => student.Id,
           groupStudent => groupStudent.Student.Id,
                           (student, groupStudents) => new StudentDTO
                           {
@@ -217,5 +218,50 @@ namespace Resource.Api
                 return false;
             }
         }
-    } // end of calss
-} //end of namespace
+
+        public bool RemoveStudentFromGroup(int studentId, int groupId)
+        {
+            try
+            {
+                GroupStudent deleteMe = _context.GroupStudents.Where(e => e.StudentId == studentId && e.GroupId == groupId).FirstOrDefault();
+                if (deleteMe != null)
+                {
+                    deleteMe.DeactivateDatetime = DateTime.UtcNow;
+                    deleteMe.DeactivateUser = "ADMIN";
+                }
+                _context.SaveChanges();
+
+                return true;
+
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+        }
+
+        internal bool RemoveParentFromStudent(int studentId, int parentId)
+        {
+            try
+            {
+                var deleteMe = _context.StudentParents.Where(e => e.StudentId == studentId && e.ParentId == parentId).FirstOrDefault();
+                if (deleteMe != null)
+                {
+                    deleteMe.DeactivateDatetime = DateTime.UtcNow;
+                    deleteMe.DeactivateUser = "ADMIN";
+                }
+
+                _context.SaveChanges();
+                return true;
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+    }
+
+} // end of calss
+  //end of namespace

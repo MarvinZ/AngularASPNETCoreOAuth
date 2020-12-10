@@ -29,6 +29,8 @@ export class DetailsComponent implements OnInit {
   availableGroups: AvailableGroup[];
   selectedGroup: AvailableGroup;
 
+  executionResult: any = [];
+
 
   @Output() public UploadFinished = new EventEmitter();
 
@@ -89,9 +91,42 @@ export class DetailsComponent implements OnInit {
 
 
   Enroll() {
-    console.log(this.selectedGroup);
+    this.service.Enroll(this.authService.authorizationHeaderValue, this.selectedGroup.code, this.selectedStudent)
+    .pipe(finalize(() => {
+
+      // this.spinner.hide();
+      // this.busy = false;
+    })).subscribe(
+      result => {
+        this.executionResult = result;
+      });
   }
 
+  RemoveParent(id: string) {
+    this.service.RemoveParent(this.authService.authorizationHeaderValue, id, this.selectedStudent)
+      .pipe(finalize(() => {
+
+        // this.spinner.hide();
+        // this.busy = false;
+      })).subscribe(
+        result => {
+          this.executionResult = result;
+        });
+
+  }
+
+
+  RemoveFromGroup(id: string) {
+    this.service.RemoveFromGroup(this.authService.authorizationHeaderValue, id, this.selectedStudent)
+      .pipe(finalize(() => {
+
+        // this.spinner.hide();
+        // this.busy = false;
+      })).subscribe(
+        result => {
+          this.executionResult = result;
+        });
+  }
 
 
 }

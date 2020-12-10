@@ -137,7 +137,7 @@
     <h3>Grupos</h3>
     <div *ngFor="let group of student.groups">
 
-      {{group.groupShortname}} - {{group.cycleName}} - {{group.levelName}} - {{group.status}}
+      {{group.groupShortname}} - {{group.cycleName}} - {{group.levelName}} - {{group.status}} <button (click)="RemoveFromGroup(group.id)"> remove from group</button>
       <hr>
       <a class="" routerLink="/groups/{{group.id}}">Group Details</a>
 
@@ -178,7 +178,7 @@
 
     <h3>Encargados</h3>
     <div *ngFor="let par of student.parents">
-      {{par.name}} - {{par.lastnames}} - {{par.email}} - {{par.phone}} <button> Email </button>
+      {{par.name}} - {{par.lastnames}} - {{par.email}} - {{par.phone}} <button> Email </button> <button (click)="RemoveParent(par.id)"> Quitar encargado</button>
 
 
 

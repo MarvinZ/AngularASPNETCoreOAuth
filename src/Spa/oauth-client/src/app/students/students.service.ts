@@ -62,4 +62,62 @@ export class StudentsService extends BaseService {
 
 
 
+  RemoveFromGroup(authorizationHeaderValue: string, GroupId: string, StudentId: string) {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: authorizationHeaderValue
+      })
+    };
+
+    const payload = {
+      GroupId, StudentId
+    };
+
+    return this.http.post(this.configService.resourceApiURI + '/people/RemoveStudentFromGroup ', payload,
+      httpOptions).pipe(catchError(this.handleError));
+
+  }
+
+  RemoveParent(authorizationHeaderValue: string, ParentId: string, StudentId: string) {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: authorizationHeaderValue
+      })
+    };
+
+    const payload = {
+      ParentId, StudentId
+    };
+
+    return this.http.post(this.configService.resourceApiURI + '/people/RemoveParentFromStudent ', payload,
+      httpOptions).pipe(catchError(this.handleError));
+  }
+
+
+  Enroll(authorizationHeaderValue: string, GroupId: string, StudentId: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: authorizationHeaderValue
+      })
+    };
+
+    const payload = {
+      GroupId, StudentId
+    };
+
+    return this.http.post(this.configService.resourceApiURI + '/people/AddStudentToGroup ', payload,
+      httpOptions).pipe(catchError(this.handleError));
+  }
+
+
+
+
+
+
+
 }

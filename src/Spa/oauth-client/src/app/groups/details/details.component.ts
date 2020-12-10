@@ -1,7 +1,8 @@
 // import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { finalize } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr'; import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../core/authentication/auth.service';
 import { GroupsService } from '../groups.service';
 
@@ -27,16 +28,17 @@ export class DetailsComponent implements OnInit {
 
   selectedTeacher: AvailableTeacher;
 
-
+  executionResult: any;
 
 
   public progress: number;
   public message: string;
   @Output() public UploadFinished = new EventEmitter();
 
+
   constructor(private route: ActivatedRoute, private authService: AuthService,
-              private service: GroupsService, private spinner: NgxSpinnerService,
-              private http: HttpClient) {
+    private service: GroupsService, private spinner: NgxSpinnerService,
+    private http: HttpClient, private toastr: ToastrService, private router: Router) {
 
     this.availableTeachers = [
       { name: 'MArio Corrales', code: '11' },
@@ -50,6 +52,14 @@ export class DetailsComponent implements OnInit {
     this.spinner.show();
     this.selectedGroup = this.route.snapshot.paramMap.get('id');
 
+    this.getInitialData();
+
+    this.spinner.hide();
+    this.busy = false;
+
+  }
+
+  getInitialData() {
     this.service.getGroupDetails(this.authService.authorizationHeaderValue, +this.selectedGroup)
       .pipe(finalize(() => {
 
@@ -61,10 +71,6 @@ export class DetailsComponent implements OnInit {
         });
 
     this.getStudentsForGroup(+this.selectedGroup);
-
-    this.spinner.hide();
-    this.busy = false;
-
   }
 
   public uploadFile = (files) => {
@@ -105,6 +111,26 @@ export class DetailsComponent implements OnInit {
     console.log(this.selectedTeacher);
   }
 
+  RemoveFromGroup(id: string) {
+    this.service.RemoveFromGroup(this.authService.authorizationHeaderValue, +this.selectedGroup, +id)
+      .pipe(finalize(() => {
+
+        // this.spinner.hide();
+        // this.busy = false;
+      })).subscribe(
+        result => {
+          this.executionResult = result;
+          console.log('ahora siii');
+          console.log(this.executionResult);
+          if (this.executionResult) {
+            this.toastr.success('El estudiante ha sido removido del grupo', '!Éxito!');
+            this.getInitialData();
+          } else {
+            this.toastr.error('errorrrrr', 'ERROR');
+            this.getInitialData();
+          }
+        });
+  }
 
 
 }

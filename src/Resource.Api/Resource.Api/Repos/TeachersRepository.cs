@@ -146,6 +146,28 @@ namespace Resource.Api
                 return false;
             }
         }
+
+        public bool RemoveTeacherFromGroup(int teacherId, int groupId)
+        {
+            try
+            {
+                var deleteMe = _context.GroupTeachers.Where(e => e.TeacherId == teacherId && e.GroupId == groupId).FirstOrDefault();
+                if (deleteMe != null)
+                {
+                    deleteMe.DeactivateDatetime = DateTime.UtcNow;
+                    deleteMe.DeactivateUser = "ADMIN";
+                }
+
+                _context.SaveChanges();
+                return true;
+
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+        }
     }
 
 
