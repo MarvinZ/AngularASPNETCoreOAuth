@@ -62,7 +62,7 @@ export class StudentsService extends BaseService {
 
 
 
-  RemoveFromGroup(authorizationHeaderValue: string, GroupId: string, StudentId: string) {
+  RemoveFromGroup(authorizationHeaderValue: string, GroupId: number, StudentId: number) {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -98,7 +98,7 @@ export class StudentsService extends BaseService {
   }
 
 
-  Enroll(authorizationHeaderValue: string, GroupId: string, StudentId: string) {
+  Enroll(authorizationHeaderValue: string, GroupId: number, StudentId: number) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

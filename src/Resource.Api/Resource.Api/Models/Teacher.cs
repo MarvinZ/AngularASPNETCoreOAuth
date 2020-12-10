@@ -7,6 +7,11 @@ namespace Resource.Api.Models
 {
     public partial class Teacher
     {
+        public Teacher()
+        {
+            GroupTeachers = new HashSet<GroupTeacher>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string CountryId { get; set; }
@@ -23,5 +28,7 @@ namespace Resource.Api.Models
         public DateTime? LastModificationDatetime { get; set; }
         public DateTime? DeactivateDatetime { get; set; }
         public string DeactivateUser { get; set; }
+
+        public virtual ICollection<GroupTeacher> GroupTeachers { get; set; }
     }
 }

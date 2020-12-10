@@ -35,12 +35,12 @@ export class DetailsComponent implements OnInit {
   @Output() public UploadFinished = new EventEmitter();
 
   constructor(private route: ActivatedRoute, private authService: AuthService,
-              private service: StudentsService, private spinner: NgxSpinnerService,
-              private http: HttpClient, private toastr: ToastrService) {
+    private service: StudentsService, private spinner: NgxSpinnerService,
+    private http: HttpClient, private toastr: ToastrService) {
 
     this.availableGroups = [
-      { name: 'grupo 1', code: '11' },
-      { name: 'grupo 2', code: '77' }
+      { name: 'grupo 1', code: '1' },
+      { name: 'grupo 3', code: '3' }
     ];
 
 
@@ -51,6 +51,13 @@ export class DetailsComponent implements OnInit {
     this.spinner.show();
     this.selectedStudent = this.route.snapshot.paramMap.get('id');
 
+    this.getInitialData();
+
+
+
+  }
+
+  getInitialData() {
     this.service.getStudentDetails(this.authService.authorizationHeaderValue, +this.selectedStudent)
       .pipe(finalize(() => {
 
@@ -59,11 +66,9 @@ export class DetailsComponent implements OnInit {
       })).subscribe(
         result => {
           this.student = result;
+          this.spinner.hide();
+          this.busy = false;
         });
-
-    this.spinner.hide();
-    this.busy = false;
-
   }
 
   public uploadFile = (files) => {
@@ -91,15 +96,23 @@ export class DetailsComponent implements OnInit {
 
 
   Enroll() {
-    this.service.Enroll(this.authService.authorizationHeaderValue, this.selectedGroup.code, this.selectedStudent)
-    .pipe(finalize(() => {
+    this.service.Enroll(this.authService.authorizationHeaderValue, +this.selectedGroup.code, +this.selectedStudent)
+      .pipe(finalize(() => {
 
-      // this.spinner.hide();
-      // this.busy = false;
-    })).subscribe(
-      result => {
-        this.executionResult = result;
-      });
+        // this.spinner.hide();
+        // this.busy = false;
+      })).subscribe(
+        result => {
+          this.executionResult = result;
+          console.log(this.executionResult);
+          if (this.executionResult) {
+            this.toastr.success('El estudiante ha sido agregado al grupo', '!Éxito!');
+            this.getInitialData();
+          } else {
+            this.toastr.error('errorrrrr', 'ERROR');
+            this.getInitialData();
+          }
+        });
   }
 
   RemoveParent(id: string) {
@@ -111,13 +124,21 @@ export class DetailsComponent implements OnInit {
       })).subscribe(
         result => {
           this.executionResult = result;
+          console.log(this.executionResult);
+          if (this.executionResult) {
+            this.toastr.success('El encargado ha sido removido del estudiante', '!Éxito!');
+            this.getInitialData();
+          } else {
+            this.toastr.error('errorrrrr', 'ERROR');
+            this.getInitialData();
+          }
         });
 
   }
 
 
   RemoveFromGroup(id: string) {
-    this.service.RemoveFromGroup(this.authService.authorizationHeaderValue, id, this.selectedStudent)
+    this.service.RemoveFromGroup(this.authService.authorizationHeaderValue, +id, +this.selectedStudent)
       .pipe(finalize(() => {
 
         // this.spinner.hide();
@@ -125,6 +146,14 @@ export class DetailsComponent implements OnInit {
       })).subscribe(
         result => {
           this.executionResult = result;
+          console.log(this.executionResult);
+          if (this.executionResult) {
+            this.toastr.success('El estudiante ha sido removido del grupo', '!Éxito!');
+            this.getInitialData();
+          } else {
+            this.toastr.error('errorrrrr', 'ERROR');
+            this.getInitialData();
+          }
         });
   }
 

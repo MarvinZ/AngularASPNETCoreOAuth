@@ -11,6 +11,7 @@ namespace Resource.Api.Models
         {
             Documents = new HashSet<Document>();
             GroupStudents = new HashSet<GroupStudent>();
+            GroupTeachers = new HashSet<GroupTeacher>();
         }
 
         public int Id { get; set; }
@@ -28,5 +29,6 @@ namespace Resource.Api.Models
         public virtual Level Level { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<GroupStudent> GroupStudents { get; set; }
+        public virtual ICollection<GroupTeacher> GroupTeachers { get; set; }
     }
 }

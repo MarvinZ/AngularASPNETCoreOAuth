@@ -41,8 +41,8 @@ export class DetailsComponent implements OnInit {
     private http: HttpClient, private toastr: ToastrService, private router: Router) {
 
     this.availableTeachers = [
-      { name: 'MArio Corrales', code: '11' },
-      { name: 'Tatiana malavassi', code: '77' }
+      { name: 'MArio Corrales', code: '3' },
+      { name: 'Tatiana malavassi', code: '5' }
     ];
 
   }
@@ -108,7 +108,24 @@ export class DetailsComponent implements OnInit {
   }
 
   AddTeacherToGroup() {
-    console.log(this.selectedTeacher);
+    this.service.AddTeacherToGroup(this.authService.authorizationHeaderValue, +this.selectedGroup, +this.selectedTeacher.code)
+      .pipe(finalize(() => {
+
+        // this.spinner.hide();
+        // this.busy = false;
+      })).subscribe(
+        result => {
+          this.executionResult = result;
+          console.log(this.executionResult);
+          if (this.executionResult) {
+            this.toastr.success('La teacher ha sido agregada al grupo', '!Éxito!');
+            this.getInitialData();
+          } else {
+            this.toastr.error('errorrrrr', 'ERROR');
+            this.getInitialData();
+          }
+        });
+
   }
 
   RemoveFromGroup(id: string) {
@@ -120,7 +137,6 @@ export class DetailsComponent implements OnInit {
       })).subscribe(
         result => {
           this.executionResult = result;
-          console.log('ahora siii');
           console.log(this.executionResult);
           if (this.executionResult) {
             this.toastr.success('El estudiante ha sido removido del grupo', '!Éxito!');

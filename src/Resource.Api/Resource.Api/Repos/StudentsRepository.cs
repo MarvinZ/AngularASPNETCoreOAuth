@@ -96,7 +96,7 @@ namespace Resource.Api
 
                 if (tempRes != null)
                 {
-                    var parents = _context.Parents.Join(_context.StudentParents.Where(e => e.StudentId == studentId),
+                    var parents = _context.Parents.Join(_context.StudentParents.Where(e => e.StudentId == studentId && e.DeactivateDatetime == null),
                         parent => parent.Id,
                         studentParent => studentParent.ParentId,
                         (parent, studentParent) => new ParentDTO
@@ -115,7 +115,7 @@ namespace Resource.Api
                         }
                     }
 
-                    var groups = _context.Groups.Join(_context.GroupStudents.Where(e => e.StudentId == studentId),
+                    var groups = _context.Groups.Join(_context.GroupStudents.Where(e => e.StudentId == studentId && e.DeactivateDatetime == null),
                         group => group.Id,
                         groupStudent => groupStudent.GroupId,
                         (group, groupStudent) => new GroupDTO
@@ -223,7 +223,7 @@ namespace Resource.Api
         {
             try
             {
-                GroupStudent deleteMe = _context.GroupStudents.Where(e => e.StudentId == studentId && e.GroupId == groupId).FirstOrDefault();
+                GroupStudent deleteMe = _context.GroupStudents.Where(e => e.StudentId == studentId && e.GroupId == groupId && e.DeactivateDatetime == null).FirstOrDefault();
                 if (deleteMe != null)
                 {
                     deleteMe.DeactivateDatetime = DateTime.UtcNow;
@@ -245,7 +245,7 @@ namespace Resource.Api
         {
             try
             {
-                var deleteMe = _context.StudentParents.Where(e => e.StudentId == studentId && e.ParentId == parentId).FirstOrDefault();
+                var deleteMe = _context.StudentParents.Where(e => e.StudentId == studentId && e.ParentId == parentId && e.DeactivateDatetime == null).FirstOrDefault();
                 if (deleteMe != null)
                 {
                     deleteMe.DeactivateDatetime = DateTime.UtcNow;

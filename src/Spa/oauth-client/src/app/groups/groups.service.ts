@@ -12,6 +12,7 @@ export class GroupsService extends BaseService {
 
 
 
+
   constructor(private http: HttpClient, private configService: ConfigService) {
     super();
   }
@@ -101,6 +102,23 @@ export class GroupsService extends BaseService {
     return this.http.post(this.configService.resourceApiURI + '/people/RemoveStudentFromGroup', payload,
       httpOptions).pipe(catchError(this.handleError));
 
+  }
+
+  AddTeacherToGroup(authorizationHeaderValue: string, GroupId: number, TeacherId: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: authorizationHeaderValue
+      })
+    };
+
+    const payload = {
+      GroupId, TeacherId
+    };
+    console.log(payload);
+
+    return this.http.post(this.configService.resourceApiURI + '/people/AddTeacherToGroup', payload,
+      httpOptions).pipe(catchError(this.handleError));
   }
 
 

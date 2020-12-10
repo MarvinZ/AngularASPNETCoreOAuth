@@ -10,6 +10,7 @@ namespace Resource.Api.Models
         public Parent()
         {
             Payments = new HashSet<Payment>();
+            StudentParents = new HashSet<StudentParent>();
         }
 
         public int Id { get; set; }
@@ -30,5 +31,6 @@ namespace Resource.Api.Models
         public string DeactivateUser { get; set; }
 
         public virtual ICollection<Payment> Payments { get; set; }
+        public virtual ICollection<StudentParent> StudentParents { get; set; }
     }
 }

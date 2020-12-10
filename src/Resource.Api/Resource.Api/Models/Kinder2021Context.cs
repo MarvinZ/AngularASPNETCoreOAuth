@@ -153,19 +153,17 @@ namespace Resource.Api.Models
                     .WithMany(p => p.GroupStudents)
                     .HasForeignKey(d => d.GroupId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GroupStud__Group__503BEA1C");
+                    .HasConstraintName("FK__GroupStud__Group__5BAD9CC8");
 
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.GroupStudents)
                     .HasForeignKey(d => d.StudentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GroupStud__Stude__4F47C5E3");
+                    .HasConstraintName("FK__GroupStud__Stude__5AB9788F");
             });
 
             modelBuilder.Entity<GroupTeacher>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("GroupTeacher");
 
                 entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
@@ -183,16 +181,16 @@ namespace Resource.Api.Models
                 entity.Property(e => e.LastModifiedUser).HasMaxLength(100);
 
                 entity.HasOne(d => d.Group)
-                    .WithMany()
+                    .WithMany(p => p.GroupTeachers)
                     .HasForeignKey(d => d.GroupId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GroupTeac__Group__3587F3E0");
+                    .HasConstraintName("FK__GroupTeac__Group__55F4C372");
 
                 entity.HasOne(d => d.Teacher)
-                    .WithMany()
+                    .WithMany(p => p.GroupTeachers)
                     .HasForeignKey(d => d.TeacherId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GroupTeac__Teach__3493CFA7");
+                    .HasConstraintName("FK__GroupTeac__Teach__55009F39");
             });
 
             modelBuilder.Entity<Level>(entity =>
@@ -329,8 +327,6 @@ namespace Resource.Api.Models
 
             modelBuilder.Entity<StudentParent>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("StudentParent");
 
                 entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
@@ -348,16 +344,16 @@ namespace Resource.Api.Models
                 entity.Property(e => e.LastModifiedUser).HasMaxLength(100);
 
                 entity.HasOne(d => d.Parent)
-                    .WithMany()
+                    .WithMany(p => p.StudentParents)
                     .HasForeignKey(d => d.ParentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__StudentPa__Paren__25518C17");
+                    .HasConstraintName("FK__StudentPa__Paren__58D1301D");
 
                 entity.HasOne(d => d.Student)
-                    .WithMany()
+                    .WithMany(p => p.StudentParents)
                     .HasForeignKey(d => d.StudentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__StudentPa__Stude__2645B050");
+                    .HasConstraintName("FK__StudentPa__Stude__59C55456");
             });
 
             modelBuilder.Entity<Teacher>(entity =>

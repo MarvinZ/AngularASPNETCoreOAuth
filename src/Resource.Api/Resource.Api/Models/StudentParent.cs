@@ -7,6 +7,7 @@ namespace Resource.Api.Models
 {
     public partial class StudentParent
     {
+        public int Id { get; set; }
         public int StudentId { get; set; }
         public int ParentId { get; set; }
         public DateTime CreateDatetime { get; set; }
