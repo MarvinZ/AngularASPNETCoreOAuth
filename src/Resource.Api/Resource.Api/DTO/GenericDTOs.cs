@@ -14,12 +14,14 @@ namespace Resource.Api
     {
         public string Name { get; set; }
         public string LastName1 { get; set; }
-        public string LastName2 { get;  set; }
-        public string Email { get;  set; }
-        public string Phone { get;  set; }
+        public string LastName2 { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
         public char Genre { get; set; }
         public DateTime Birthday { get; set; }
         public DateTime RequestDate { get; set; }
+
+        public int StudentId { get; set; }
 
     }
 
@@ -58,9 +60,9 @@ namespace Resource.Api
 
     public class StudentRequestDTO
     {
-  
+
         public int StudentId { get; set; }
-  
+
         public DateTime requestDate { get; set; }
     }
 

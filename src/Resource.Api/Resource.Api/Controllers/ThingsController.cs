@@ -47,6 +47,15 @@ namespace Resource.Api.Controllers
             return _GroupsRepo.GetAllGroups();
         }
 
+
+        [HttpPost]
+        [Route("GetAvailableGroups")]
+        public List<GroupDTO> GetAvailableGroups(StudentRequestDTO request)
+        {
+            return _GroupsRepo.GetAvailableGroups(request.StudentId);
+        }
+
+
         [HttpPost]
         [Route("EnrollStudent")]
         public bool EnrollStudent(GroupRequestDTO request)

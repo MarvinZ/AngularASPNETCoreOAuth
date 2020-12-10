@@ -45,7 +45,7 @@ export class ParentsService extends BaseService {
   }
 
   addParent(token: string, Name: string, Lastname1: string, Lastname2: string,
-            Genre: string, Birthday: string, Email: string, Phone: string) {
+            Genre: string, Birthday: string, Email: string, Phone: string, StudentId: number) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ export class ParentsService extends BaseService {
     };
 
     const payload = {
-      Name, Lastname1, Lastname2, Birthday, Email, Phone
+      Name, Lastname1, Lastname2, Birthday, Email, Phone, StudentId
     };
 
     return this.http.post(this.configService.resourceApiURI + '/people/AddParent ', payload,

@@ -72,7 +72,7 @@ export class CreateComponent implements OnInit {
     this.spinner.show();
     this.service.addParent(this.authService.authorizationHeaderValue, this.newParent.name,
       this.newParent.lastname1, this.newParent.lastname2, this.newParent.genre, this.newParent.birthday,
-      this.newParent.email, this.newParent.phone)
+      this.newParent.email, this.newParent.phone, +this.selectedStudent)
       .pipe(finalize(() => {
         this.spinner.hide();
         this.busy = false;

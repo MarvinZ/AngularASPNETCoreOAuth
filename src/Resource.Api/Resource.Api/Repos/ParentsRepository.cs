@@ -56,6 +56,48 @@ namespace Resource.Api
 
         }
 
+        public bool AddParentForStudent(string name, string lastName1, string lastName2, DateTime birthday, char genre, string email, string phone, int studentId)
+        {
+
+            try
+            {
+                var newParent = new Parent()
+                {
+
+                    Name = name,
+                    LastName2 = lastName2,
+                    LastName1 = lastName1,
+                    Birthday = birthday,
+                    RegistrationDate = DateTime.UtcNow,
+                    CreateDatetime = DateTime.UtcNow,
+                    CreateUser = "ADMIN",
+                    Address = "some address that should not be here...",
+                    Email = email,
+                    Phone = phone,
+                    CountryId = "IDIOTA"
+                };
+                _context.Parents.Add(newParent);
+                _context.SaveChanges();
+
+                var rel = new StudentParent()
+                {
+                    StudentId = studentId,
+                    ParentId = newParent.Id,
+                    CreateDatetime = DateTime.UtcNow,
+                    CreateUser = "ADMIN"
+                };
+
+                _context.StudentParents.Add(rel);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+
         public ParentDTO GetParentDetails(int parentId)
         {
             try

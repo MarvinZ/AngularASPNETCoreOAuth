@@ -67,6 +67,30 @@ namespace Resource.Api
 
         }
 
+        internal List<GroupDTO> GetAvailableGroups(int studentId)
+        {
+            try
+            {
+                var result = _context.Groups.Select(c => new GroupDTO
+                {
+                    CycleName = c.Cycle.Name,
+                    AmountOfStudents = 99,
+                    CreateUser = c.CreateUser,
+                    CreateDatetime = c.CreateDatetime,
+                    LevelName = c.Level.Name,
+                    GroupShortname = c.GroupShortname,
+                    Id = c.Id
+                }).ToList();
+
+                return result;
+            }
+            catch (Exception e)
+            {
+
+                return null;
+            }
+        }
+
         public bool EnrollStudent(int groupId, int studentId)
         {
             try

@@ -153,7 +153,8 @@ namespace Resource.Api.Controllers
         {
             try
             {
-                return _ParentsRepo.AddParent(request.Name, request.LastName1, request.LastName2, request.Birthday, request.Genre, request.Email, request.Phone);
+                return _ParentsRepo.AddParentForStudent(request.Name, request.LastName1, request.LastName2, 
+                                            request.Birthday, request.Genre, request.Email, request.Phone, request.StudentId);
             }
             catch (Exception e)
             {
