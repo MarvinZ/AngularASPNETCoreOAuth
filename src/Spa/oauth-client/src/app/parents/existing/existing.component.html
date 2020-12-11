@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="row">
+    <div *ngIf="!busy" class="col-md-12">
+
+      <h3>Asociar padre de familia existente para {{selectedStudent}}</h3>
+
+      <a class=" " routerLink="/students/{{selectedStudent}}">Regresar al estudiante</a>
+
+      <hr>
+
+      <form (ngSubmit)="addParent()" #newGroupForm="ngForm">
+
+        <div class="row">
+
+          <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+              <p-inputMask inputId="cedula" mask="9-9999-9999" [(ngModel)]="newParent.cedula" name="cedula"
+                (onBlur)="GetExistingNameFromCedula()">
+              </p-inputMask>
+              <label for="cedula">Cédula</label>
+            </span>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="p-field p-col-12 p-md-4 form-group">
+
+            <span class="p-float-label">
+              <input id="float-input" type="text" pInputText [(ngModel)]="newParent.name" name="nombre" required>
+              <label for="float-input">Nombre</label>
+            </span>
+          </div>
+          <div class="p-field p-col-12 p-md-4 form-group">
+
+            <span class="p-float-label">
+              <input id="float-input" type="text" pInputText [(ngModel)]="newParent.lastname1" name="lastname1"
+                required>
+              <label for="float-input">Primer Apellido</label>
+            </span>
+          </div>
+          <div class="p-field p-col-12 p-md-4 form-group">
+
+            <span class="p-float-label">
+              <input id="float-input" type="text" pInputText [(ngModel)]="newParent.lastname2" name="lastname2">
+              <label for="float-input">Segundo Apellido</label>
+            </span>
+          </div>
+        </div>
+
+
+
+        <button type="submit" class="btn btn-success" [disabled]="!newGroupForm.form.valid">Submit</button>
+        <button type="button" class="btn btn-default" (click)=" newGroupForm.reset()">Reset</button>
+      </form>
+
+
+      <hr>
+      <a class=" " routerLink="/students/{{selectedStudent}}">Regresar al estudiante</a>
+
+      <a class=" " routerLink="/parents">Ir a la lista de encargados</a>
+
+
+
+    </div>
+    <ngx-spinner></ngx-spinner>
+  </div>

@@ -157,5 +157,26 @@ namespace Resource.Api
 
             return res;
         }
+
+        internal NameDTO GetExistingNameFromCedula(int cedula)
+        {
+            var res = _context.Parents.Where(e => e.CountryId == cedula.ToString()).Select(e =>
+           new NameDTO()
+           {
+               Id = e.Id,
+               Cedula = int.Parse(e.CountryId),
+               LastName1 = e.LastName1,
+               LastName2 = e.LastName2,
+               Name = e.Name
+           }).FirstOrDefault();
+
+            return res;
+        }
+
+
+        
+
+
+
     }
 }

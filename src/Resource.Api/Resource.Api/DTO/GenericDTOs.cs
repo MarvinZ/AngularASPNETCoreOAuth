@@ -61,6 +61,7 @@ namespace Resource.Api
 
     public class NameDTO
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string LastName1 { get; set; }
         public string LastName2 { get; set; }

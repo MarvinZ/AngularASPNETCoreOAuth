@@ -4,6 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 import { IndexComponent } from './index/index.component';
 import { DetailsComponent } from './details/details.component';
 import { CreateComponent } from './create/create.component';
+import { ExistingParentComponent } from './existing/existing.component';
 
 import { ParentsService } from '../parents/parents.service';
 
@@ -22,11 +23,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 
 
 
-
-
-
 @NgModule({
-  declarations: [IndexComponent, DetailsComponent, CreateComponent],
+  declarations: [IndexComponent, DetailsComponent, CreateComponent, ExistingParentComponent],
   providers: [ParentsService],
   imports: [
     CommonModule,
