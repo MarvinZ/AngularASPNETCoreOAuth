@@ -23,7 +23,7 @@ export class DetailsComponent implements OnInit {
   students = null;
   openAddTeacherToGroup = false;
 
-  availableTeachers: AvailableTeacher[];
+  availableTeachers: AvailableTeacher[] = [];
 
 
   selectedTeacher: AvailableTeacher;
@@ -40,10 +40,7 @@ export class DetailsComponent implements OnInit {
     private service: GroupsService, private spinner: NgxSpinnerService,
     private http: HttpClient, private toastr: ToastrService, private router: Router) {
 
-    this.availableTeachers = [
-      { name: 'MArio Corrales', code: '3' },
-      { name: 'Tatiana malavassi', code: '5' }
-    ];
+    this.availableTeachers = [];
 
   }
 
@@ -70,7 +67,8 @@ export class DetailsComponent implements OnInit {
           this.group = result;
         });
 
-    this.getStudentsForGroup(+this.selectedGroup);
+        this.getStudentsForGroup(+this.selectedGroup);
+        this.getAllAvailableTeachers(+this.selectedGroup);
   }
 
   public uploadFile = (files) => {
@@ -107,8 +105,27 @@ export class DetailsComponent implements OnInit {
         });
   }
 
+
+
+  getAllAvailableTeachers(selectedGroup: number) {
+    this.busy = true;
+    this.spinner.show();
+    this.service.getAllAvailableTeachers(this.authService.authorizationHeaderValue, +selectedGroup)
+      .pipe(finalize(() => {
+        this.spinner.hide();
+        this.busy = false;
+      })).subscribe(
+        result => {
+
+
+          this.availableTeachers = result as AvailableTeacher[];
+          console.log(this.availableTeachers );
+        });
+  }
+
+
   AddTeacherToGroup() {
-    this.service.AddTeacherToGroup(this.authService.authorizationHeaderValue, +this.selectedGroup, +this.selectedTeacher.code)
+    this.service.AddTeacherToGroup(this.authService.authorizationHeaderValue, +this.selectedGroup, +this.selectedTeacher.id)
       .pipe(finalize(() => {
 
         // this.spinner.hide();
@@ -128,8 +145,8 @@ export class DetailsComponent implements OnInit {
 
   }
 
-  RemoveFromGroup(id: string) {
-    this.service.RemoveFromGroup(this.authService.authorizationHeaderValue, +this.selectedGroup, +id)
+  RemoveStudentFromGroup(id: string) {
+    this.service.RemoveStudentFromGroup(this.authService.authorizationHeaderValue, +this.selectedGroup, +id)
       .pipe(finalize(() => {
 
         // this.spinner.hide();
@@ -148,10 +165,31 @@ export class DetailsComponent implements OnInit {
         });
   }
 
+  RemoveTeacherFromGroup(id: string) {
+    this.service.RemoveTeacherFromGroup(this.authService.authorizationHeaderValue, +this.selectedGroup, +id)
+      .pipe(finalize(() => {
+        console.log(id);
+        // this.spinner.hide();
+        // this.busy = false;
+      })).subscribe(
+        result => {
+          this.executionResult = result;
+          console.log(this.executionResult);
+          if (this.executionResult) {
+            this.toastr.success('El teacher ha sido removido del grupo', '!Éxito!');
+            this.getInitialData();
+          } else {
+            this.toastr.error('errorrrrr', 'ERROR');
+            this.getInitialData();
+          }
+        });
+  }
+
+
 
 }
 
 interface AvailableTeacher {
   name: string;
-  code: string;
+  id: string;
 }

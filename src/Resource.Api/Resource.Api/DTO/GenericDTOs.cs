@@ -52,7 +52,7 @@ namespace Resource.Api
 
     public class GroupRequestDTO
     {
-        public int groupId { get; set; }
+        public int GroupId { get; set; }
         public int StudentId { get; set; }
         public int TeacherId { get; set; }
         public DateTime requestDate { get; set; }

@@ -60,28 +60,28 @@ namespace Resource.Api.Controllers
         [Route("EnrollStudent")]
         public bool EnrollStudent(GroupRequestDTO request)
         {
-            return _GroupsRepo.EnrollStudent(request.groupId, request.StudentId);
+            return _GroupsRepo.EnrollStudent(request.GroupId, request.StudentId);
         }
 
         [HttpPost]
         [Route("AssignTeacher")]
         public bool AssignTeacher(GroupRequestDTO request)
         {
-            return _GroupsRepo.AssignTeacher(request.groupId, request.TeacherId);
+            return _GroupsRepo.AssignTeacher(request.GroupId, request.TeacherId);
         }
 
         [HttpPost]
         [Route("UnEnrollStudent")]
         public bool UnEnrollStudent(GroupRequestDTO request)
         {
-            return _GroupsRepo.UnEnrollStudent(request.groupId, request.StudentId);
+            return _GroupsRepo.UnEnrollStudent(request.GroupId, request.StudentId);
         }
 
         [HttpPost]
         [Route("UnAssignTeacher")]
         public bool UnAssignTeacher(GroupRequestDTO request)
         {
-            return _GroupsRepo.UnAssignTeacher(request.groupId, request.TeacherId);
+            return _GroupsRepo.UnAssignTeacher(request.GroupId, request.TeacherId);
         }
 
         [HttpPost]
@@ -95,7 +95,7 @@ namespace Resource.Api.Controllers
         [Route("GetGroupDetails")]
         public GroupDTO GetGroupDetails(GroupRequestDTO request)
         {
-            return _GroupsRepo.GetGroupDetails(request.groupId);
+            return _GroupsRepo.GetGroupDetails(request.GroupId);
         }
 
         [HttpPost]

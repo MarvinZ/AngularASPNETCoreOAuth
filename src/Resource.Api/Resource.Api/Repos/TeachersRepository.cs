@@ -24,6 +24,18 @@ namespace Resource.Api
             return _context.Teachers.ToList();
         }
 
+        public List<TeacherDTO> GetAllAvailableTeachers(int groupId)
+        {
+            var tempRes =  _context.Teachers.Select(e => new TeacherDTO
+            {
+                Id = e.Id,
+                Name = e.Name + " " + e.LastName1 + " " + e.LastName2
+            }).ToList();
+
+            return tempRes;
+        }
+
+
         public TeacherDTO GetTeacherDetails(int teacherId)
         {
             try

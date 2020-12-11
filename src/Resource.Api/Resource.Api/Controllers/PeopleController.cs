@@ -104,6 +104,16 @@ namespace Resource.Api.Controllers
             return _TeachersRepo.GetAllTeachers();
         }
 
+
+        [HttpPost]
+        [Route("GetAllAvailableTeachers")]
+        public List<TeacherDTO> GetAllAvailableTeachers( GroupRequestDTO request)
+        {
+            return _TeachersRepo.GetAllAvailableTeachers( request.GroupId);
+        }
+
+
+
         /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
 
         [HttpPost]

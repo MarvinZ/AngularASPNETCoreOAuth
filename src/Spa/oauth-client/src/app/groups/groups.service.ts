@@ -48,6 +48,23 @@ export class GroupsService extends BaseService {
   }
 
 
+  getAllAvailableTeachers(token: string, GroupId: number) {
+
+    console.log(GroupId);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
+
+    const payload = {
+      GroupId
+    };
+
+    return this.http.post(this.configService.resourceApiURI + '/people/GetAllAvailableTeachers',
+      payload, httpOptions).pipe(catchError(this.handleError));
+  }
 
   getGroupDetails(token: string, GroupId: number) {
     const httpOptions = {
@@ -85,7 +102,7 @@ export class GroupsService extends BaseService {
       httpOptions).pipe(catchError(this.handleError));
   }
 
-  RemoveFromGroup(authorizationHeaderValue: string, GroupId: number, StudentId: number) {
+  RemoveStudentFromGroup(authorizationHeaderValue: string, GroupId: number, StudentId: number) {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -100,6 +117,26 @@ export class GroupsService extends BaseService {
     console.log(payload);
 
     return this.http.post(this.configService.resourceApiURI + '/people/RemoveStudentFromGroup', payload,
+      httpOptions).pipe(catchError(this.handleError));
+
+  }
+
+
+  RemoveTeacherFromGroup(authorizationHeaderValue: string, GroupId: number, TeacherId: number) {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: authorizationHeaderValue
+      })
+    };
+
+    const payload = {
+      GroupId, TeacherId
+    };
+    console.log(payload);
+
+    return this.http.post(this.configService.resourceApiURI + '/people/RemoveTeacherFromGroup', payload,
       httpOptions).pipe(catchError(this.handleError));
 
   }

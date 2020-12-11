@@ -172,34 +172,30 @@ namespace Resource.Api
                     Id = group.Id,
                     CycleName = group.Cycle.Name,
                     LevelName = group.Level.Name
-
-
-
-
-
                 }).FirstOrDefault();
 
-                //if (tempRes != null)
-                //{
-                //    var parents = _context.Parents.Join(_context.StudentParents.Where(e => e.StudentId == studentId),
-                //        parent => parent.Id,
-                //        studentParent => studentParent.ParentId,
-                //        (parent, studentParent) => new ParentDTO
-                //        {
-                //            Name = parent.Name,
-                //            Lastnames = parent.LastName1 + " " + parent.LastName2,
-                //        }).ToList();
+                if (tempRes != null)
+                {
+                    var teachers = _context.Teachers.Join(_context.GroupTeachers.Where(e => e.GroupId == groupId && e.DeactivateDatetime == null),
+                        teacher => teacher.Id,
+                        groupTeacher => groupTeacher.TeacherId,
+                        (teacher, groupTeacher) => new TeacherDTO
+                        {
+                            Id = teacher.Id,
+                            Name = teacher.Name,
+                            Lastnames = teacher.LastName1 + " " + teacher.LastName2,
+                        }).ToList();
 
-                //    if (parents != null)
-                //    {
-                //        tempRes.Parents = new List<ParentDTO>();
+                    if (teachers != null)
+                    {
+                        tempRes.Teachers = new List<TeacherDTO>();
 
-                //        foreach (var par in parents)
-                //        {
-                //            tempRes.Parents.Add(par);
-                //        }
-                //    }
-                //}
+                        foreach (var tea in teachers)
+                        {
+                            tempRes.Teachers.Add(tea);
+                        }
+                    }
+                }
                 return tempRes;
 
             }

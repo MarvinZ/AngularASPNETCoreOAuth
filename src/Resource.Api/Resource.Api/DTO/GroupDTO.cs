@@ -17,8 +17,10 @@ namespace Resource.Api
         public DateTime CreateDatetime { get; set; }
         public string CreateUser { get; set; }
         public string Status { get; set; }
+         
+        public List<TeacherDTO> Teachers { get; set; }
 
 
 
-    }
+}
 }

@@ -7,7 +7,7 @@
       The group {{selectedGroup}} details go here!!!
 
 
-      {{group | json}}
+      {{ availableTeachers  | json}}
 
 
 <hr>
@@ -39,7 +39,7 @@
             <td></td>
             <td>{{student.birthday}}</td>
             <td>
-              <button (click)="RemoveFromGroup(student.id)">
+              <button (click)="RemoveStudentFromGroup(student.id)">
                 Removerrr
               </button>
             </td>
@@ -76,9 +76,35 @@
         <h3>Teachers</h3>
 
 
-        <p>
-          aqui van las teachers del grupo
-        </p>
+        <table class="table small">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Name </th>
+
+              <th> Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let teacher of group?.teachers; let i = index" [attr.data-index]="i">
+              <td>{{teacher.id}}</td>
+              <td>
+                <a class="" routerLink="/teachers/{{teacher.id}}">
+                  {{teacher.name }}</a>
+              </td>
+
+               <td>
+                <button (click)="RemoveTeacherFromGroup(teacher.id)">
+                  Removerrr Teacher
+                </button>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+
+
+
 
         <div *ngIf="openAddTeacherToGroup; else elseBlock">Teachers disponibles
 
