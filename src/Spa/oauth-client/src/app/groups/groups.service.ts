@@ -50,7 +50,6 @@ export class GroupsService extends BaseService {
 
   getAllAvailableTeachers(token: string, GroupId: number) {
 
-    console.log(GroupId);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -114,7 +113,6 @@ export class GroupsService extends BaseService {
     const payload = {
       GroupId, StudentId
     };
-    console.log(payload);
 
     return this.http.post(this.configService.resourceApiURI + '/people/RemoveStudentFromGroup', payload,
       httpOptions).pipe(catchError(this.handleError));
@@ -134,7 +132,6 @@ export class GroupsService extends BaseService {
     const payload = {
       GroupId, TeacherId
     };
-    console.log(payload);
 
     return this.http.post(this.configService.resourceApiURI + '/people/RemoveTeacherFromGroup', payload,
       httpOptions).pipe(catchError(this.handleError));
@@ -152,7 +149,6 @@ export class GroupsService extends BaseService {
     const payload = {
       GroupId, TeacherId
     };
-    console.log(payload);
 
     return this.http.post(this.configService.resourceApiURI + '/people/AddTeacherToGroup', payload,
       httpOptions).pipe(catchError(this.handleError));

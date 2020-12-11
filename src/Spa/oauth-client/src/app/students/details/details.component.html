@@ -1,202 +1,187 @@
 <div class="container">
   <div class="row">
     <div *ngIf="!busy" class="col-md-8">
-      <h3>Student Details</h3>
+      <h3>Student Details - {{selectedStudent}} - </h3>
 
-
-      The student {{selectedStudent}} details go here!!!
-
-
-      {{student | json}}
-
+      <hr>
 
       <a class=" " routerLink="/students">Back to all students</a>
 
-
-      <!-- <hr>
       <hr>
-      <hr>
-      <div class="row" style="margin-bottom:15px;">
-        <div class="col-md-3">
-          <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
-          <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
-        </div>
-        <div class="col-md-4">
-          <span class="upload" *ngIf="progress > 0">
-            {{progress}}%
-          </span>
-          <span class="upload" *ngIf="message">
-            {{message}}
-          </span>
-        </div>
-      </div>
-      <hr>
-      <hr>
-      <hr> -->
+
+      <div class="row">
+        <div [hidden]="submitted">
+
+          <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+
+            <img width="250" height="300"
+              src="https://mk0salkeizk12or7kyfk.kinstacdn.com/wp-content/uploads/2019/07/jumpstart_kinder_2019.jpg"
+              alt="">
+
+
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" required [(ngModel)]="student.name" name="name"
+                #name="ngModel">
+              <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                Name is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="lastname1">Last name</label>
+              <input type="text" class="form-control" id="lastname1" [(ngModel)]="student.lastnames" name="lastname1"
+                #lastname1="ngModel">
+              <div [hidden]="lastname1.valid || lastname1.pristine" class="alert alert-danger">
+                Lastname is required
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label for="lastname2">Last name</label>
+              <input type="text" class="form-control" id="lastname2" [(ngModel)]="student.lastnames" name="lastname2"
+                #lastname2="ngModel">
+              <div [hidden]="lastname2.valid || lastname2.pristine" class="alert alert-danger">
+                Lastname is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="birthday">Birthday</label>
+              <input type="text" class="form-control" id="birthday" [(ngModel)]="student.birthday" name="birthday"
+                #birthday="ngModel">
+              <div [hidden]="birthday.valid || birthday.pristine" class="alert alert-danger">
+                Birthday is required
+              </div>
+            </div>
 
 
 
-
-      <!-- name -->
-      <!-- <label class="" attr.for="{{student.name}}">Name:</label>
-
-
-      <input id="name" name="name" class="form-control" required minlength="4" appForbiddenName="bob"
-        [(ngModel)]="student.name" #name="ngModel">
-
-      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
-
-        <div *ngIf="name.errors.required">
-          Name is required.
-        </div>
-        <div *ngIf="name.errors.minlength">
-          Name must be at least 4 characters long.
-        </div>
-        <div *ngIf="name.errors.forbiddenName">
-          Name cannot be Bob.
-        </div>
-
-      </div> -->
-
-
-
-
-    </div>
-  </div>
-  <div class="row">
-    <div [hidden]="submitted">
-
-      <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
-
-        <img width="250" height="300"
-          src="https://mk0salkeizk12or7kyfk.kinstacdn.com/wp-content/uploads/2019/07/jumpstart_kinder_2019.jpg" alt="">
-
-
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" id="name" required [(ngModel)]="student.name" name="name"
-            #name="ngModel">
-          <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-            Name is required
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="lastname1">Last name</label>
-          <input type="text" class="form-control" id="lastname1" [(ngModel)]="student.lastnames" name="lastname1"
-            #lastname1="ngModel">
-          <div [hidden]="lastname1.valid || lastname1.pristine" class="alert alert-danger">
-            Lastname is required
-          </div>
+            <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button>
+            <button type="button" class="btn btn-default" (click)="newHero(); heroForm.reset()">New Hero</button>
+          </form>
         </div>
 
 
-        <div class="form-group">
-          <label for="lastname2">Last name</label>
-          <input type="text" class="form-control" id="lastname2" [(ngModel)]="student.lastnames" name="lastname2"
-            #lastname2="ngModel">
-          <div [hidden]="lastname2.valid || lastname2.pristine" class="alert alert-danger">
-            Lastname is required
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="birthday">Birthday</label>
-          <input type="text" class="form-control" id="birthday" [(ngModel)]="student.birthday" name="birthday"
-            #birthday="ngModel">
-          <div [hidden]="birthday.valid || birthday.pristine" class="alert alert-danger">
-            Birthday is required
-          </div>
-        </div>
-
-
-        <!--
-        <div class="form-group">
-          <label for="power">Hero Power</label>
-          <select class="form-control" id="power" required [(ngModel)]="student.power" name="power" #power="ngModel">
-            <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>
-          </select>
-          <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
-            Power is required
-          </div>
-        </div> -->
-
-        <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button>
-        <button type="button" class="btn btn-default" (click)="newHero(); heroForm.reset()">New Hero</button>
-      </form>
-    </div>
-
-
-  </div>
-
-
-  <hr>
-  <hr>
-  <hr>
-  <div class="row">
-
-
-    <h3>Grupos</h3>
-    <div *ngFor="let group of student.groups">
-
-      {{group.groupShortname}} - {{group.cycleName}} - {{group.levelName}} - {{group.status}} <button
-        (click)="RemoveFromGroup(group.id)"> remove from group</button>
-      <hr>
-      <a class="" routerLink="/groups/{{group.id}}">Group Details</a>
-
-    </div>
-
-    <div *ngIf="openAddToGroup; else elseBlock">Grupos disponibles
-
-      <div class="p-field p-col-12 p-md-4">
-        <span class="p-float-label">
-          <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableGroups"
-            [(ngModel)]="selectedGroup" optionLabel="groupShortname"></p-dropdown>
-          <label for="dropdown">Grupos disponibles</label>
-        </span>
       </div>
 
-      <button (click)="Enroll()">
-        Matricular
-      </button>
+      <hr>
 
-      <button (click)="openAddToGroup = false;">
-        Cancelar
-      </button>
+      <div class="row">
 
-      <div>
+
+        <h3>Grupos</h3>
+
+        <table class="table small">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Ciclo </th>
+              <th scope="col">Nivel </th>
+
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let group of student?.groups; let i = index" [attr.data-index]="i">
+              <td>
+                <a class="" routerLink="/groups/{{group.id}}">
+                  {{group.groupShortname}}
+                </a>
+              </td>
+
+              <td>
+                {{group.cycleName}}
+              </td>
+
+              <td>
+                {{group.levelName}} - {{group.status}}
+              </td>
+              <td>
+                <button (click)="RemoveFromGroup(group.id)"> remove from group</button>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+
+        <hr>
+
+
+        <div *ngIf="openAddToGroup; else elseBlock">Grupos disponibles
+
+          <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+              <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableGroups"
+                [(ngModel)]="selectedGroup" optionLabel="groupShortname"></p-dropdown>
+              <label for="dropdown">Grupos disponibles</label>
+            </span>
+          </div>
+
+          <button (click)="Enroll()">
+            Matricular
+          </button>
+
+          <button (click)="openAddToGroup = false;">
+            Cancelar
+          </button>
+
+          <div>
+
+          </div>
+        </div>
+        <ng-template #elseBlock>
+
+          <button (click)="openAddToGroup = true; GetAvailableGroups()">
+            Agregar a grupo
+          </button>
+        </ng-template>
+
+        <hr>
+      </div>
+      <hr>
+
+      <div class="row">
+
+        <h3>Encargados</h3>
+
+        <table class="table small">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Name </th>
+              <th scope="col">Name </th>
+              <th scope="col">Name </th>
+
+              <th> Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let par of student?.parents; let i = index" [attr.data-index]="i">
+              <td>
+                <a class=" " routerLink="/parents/{{par.id}}"> {{par.name}} </a>
+              </td>
+
+              <td>
+                {{par.email}}
+              </td>
+
+              <td>
+                <button (click)="RemoveParent(par.id)"> Quitar encargado</button>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+
+        <hr>
+        <a class=" " routerLink="/addParent/{{student.id}}">Agregue padres o encargados </a>
+
 
       </div>
-    </div>
-    <ng-template #elseBlock>
-
-      <button (click)="openAddToGroup = true; GetAvailableGroups()">
-        Agregar a grupo
-      </button>
-    </ng-template>
-
-  </div>
-  <hr>
-  <hr>
-  <hr>
-  <div class="row">
-
-    <h3>Encargados</h3>
-    <div *ngFor="let par of student.parents">
-
-      <a class=" " routerLink="/parents/{{par.id}}"> {{par.name}} </a>
-
-
-
-      {{par.email}} <button> Email </button> <button (click)="RemoveParent(par.id)"> Quitar encargado</button>
-
-
 
     </div>
-
-    <a class=" " routerLink="/addParent/{{student.id}}">Agregue padres o encargados </a>
-
-
   </div>
 
 

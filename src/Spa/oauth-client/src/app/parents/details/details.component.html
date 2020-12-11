@@ -131,14 +131,26 @@
 
   <div class="row">
 
-
     <h3>Hijos en la institucion</h3>
-    <div *ngFor="let kid of parent.kids">
 
-      <a class="" routerLink="/students/{{kid.id}}">{{kid.name}}</a>
+    <table class="table small">
+      <thead>
+        <tr>
+          <th scope="col">Name </th>
 
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let kid of parent.kids; let i = index" [attr.data-index]="i">
+          <td>
 
-    </div>
+            <a class="" routerLink="/students/{{kid.id}}">{{kid.name}}</a>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+
   </div>
   <hr>
 

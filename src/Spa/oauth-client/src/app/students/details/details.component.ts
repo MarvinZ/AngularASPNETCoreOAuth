@@ -77,7 +77,6 @@ export class DetailsComponent implements OnInit {
       })).subscribe(
         result => {
           this.availableGroups = result as AvailableGroup[];
-          console.log( this.availableGroups);
           this.spinner.hide();
           this.busy = false;
         });
@@ -116,7 +115,6 @@ export class DetailsComponent implements OnInit {
       })).subscribe(
         result => {
           this.executionResult = result;
-          console.log(this.executionResult);
           if (this.executionResult) {
             this.toastr.success('El estudiante ha sido agregado al grupo', '!Éxito!');
             this.getInitialData();
@@ -128,7 +126,7 @@ export class DetailsComponent implements OnInit {
   }
 
   RemoveParent(id: string) {
-    console.log(id);
+
     this.service.RemoveParent(this.authService.authorizationHeaderValue, +id, +this.selectedStudent)
       .pipe(finalize(() => {
 
@@ -137,7 +135,6 @@ export class DetailsComponent implements OnInit {
       })).subscribe(
         result => {
           this.executionResult = result;
-          console.log(this.executionResult);
           if (this.executionResult) {
             this.toastr.success('El encargado ha sido removido del estudiante', '!Éxito!');
             this.getInitialData();
@@ -159,7 +156,6 @@ export class DetailsComponent implements OnInit {
       })).subscribe(
         result => {
           this.executionResult = result;
-          console.log(this.executionResult);
           if (this.executionResult) {
             this.toastr.success('El estudiante ha sido removido del grupo', '!Éxito!');
             this.getInitialData();

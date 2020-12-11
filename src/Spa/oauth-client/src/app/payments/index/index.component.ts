@@ -18,7 +18,6 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('aqui van los...');
     this.busy = true;
     this.spinner.show();
     this.service.fetchTopSecretData(this.authService.authorizationHeaderValue)

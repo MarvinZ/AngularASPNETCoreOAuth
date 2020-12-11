@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
       })).subscribe(
         result => {
           this.service.theCatalog = result;
-          console.log(this.service.theCatalog);
         });
 
   }

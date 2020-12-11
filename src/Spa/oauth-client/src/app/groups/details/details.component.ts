@@ -119,7 +119,6 @@ export class DetailsComponent implements OnInit {
 
 
           this.availableTeachers = result as AvailableTeacher[];
-          console.log(this.availableTeachers );
         });
   }
 
@@ -133,7 +132,6 @@ export class DetailsComponent implements OnInit {
       })).subscribe(
         result => {
           this.executionResult = result;
-          console.log(this.executionResult);
           if (this.executionResult) {
             this.toastr.success('La teacher ha sido agregada al grupo', '!Éxito!');
             this.getInitialData();
@@ -154,7 +152,6 @@ export class DetailsComponent implements OnInit {
       })).subscribe(
         result => {
           this.executionResult = result;
-          console.log(this.executionResult);
           if (this.executionResult) {
             this.toastr.success('El estudiante ha sido removido del grupo', '!Éxito!');
             this.getInitialData();
@@ -168,13 +165,11 @@ export class DetailsComponent implements OnInit {
   RemoveTeacherFromGroup(id: string) {
     this.service.RemoveTeacherFromGroup(this.authService.authorizationHeaderValue, +this.selectedGroup, +id)
       .pipe(finalize(() => {
-        console.log(id);
         // this.spinner.hide();
         // this.busy = false;
       })).subscribe(
         result => {
           this.executionResult = result;
-          console.log(this.executionResult);
           if (this.executionResult) {
             this.toastr.success('El teacher ha sido removido del grupo', '!Éxito!');
             this.getInitialData();

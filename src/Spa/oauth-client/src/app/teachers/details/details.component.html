@@ -86,13 +86,49 @@
   <div class="row">
 
     <h3>Grupos</h3>
-    <div *ngFor="let group of teacher.groups">
-
-      <a class="" routerLink="/groups/{{group.id}}"> {{group.groupShortname}} - {{group.cycleName}} -
-        {{group.levelName}}</a>
 
 
-    </div>
+
+
+
+
+    <table class="table small">
+      <thead>
+        <tr>
+          <th scope="col">Name </th>
+          <th scope="col">Name </th>
+
+          <th> Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let group of  teacher.groups; let i = index" [attr.data-index]="i">
+          <td>
+
+            <a class="" routerLink="/groups/{{group.id}}"> {{group.groupShortname}} </a> </td>
+
+          <td>
+            - {{group.cycleName}} -
+            {{group.levelName}}
+          </td>
+
+          <td>
+            <button (click)="RemoveParent(par.id)"> Quitar encargado</button>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
   </div>
 
 
