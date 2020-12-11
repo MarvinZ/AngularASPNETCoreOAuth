@@ -38,10 +38,7 @@ export class DetailsComponent implements OnInit {
     private service: StudentsService, private spinner: NgxSpinnerService,
     private http: HttpClient, private toastr: ToastrService) {
 
-    this.availableGroups = [
-      { name: 'grupo 1', code: '1' },
-      { name: 'grupo 3', code: '3' }
-    ];
+    this.availableGroups = [];
 
 
   }
@@ -66,6 +63,21 @@ export class DetailsComponent implements OnInit {
       })).subscribe(
         result => {
           this.student = result;
+          this.spinner.hide();
+          this.busy = false;
+        });
+  }
+
+  GetAvailableGroups() {
+    this.service.GetAvailableGroups(this.authService.authorizationHeaderValue, +this.selectedStudent)
+      .pipe(finalize(() => {
+
+        this.spinner.hide();
+        this.busy = false;
+      })).subscribe(
+        result => {
+          this.availableGroups = result as AvailableGroup[];
+          console.log( this.availableGroups);
           this.spinner.hide();
           this.busy = false;
         });
@@ -96,7 +108,7 @@ export class DetailsComponent implements OnInit {
 
 
   Enroll() {
-    this.service.Enroll(this.authService.authorizationHeaderValue, +this.selectedGroup.code, +this.selectedStudent)
+    this.service.Enroll(this.authService.authorizationHeaderValue, +this.selectedGroup.id, +this.selectedStudent)
       .pipe(finalize(() => {
 
         // this.spinner.hide();
@@ -116,7 +128,8 @@ export class DetailsComponent implements OnInit {
   }
 
   RemoveParent(id: string) {
-    this.service.RemoveParent(this.authService.authorizationHeaderValue, id, this.selectedStudent)
+    console.log(id);
+    this.service.RemoveParent(this.authService.authorizationHeaderValue, +id, +this.selectedStudent)
       .pipe(finalize(() => {
 
         // this.spinner.hide();
@@ -161,6 +174,6 @@ export class DetailsComponent implements OnInit {
 }
 
 interface AvailableGroup {
-  name: string;
-  code: string;
+  GroupShortname: string;
+  id: string;
 }

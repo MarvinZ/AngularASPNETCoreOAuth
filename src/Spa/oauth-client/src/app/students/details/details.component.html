@@ -130,14 +130,17 @@
   </div>
 
 
-  <hr><hr><hr>
+  <hr>
+  <hr>
+  <hr>
   <div class="row">
 
 
     <h3>Grupos</h3>
     <div *ngFor="let group of student.groups">
 
-      {{group.groupShortname}} - {{group.cycleName}} - {{group.levelName}} - {{group.status}} <button (click)="RemoveFromGroup(group.id)"> remove from group</button>
+      {{group.groupShortname}} - {{group.cycleName}} - {{group.levelName}} - {{group.status}} <button
+        (click)="RemoveFromGroup(group.id)"> remove from group</button>
       <hr>
       <a class="" routerLink="/groups/{{group.id}}">Group Details</a>
 
@@ -147,9 +150,9 @@
 
       <div class="p-field p-col-12 p-md-4">
         <span class="p-float-label">
-          <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableGroups" [(ngModel)]="selectedGroup"
-            optionLabel="name"></p-dropdown>
-          <label for="dropdown">Dropdown</label>
+          <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableGroups"
+            [(ngModel)]="selectedGroup" optionLabel="groupShortname"></p-dropdown>
+          <label for="dropdown">Grupos disponibles</label>
         </span>
       </div>
 
@@ -165,20 +168,27 @@
 
       </div>
     </div>
-<ng-template #elseBlock>
+    <ng-template #elseBlock>
 
-  <button (click)="openAddToGroup = true;">
-    Agregar a grupo
-  </button>
-</ng-template>
+      <button (click)="openAddToGroup = true; GetAvailableGroups()">
+        Agregar a grupo
+      </button>
+    </ng-template>
 
   </div>
-  <hr><hr><hr>
+  <hr>
+  <hr>
+  <hr>
   <div class="row">
 
     <h3>Encargados</h3>
     <div *ngFor="let par of student.parents">
-      {{par.name}} - {{par.lastnames}} - {{par.email}} - {{par.phone}} <button> Email </button> <button (click)="RemoveParent(par.id)"> Quitar encargado</button>
+
+      <a class=" " routerLink="/parents/{{par.id}}"> {{par.name}} </a>
+
+
+
+      {{par.email}} <button> Email </button> <button (click)="RemoveParent(par.id)"> Quitar encargado</button>
 
 
 

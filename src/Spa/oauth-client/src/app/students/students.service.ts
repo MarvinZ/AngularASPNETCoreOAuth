@@ -80,7 +80,7 @@ export class StudentsService extends BaseService {
 
   }
 
-  RemoveParent(authorizationHeaderValue: string, ParentId: string, StudentId: string) {
+  RemoveParent(authorizationHeaderValue: string, ParentId: number, StudentId: number) {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -114,6 +114,23 @@ export class StudentsService extends BaseService {
       httpOptions).pipe(catchError(this.handleError));
   }
 
+
+  GetAvailableGroups(token: string, StudentId: number) {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
+
+    const payload = {
+      StudentId
+    };
+
+    return this.http.post(this.configService.resourceApiURI + '/things/GetAvailableGroups',
+      payload, httpOptions).pipe(catchError(this.handleError));
+  }
 
 
 

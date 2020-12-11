@@ -26,7 +26,7 @@ namespace Resource.Api
 
         public List<TeacherDTO> GetAllAvailableTeachers(int groupId)
         {
-            var tempRes =  _context.Teachers.Select(e => new TeacherDTO
+            var tempRes = _context.Teachers.Select(e => new TeacherDTO
             {
                 Id = e.Id,
                 Name = e.Name + " " + e.LastName1 + " " + e.LastName2
@@ -52,46 +52,28 @@ namespace Resource.Api
 
                 if (tempRes != null)
                 {
-                    var parents = _context.Parents.Join(_context.StudentParents.Where(e => e.StudentId == teacherId),
-                        parent => parent.Id,
-                        studentParent => studentParent.ParentId,
-                        (parent, studentParent) => new ParentDTO
-                        {
-                            Name = parent.Name,
-                            Lastnames = parent.LastName1 + " " + parent.LastName2,
-                        }).ToList();
-
-                    if (parents != null)
-                    {
-                        tempRes.Parents = new List<ParentDTO>();
-
-                        foreach (var par in parents)
-                        {
-                            tempRes.Parents.Add(par);
-                        }
-                    }
-
-                    var groups = _context.Groups.Join(_context.GroupStudents.Where(e => e.StudentId == teacherId),
+                    var groups = _context.Groups.Join(_context.GroupTeachers.Where(e => e.TeacherId == teacherId && e.DeactivateDatetime == null),
                         group => group.Id,
-                        groupStudent => groupStudent.GroupId,
-                        (group, groupStudent) => new GroupDTO
+                        groupTeacher => groupTeacher.GroupId,
+                        (group, groupTeacher) => new GroupDTO
                         {
                             Id = group.Id,
                             GroupShortname = group.GroupShortname,
                             LevelName = group.Level.Name,
                             CycleName = group.Cycle.Name,
                             Status = "ACTIVEXXX"
+
                         }).ToList();
 
                     if (groups != null)
                     {
                         tempRes.Groups = new List<GroupDTO>();
 
-                        foreach (var g in groups)
+                        foreach (var par in groups)
                         {
-                            tempRes.Groups.Add(g);
+                            tempRes.Groups.Add(par);
                         }
-                    }
+                    }                    
 
                 }
                 return tempRes;

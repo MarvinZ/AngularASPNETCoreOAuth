@@ -101,6 +101,8 @@ namespace Resource.Api
                         studentParent => studentParent.ParentId,
                         (parent, studentParent) => new ParentDTO
                         {
+                            Id = parent.Id,
+                            Email = parent.Email,
                             Name = parent.Name,
                             Lastnames = parent.LastName1 + " " + parent.LastName2,
                         }).ToList();

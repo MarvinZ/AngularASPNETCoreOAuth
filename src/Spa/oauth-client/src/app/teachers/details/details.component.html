@@ -13,52 +13,6 @@
       <a class=" " routerLink="/teachers">Back to all teachers</a>
 
 
-      <!-- <hr>
-      <hr>
-      <hr>
-      <div class="row" style="margin-bottom:15px;">
-        <div class="col-md-3">
-          <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
-          <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
-        </div>
-        <div class="col-md-4">
-          <span class="upload" *ngIf="progress > 0">
-            {{progress}}%
-          </span>
-          <span class="upload" *ngIf="message">
-            {{message}}
-          </span>
-        </div>
-      </div>
-      <hr>
-      <hr>
-      <hr> -->
-
-
-
-
-      <!-- name -->
-      <!-- <label class="" attr.for="{{student.name}}">Name:</label>
-
-
-      <input id="name" name="name" class="form-control" required minlength="4" appForbiddenName="bob"
-        [(ngModel)]="student.name" #name="ngModel">
-
-      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
-
-        <div *ngIf="name.errors.required">
-          Name is required.
-        </div>
-        <div *ngIf="name.errors.minlength">
-          Name must be at least 4 characters long.
-        </div>
-        <div *ngIf="name.errors.forbiddenName">
-          Name cannot be Bob.
-        </div>
-
-      </div> -->
-
-
 
 
     </div>
@@ -131,27 +85,15 @@
 
   <div class="row">
 
-
     <h3>Grupos</h3>
-    <div *ngFor="let group of student.groups">
+    <div *ngFor="let group of teacher.groups">
 
-      {{group.groupShortname}} - {{group.cycleName}} - {{group.levelName}} - {{group.status}}
-      <hr>
-      <a class="" routerLink="/groups/{{group.id}}">Group Details</a>
+      <a class="" routerLink="/groups/{{group.id}}"> {{group.groupShortname}} - {{group.cycleName}} -
+        {{group.levelName}}</a>
+
 
     </div>
   </div>
-  <hr>
-  <div class="row">
-
-    <h3>Encargados</h3>
-    <div *ngFor="let par of student.parents">
-      {{par.name}} - {{par.lastnames}} - {{par.email}} - {{par.phone}} <button> Email </button>
-
-    </div>
-
-  </div>
-
 
 
   <ngx-spinner></ngx-spinner>

@@ -114,52 +114,30 @@ namespace Resource.Api
 
                 if (tempRes != null)
                 {
-                    var parents = _context.Parents.Join(_context.StudentParents.Where(e => e.StudentId == parentId),
-                        parent => parent.Id,
-                        studentParent => studentParent.ParentId,
-                        (parent, studentParent) => new ParentDTO
+                    var kids = _context.Students.Join(_context.StudentParents.Where(e => e.ParentId == parentId),
+                        student => student.Id,
+                        studentParent => studentParent.StudentId,
+                        (student, studentParent) => new StudentDTO
                         {
-                            Name = parent.Name,
-                            Lastnames = parent.LastName1 + " " + parent.LastName2,
+                            Id = student.Id,
+                            Name = student.Name +" "+ student.LastName1 + " " + student.LastName2,
                         }).ToList();
 
-                    //if (parents != null)
-                    //{
-                    //    tempRes.Parents = new List<ParentDTO>();
+                    if (kids != null)
+                    {
+                        tempRes.Kids = new List<StudentDTO>();
 
-                    //    foreach (var par in parents)
-                    //    {
-                    //        tempRes.Parents.Add(par);
-                    //    }
-                    //}
-
-                    var groups = _context.Groups.Join(_context.GroupStudents.Where(e => e.StudentId == parentId),
-                        group => group.Id,
-                        groupStudent => groupStudent.GroupId,
-                        (group, groupStudent) => new GroupDTO
+                        foreach (var par in kids)
                         {
-                            Id = group.Id,
-                            GroupShortname = group.GroupShortname,
-                            LevelName = group.Level.Name,
-                            CycleName = group.Cycle.Name,
-                            Status = "ACTIVEXXX"
-                        }).ToList();
-
-                    //if (groups != null)
-                    //{
-                    //    tempRes.Groups = new List<GroupDTO>();
-
-                    //    foreach (var g in groups)
-                    //    {
-                    //        tempRes.Groups.Add(g);
-                    //    }
-                    //}
+                            tempRes.Kids.Add(par);
+                        }
+                    }                   
 
                 }
                 return tempRes;
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
                 return null;

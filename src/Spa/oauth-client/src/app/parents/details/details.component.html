@@ -132,25 +132,15 @@
   <div class="row">
 
 
-    <h3>Grupos</h3>
-    <div *ngFor="let group of parent.groups">
+    <h3>Hijos en la institucion</h3>
+    <div *ngFor="let kid of parent.kids">
 
-      {{group.groupShortname}} - {{group.cycleName}} - {{group.levelName}} - {{group.status}}
-      <hr>
-      <a class="" routerLink="/groups/{{group.id}}">Group Details</a>
+      <a class="" routerLink="/students/{{kid.id}}">{{kid.name}}</a>
+
 
     </div>
   </div>
   <hr>
-  <div class="row">
-
-    <h3>Encargados</h3>
-    <div *ngFor="let par of parent.parents">
-      {{par.name}} - {{par.lastnames}} - {{par.email}} - {{par.phone}} <button> Email </button>
-
-    </div>
-
-  </div>
 
 
 
