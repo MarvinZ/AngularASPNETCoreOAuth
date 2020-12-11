@@ -10,7 +10,18 @@
 
       <form (ngSubmit)="addParent()" #newGroupForm="ngForm">
 
+        <div class="row">
 
+          <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+              <p-inputMask inputId="cedula" mask="9-9999-9999" [(ngModel)]="newParent.cedula" name="cedula"
+                (onBlur)="GetNameFromCedula()">
+              </p-inputMask>
+              <label for="cedula">Cédula</label>
+            </span>
+          </div>
+
+        </div>
 
         <div class="row">
           <div class="p-field p-col-12 p-md-4 form-group">
@@ -60,7 +71,8 @@
 
           <div class="p-field p-col-12 p-md-4">
             <span class="p-float-label">
-              <p-inputMask inputId="telephoneInput" mask="9999-9999" [(ngModel)]="newParent.phone" name="phone"></p-inputMask>
+              <p-inputMask inputId="telephoneInput" mask="9999-9999" [(ngModel)]="newParent.phone" name="phone">
+              </p-inputMask>
               <label for="telephoneInput">Teléfono</label>
             </span>
           </div>

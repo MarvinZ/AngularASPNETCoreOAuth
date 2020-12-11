@@ -285,6 +285,15 @@ namespace Resource.Api.Controllers
 
 
 
+        [HttpPost]
+        [Route("GetNameFromCedula")]
+        public NameDTO GetNameFromCedula(PersonRequestDTO request)
+        {
+            return _ParentsRepo.GetNameFromCedula(request.Cedula);
+        }
+
+
+
 
     }
 }

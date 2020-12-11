@@ -120,7 +120,7 @@ namespace Resource.Api
                         (student, studentParent) => new StudentDTO
                         {
                             Id = student.Id,
-                            Name = student.Name +" "+ student.LastName1 + " " + student.LastName2,
+                            Name = student.Name + " " + student.LastName1 + " " + student.LastName2,
                         }).ToList();
 
                     if (kids != null)
@@ -131,7 +131,7 @@ namespace Resource.Api
                         {
                             tempRes.Kids.Add(par);
                         }
-                    }                   
+                    }
 
                 }
                 return tempRes;
@@ -142,6 +142,20 @@ namespace Resource.Api
 
                 return null;
             }
+        }
+
+        internal NameDTO GetNameFromCedula(int cedula)
+        {
+            var res = _context.PadronCompletos.Where(e => e.Cedula == cedula).Select(e =>
+           new NameDTO()
+           {
+               Cedula = e.Cedula,
+               LastName1 = e.Apellido1,
+               LastName2 = e.Apellido2,
+               Name = e.Nombre
+           }).FirstOrDefault();
+
+            return res;
         }
     }
 }

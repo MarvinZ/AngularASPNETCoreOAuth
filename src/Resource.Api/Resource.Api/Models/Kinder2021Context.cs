@@ -23,6 +23,7 @@ namespace Resource.Api.Models
         public virtual DbSet<GroupStudent> GroupStudents { get; set; }
         public virtual DbSet<GroupTeacher> GroupTeachers { get; set; }
         public virtual DbSet<Level> Levels { get; set; }
+        public virtual DbSet<PadronCompleto> PadronCompletos { get; set; }
         public virtual DbSet<Parent> Parents { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Student> Students { get; set; }
@@ -214,6 +215,27 @@ namespace Resource.Api.Models
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(250);
+            });
+
+            modelBuilder.Entity<PadronCompleto>(entity =>
+            {
+                entity.HasKey(e => e.Cedula);
+
+                entity.ToTable("PADRON_COMPLETO");
+
+                entity.Property(e => e.Cedula).ValueGeneratedNever();
+
+                entity.Property(e => e.Apellido1)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Apellido2).HasMaxLength(50);
+
+                entity.Property(e => e.Column4).HasColumnName("column4");
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<Parent>(entity =>

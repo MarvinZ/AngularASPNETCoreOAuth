@@ -58,11 +58,24 @@ namespace Resource.Api
         public DateTime requestDate { get; set; }
     }
 
+
+    public class NameDTO
+    {
+        public string Name { get; set; }
+        public string LastName1 { get; set; }
+        public string LastName2 { get; set; }
+        public int Cedula { get; set; }
+    }
+
+    public class PersonRequestDTO
+    {
+        public int Cedula { get; set; }
+    }
+
+
     public class StudentRequestDTO
     {
-
         public int StudentId { get; set; }
-
         public DateTime requestDate { get; set; }
     }
 

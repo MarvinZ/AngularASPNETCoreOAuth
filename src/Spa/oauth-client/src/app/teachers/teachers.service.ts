@@ -61,6 +61,25 @@ export class TeachersService extends BaseService {
       httpOptions).pipe(catchError(this.handleError));
   }
 
+  GetNameFromCedula(token: string, Cedula: string) {
+    console.log(Cedula);
+
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
+
+    const payload = {
+      Cedula: +Cedula
+    };
+
+    return this.http.post(this.configService.resourceApiURI + '/people/GetNameFromCedula ', payload,
+      httpOptions).pipe(catchError(this.handleError));
+  }
+
 
 
 }

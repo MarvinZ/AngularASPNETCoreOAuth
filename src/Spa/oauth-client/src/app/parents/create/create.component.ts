@@ -32,16 +32,19 @@ export class CreateComponent implements OnInit {
 
   telephoneInput: number;
 
-
+  tempResult: any;
 
   selectedStudent: string;
 
-  newParent: { name: string; lastname1: string; lastname2: string; email: string; phone: string; birthday: string; genre: string; };
+  newParent: {
+    name: string; lastname1: string; lastname2: string; email: string; phone: string; birthday:
+    string; genre: string; cedula: string;
+  };
   addStudentResult: any;
 
 
   constructor(private authService: AuthService, private service: ParentsService, private spinner: NgxSpinnerService,
-              private toastr: ToastrService, private router: Router, private route: ActivatedRoute) {
+    private toastr: ToastrService, private router: Router, private route: ActivatedRoute) {
 
     this.selectedStudent = this.route.snapshot.paramMap.get('studentId');
 
@@ -62,7 +65,8 @@ export class CreateComponent implements OnInit {
       phone: '',
       email: '',
       birthday: '',
-      genre: ''
+      genre: '',
+      cedula: '000000000',
     };
 
   }
@@ -81,10 +85,23 @@ export class CreateComponent implements OnInit {
           this.addStudentResult = result;
           this.toastr.success('El encargado se ha creado correctamente', 'ESTUDIANTE');
           this.router.navigateByUrl('/parents');
-
         });
   }
 
+  GetNameFromCedula() {
+    this.service.GetNameFromCedula(this.authService.authorizationHeaderValue, this.newParent.cedula.replace('-', '').replace('-', ''))
+      .pipe(finalize(() => {
+
+      })).subscribe(
+        result => {
+          this.tempResult = result;
+          console.log(this.tempResult);
+          this.newParent.name = this.tempResult?.name;
+          this.newParent.lastname1 = this.tempResult?.lastName1;
+          this.newParent.lastname2 = this.tempResult?.lastName2;
+
+        });
+  }
 
 }
 
