@@ -16,7 +16,7 @@ import { ParentsService } from '../parents.service';
 
 
 
-export class  ExistingParentComponent implements OnInit {
+export class ExistingParentComponent implements OnInit {
 
   genres: Genre[];
 
@@ -37,6 +37,7 @@ export class  ExistingParentComponent implements OnInit {
   selectedStudent: string;
 
   newParent: {
+    id: number,
     name: string; lastname1: string; lastname2: string; email: string; phone: string; birthday:
     string; genre: string; cedula: string;
   };
@@ -59,6 +60,7 @@ export class  ExistingParentComponent implements OnInit {
 
   ngOnInit() {
     this.newParent = {
+      id: 0,
       name: '',
       lastname1: '',
       lastname2: '',
@@ -71,12 +73,10 @@ export class  ExistingParentComponent implements OnInit {
 
   }
 
-  addParent() {
+  addExistingParent() {
     this.busy = true;
     this.spinner.show();
-    this.service.addParent(this.authService.authorizationHeaderValue, this.newParent.name,
-      this.newParent.lastname1, this.newParent.lastname2, this.newParent.genre, this.newParent.birthday,
-      this.newParent.email, this.newParent.phone, +this.selectedStudent)
+    this.service.addExistingParent(this.authService.authorizationHeaderValue, this.newParent.id, +this.selectedStudent)
       .pipe(finalize(() => {
         this.spinner.hide();
         this.busy = false;
@@ -103,6 +103,7 @@ export class  ExistingParentComponent implements OnInit {
           this.newParent.name = this.tempResult?.name;
           this.newParent.lastname1 = this.tempResult?.lastName1;
           this.newParent.lastname2 = this.tempResult?.lastName2;
+          this.newParent.id = this.tempResult?.id;
 
         });
 

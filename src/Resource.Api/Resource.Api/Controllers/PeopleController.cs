@@ -107,9 +107,9 @@ namespace Resource.Api.Controllers
 
         [HttpPost]
         [Route("GetAllAvailableTeachers")]
-        public List<TeacherDTO> GetAllAvailableTeachers( GroupRequestDTO request)
+        public List<TeacherDTO> GetAllAvailableTeachers(GroupRequestDTO request)
         {
-            return _TeachersRepo.GetAllAvailableTeachers( request.GroupId);
+            return _TeachersRepo.GetAllAvailableTeachers(request.GroupId);
         }
 
 
@@ -163,7 +163,7 @@ namespace Resource.Api.Controllers
         {
             try
             {
-                return _ParentsRepo.AddParentForStudent(request.Name, request.LastName1, request.LastName2, 
+                return _ParentsRepo.AddParentForStudent(request.Name, request.LastName1, request.LastName2,
                                             request.Birthday, request.Genre, request.Email, request.Phone, request.StudentId);
             }
             catch (Exception e)
@@ -237,6 +237,21 @@ namespace Resource.Api.Controllers
             }
 
         }
+        [HttpPost]
+        [Route("addExistingParent")]
+        public bool addExistingParent(RelationshipRequestDTO request)
+        {
+            try
+            {
+                return _StudentsRepo.AddParentToStudent(request.StudentId, request.ParentId);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+
 
         [HttpPost]
         [Route("RemoveTeacherFromGroup")]
@@ -300,7 +315,7 @@ namespace Resource.Api.Controllers
             return _ParentsRepo.GetExistingNameFromCedula(request.Cedula);
         }
 
-        
+
 
 
     }

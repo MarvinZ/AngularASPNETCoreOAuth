@@ -61,6 +61,23 @@ export class ParentsService extends BaseService {
       httpOptions).pipe(catchError(this.handleError));
   }
 
+  addExistingParent(token: string, ParentId: number, StudentId: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
+
+    const payload = {
+      ParentId, StudentId
+    };
+
+    return this.http.post(this.configService.resourceApiURI + '/people/addExistingParent ', payload,
+      httpOptions).pipe(catchError(this.handleError));
+  }
+
+
 
   GetNameFromCedula(token: string, Cedula: string) {
     console.log(Cedula);
