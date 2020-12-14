@@ -76,7 +76,8 @@ export class ExistingParentComponent implements OnInit {
   addExistingParent() {
     this.busy = true;
     this.spinner.show();
-    this.service.addExistingParent(this.authService.authorizationHeaderValue, this.newParent.id, +this.selectedStudent)
+    this.service.addExistingParent(this.authService.authorizationHeaderValue, this.authService.clientId, this.newParent.id,
+      +this.selectedStudent)
       .pipe(finalize(() => {
         this.spinner.hide();
         this.busy = false;
@@ -92,7 +93,7 @@ export class ExistingParentComponent implements OnInit {
 
 
   GetExistingNameFromCedula() {
-    this.service.GetExistingNameFromCedula(this.authService.authorizationHeaderValue,
+    this.service.GetExistingNameFromCedula(this.authService.authorizationHeaderValue, this.authService.clientId,
       this.newParent.cedula.replace('-', '').replace('-', ''))
       .pipe(finalize(() => {
 

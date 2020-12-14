@@ -12,6 +12,7 @@ import { GroupsRoutingModule } from './groups.routing-module';
 import { FormsModule } from '@angular/forms';
 
 import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
 
 
 
@@ -23,7 +24,7 @@ import { DropdownModule } from 'primeng/dropdown';
     GroupsRoutingModule,
     SharedModule,
     FormsModule,
-    DropdownModule
+    DropdownModule, CalendarModule
   ]
 })
 export class GroupsModule { }

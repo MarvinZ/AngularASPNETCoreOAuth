@@ -55,7 +55,7 @@ export class DetailsComponent implements OnInit {
   }
 
   getInitialData() {
-    this.service.getStudentDetails(this.authService.authorizationHeaderValue, +this.selectedStudent)
+    this.service.getStudentDetails(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedStudent)
       .pipe(finalize(() => {
 
         this.spinner.hide();
@@ -69,7 +69,7 @@ export class DetailsComponent implements OnInit {
   }
 
   GetAvailableGroups() {
-    this.service.GetAvailableGroups(this.authService.authorizationHeaderValue, +this.selectedStudent)
+    this.service.GetAvailableGroups(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedStudent)
       .pipe(finalize(() => {
 
         this.spinner.hide();
@@ -107,7 +107,8 @@ export class DetailsComponent implements OnInit {
 
 
   Enroll() {
-    this.service.Enroll(this.authService.authorizationHeaderValue, +this.selectedGroup.id, +this.selectedStudent)
+    this.service.Enroll(this.authService.authorizationHeaderValue, this.authService.clientId,
+      +this.selectedGroup.id, +this.selectedStudent)
       .pipe(finalize(() => {
 
         // this.spinner.hide();
@@ -127,7 +128,7 @@ export class DetailsComponent implements OnInit {
 
   RemoveParent(id: string) {
 
-    this.service.RemoveParent(this.authService.authorizationHeaderValue, +id, +this.selectedStudent)
+    this.service.RemoveParent(this.authService.authorizationHeaderValue, this.authService.clientId, +id, +this.selectedStudent)
       .pipe(finalize(() => {
 
         // this.spinner.hide();
@@ -148,7 +149,7 @@ export class DetailsComponent implements OnInit {
 
 
   RemoveFromGroup(id: string) {
-    this.service.RemoveFromGroup(this.authService.authorizationHeaderValue, +id, +this.selectedStudent)
+    this.service.RemoveFromGroup(this.authService.authorizationHeaderValue, this.authService.clientId, +id, +this.selectedStudent)
       .pipe(finalize(() => {
 
         // this.spinner.hide();

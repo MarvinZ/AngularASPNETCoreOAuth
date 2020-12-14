@@ -29,7 +29,7 @@ namespace Resource.Api.Controllers
         {
             try
             {
-                return _GroupsRepo.CreateGroup(request.LevelId, request.CycleId, request.ShortName);
+                return _GroupsRepo.CreateGroup(request.ClientId, request.LevelId, request.CycleId, request.ShortName, request.MinDate, request.MaxDate);
             }
             catch (Exception e)
             {

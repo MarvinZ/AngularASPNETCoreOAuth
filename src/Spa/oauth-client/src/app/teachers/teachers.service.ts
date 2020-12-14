@@ -15,7 +15,7 @@ export class TeachersService extends BaseService {
     super();
   }
 
-  GetAllTeachers(token: string) {
+  GetAllTeachers(token: string, ClientId: number) {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -28,7 +28,7 @@ export class TeachersService extends BaseService {
   }
 
 
-  getTeacherDetails(token: string, TeacherId: number) {
+  getTeacherDetails(token: string, ClientId: number, TeacherId: number) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export class TeachersService extends BaseService {
       httpOptions).pipe(catchError(this.handleError));
   }
 
-  addTeacher(token: string, Name: string, Lastname1: string, Lastname2: string, Genre: string,
+  addTeacher(token: string, ClientId: number, Name: string, Lastname1: string, Lastname2: string, Genre: string,
              Birthday: string, Email: string, Phone: string) {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -61,7 +61,7 @@ export class TeachersService extends BaseService {
       httpOptions).pipe(catchError(this.handleError));
   }
 
-  GetNameFromCedula(token: string, Cedula: string) {
+  GetNameFromCedula(token: string, ClientId: number, Cedula: string) {
     console.log(Cedula);
 
 

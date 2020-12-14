@@ -66,7 +66,7 @@ export class CreateComponent implements OnInit {
   addTeacher() {
     this.busy = true;
     this.spinner.show();
-    this.service.addTeacher(this.authService.authorizationHeaderValue, this.newTeacher.name,
+    this.service.addTeacher(this.authService.authorizationHeaderValue, this.authService.clientId, this.newTeacher.name,
       this.newTeacher.lastname1, this.newTeacher.lastname2, this.newTeacher.genre, this.newTeacher.birthday,
       this.newTeacher.email, this.newTeacher.phone)
       .pipe(finalize(() => {
@@ -83,7 +83,8 @@ export class CreateComponent implements OnInit {
 
 
   GetNameFromCedula() {
-    this.service.GetNameFromCedula(this.authService.authorizationHeaderValue, this.newTeacher.cedula.replace('-', '').replace('-', ''))
+    this.service.GetNameFromCedula(this.authService.authorizationHeaderValue, this.authService.clientId,
+      this.newTeacher.cedula.replace('-', '').replace('-', ''))
       .pipe(finalize(() => {
 
       })).subscribe(

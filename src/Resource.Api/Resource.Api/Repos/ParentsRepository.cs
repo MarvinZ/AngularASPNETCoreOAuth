@@ -56,14 +56,14 @@ namespace Resource.Api
 
         }
 
-        public bool AddParentForStudent(string name, string lastName1, string lastName2, DateTime birthday, char genre, string email, string phone, int studentId)
+        public bool AddParentForStudent(int clientid, string name, string lastName1, string lastName2, DateTime birthday, char genre, string email, string phone, int studentId, string cedula)
         {
 
             try
             {
                 var newParent = new Parent()
                 {
-
+                    ClientId = clientid,
                     Name = name,
                     LastName2 = lastName2,
                     LastName1 = lastName1,
@@ -74,7 +74,7 @@ namespace Resource.Api
                     Address = "some address that should not be here...",
                     Email = email,
                     Phone = phone,
-                    CountryId = "IDIOTA"
+                    CountryId = cedula
                 };
                 _context.Parents.Add(newParent);
                 _context.SaveChanges();
@@ -174,7 +174,7 @@ namespace Resource.Api
         }
 
 
-        
+
 
 
 

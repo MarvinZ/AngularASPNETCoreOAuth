@@ -15,7 +15,7 @@ export class ParentsService extends BaseService {
     super();
   }
 
-  GetAllParents(token: string) {
+  GetAllParents(token: string, ClientId: number) {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -28,7 +28,7 @@ export class ParentsService extends BaseService {
   }
 
 
-  getParentDetails(token: string, ParentId: number) {
+  getParentDetails(token: string, ClientId: number, ParentId: number) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -44,8 +44,8 @@ export class ParentsService extends BaseService {
       httpOptions).pipe(catchError(this.handleError));
   }
 
-  addParent(token: string, Name: string, Lastname1: string, Lastname2: string,
-    Genre: string, Birthday: string, Email: string, Phone: string, StudentId: number) {
+  addParent(token: string, ClientId: number, Name: string, Lastname1: string, Lastname2: string,
+    Genre: string, Birthday: string, Email: string, Phone: string, StudentId: number, Cedula: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -54,14 +54,15 @@ export class ParentsService extends BaseService {
     };
 
     const payload = {
-      Name, Lastname1, Lastname2, Birthday, Email, Phone, StudentId
+      ClientId, Name, Lastname1, Lastname2, Birthday, Email, Phone, StudentId, Genre, Cedula
     };
+    console.log(payload);
 
     return this.http.post(this.configService.resourceApiURI + '/people/AddParent ', payload,
       httpOptions).pipe(catchError(this.handleError));
   }
 
-  addExistingParent(token: string, ParentId: number, StudentId: number) {
+  addExistingParent(token: string, ClientId: number, ParentId: number, StudentId: number) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -70,7 +71,7 @@ export class ParentsService extends BaseService {
     };
 
     const payload = {
-      ParentId, StudentId
+      ParentId, StudentId, ClientId
     };
 
     return this.http.post(this.configService.resourceApiURI + '/people/addExistingParent ', payload,
@@ -79,7 +80,7 @@ export class ParentsService extends BaseService {
 
 
 
-  GetNameFromCedula(token: string, Cedula: string) {
+  GetNameFromCedula(token: string, ClientId: number, Cedula: string) {
     console.log(Cedula);
 
 
@@ -98,7 +99,7 @@ export class ParentsService extends BaseService {
       httpOptions).pipe(catchError(this.handleError));
   }
 
-  GetExistingNameFromCedula(token: string, Cedula: string) {
+  GetExistingNameFromCedula(token: string, ClientId: number, Cedula: string) {
     console.log(Cedula);
 
 
@@ -110,7 +111,7 @@ export class ParentsService extends BaseService {
     };
 
     const payload = {
-      Cedula: +Cedula
+      ClientId, Cedula: +Cedula
     };
 
     return this.http.post(this.configService.resourceApiURI + '/people/GetExistingNameFromCedula ', payload,

@@ -14,7 +14,7 @@ export class PaymentsService extends BaseService {
     super();
   }
 
-  fetchTopSecretData(token: string) {
+  fetchTopSecretData(token: string, ClientId: number) {
 
     const httpOptions = {
       headers: new HttpHeaders({

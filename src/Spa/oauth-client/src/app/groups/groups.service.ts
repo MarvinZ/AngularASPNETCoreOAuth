@@ -17,7 +17,7 @@ export class GroupsService extends BaseService {
     super();
   }
 
-  getAllActiveGroups(token: string) {
+  getAllActiveGroups(token: string, ClientId: number) {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -30,7 +30,7 @@ export class GroupsService extends BaseService {
   }
 
 
-  getStudentsForGroup(token: string, groupId: number) {
+  getStudentsForGroup(token: string, ClientId: number, groupId: number) {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -48,7 +48,7 @@ export class GroupsService extends BaseService {
   }
 
 
-  getAllAvailableTeachers(token: string, GroupId: number) {
+  getAllAvailableTeachers(token: string, ClientId: number, GroupId: number) {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -65,7 +65,7 @@ export class GroupsService extends BaseService {
       payload, httpOptions).pipe(catchError(this.handleError));
   }
 
-  getGroupDetails(token: string, GroupId: number) {
+  getGroupDetails(token: string, ClientId: number, GroupId: number) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export class GroupsService extends BaseService {
   }
 
 
-  openGroup(token: string, CycleId: number, LevelId: number, ShortName: string) {
+  openGroup(token: string, ClientId: number, CycleId: number, LevelId: number, ShortName: string, MinDate: string, MaxDate: string) {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -93,15 +93,14 @@ export class GroupsService extends BaseService {
     };
 
     const payload = {
-      LevelId, CycleId, ShortName
+      ClientId, LevelId, CycleId, ShortName, MinDate, MaxDate
     };
-
 
     return this.http.post(this.configService.resourceApiURI + '/things/CreateGroup', payload,
       httpOptions).pipe(catchError(this.handleError));
   }
 
-  RemoveStudentFromGroup(authorizationHeaderValue: string, GroupId: number, StudentId: number) {
+  RemoveStudentFromGroup(authorizationHeaderValue: string, CientId: number, GroupId: number, StudentId: number) {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -111,7 +110,7 @@ export class GroupsService extends BaseService {
     };
 
     const payload = {
-      GroupId, StudentId
+      CientId, GroupId, StudentId
     };
 
     return this.http.post(this.configService.resourceApiURI + '/people/RemoveStudentFromGroup', payload,
@@ -120,7 +119,7 @@ export class GroupsService extends BaseService {
   }
 
 
-  RemoveTeacherFromGroup(authorizationHeaderValue: string, GroupId: number, TeacherId: number) {
+  RemoveTeacherFromGroup(authorizationHeaderValue: string, ClientId: number, GroupId: number, TeacherId: number) {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -130,7 +129,7 @@ export class GroupsService extends BaseService {
     };
 
     const payload = {
-      GroupId, TeacherId
+      ClientId, GroupId, TeacherId
     };
 
     return this.http.post(this.configService.resourceApiURI + '/people/RemoveTeacherFromGroup', payload,
@@ -138,7 +137,7 @@ export class GroupsService extends BaseService {
 
   }
 
-  AddTeacherToGroup(authorizationHeaderValue: string, GroupId: number, TeacherId: number) {
+  AddTeacherToGroup(authorizationHeaderValue: string, ClientId: number, GroupId: number, TeacherId: number) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -147,7 +146,7 @@ export class GroupsService extends BaseService {
     };
 
     const payload = {
-      GroupId, TeacherId
+      ClientId, GroupId, TeacherId
     };
 
     return this.http.post(this.configService.resourceApiURI + '/people/AddTeacherToGroup', payload,

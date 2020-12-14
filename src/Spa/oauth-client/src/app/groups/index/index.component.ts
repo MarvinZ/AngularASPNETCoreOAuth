@@ -30,7 +30,7 @@ export class IndexComponent implements OnInit {
 
     this.busy = true;
     this.spinner.show();
-    this.service.getAllActiveGroups(this.authService.authorizationHeaderValue)
+    this.service.getAllActiveGroups(this.authService.authorizationHeaderValue, this.authService.clientId)
       .pipe(finalize(() => {
 
         this.spinner.hide();

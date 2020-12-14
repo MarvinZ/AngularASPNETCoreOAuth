@@ -57,7 +57,7 @@ export class DetailsComponent implements OnInit {
   }
 
   getInitialData() {
-    this.service.getGroupDetails(this.authService.authorizationHeaderValue, +this.selectedGroup)
+    this.service.getGroupDetails(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedGroup)
       .pipe(finalize(() => {
 
         this.spinner.hide();
@@ -67,8 +67,8 @@ export class DetailsComponent implements OnInit {
           this.group = result;
         });
 
-        this.getStudentsForGroup(+this.selectedGroup);
-        this.getAllAvailableTeachers(+this.selectedGroup);
+    this.getStudentsForGroup(+this.selectedGroup);
+    this.getAllAvailableTeachers(+this.selectedGroup);
   }
 
   public uploadFile = (files) => {
@@ -95,7 +95,7 @@ export class DetailsComponent implements OnInit {
   getStudentsForGroup(selectedGroup: number) {
     this.busy = true;
     this.spinner.show();
-    this.service.getStudentsForGroup(this.authService.authorizationHeaderValue, selectedGroup)
+    this.service.getStudentsForGroup(this.authService.authorizationHeaderValue, this.authService.clientId, selectedGroup)
       .pipe(finalize(() => {
         this.spinner.hide();
         this.busy = false;
@@ -110,7 +110,7 @@ export class DetailsComponent implements OnInit {
   getAllAvailableTeachers(selectedGroup: number) {
     this.busy = true;
     this.spinner.show();
-    this.service.getAllAvailableTeachers(this.authService.authorizationHeaderValue, +selectedGroup)
+    this.service.getAllAvailableTeachers(this.authService.authorizationHeaderValue, this.authService.clientId, +selectedGroup)
       .pipe(finalize(() => {
         this.spinner.hide();
         this.busy = false;
@@ -124,7 +124,8 @@ export class DetailsComponent implements OnInit {
 
 
   AddTeacherToGroup() {
-    this.service.AddTeacherToGroup(this.authService.authorizationHeaderValue, +this.selectedGroup, +this.selectedTeacher.id)
+    this.service.AddTeacherToGroup(this.authService.authorizationHeaderValue,
+      this.authService.clientId, +this.selectedGroup, +this.selectedTeacher.id)
       .pipe(finalize(() => {
 
         // this.spinner.hide();
@@ -144,7 +145,7 @@ export class DetailsComponent implements OnInit {
   }
 
   RemoveStudentFromGroup(id: string) {
-    this.service.RemoveStudentFromGroup(this.authService.authorizationHeaderValue, +this.selectedGroup, +id)
+    this.service.RemoveStudentFromGroup(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedGroup, +id)
       .pipe(finalize(() => {
 
         // this.spinner.hide();
@@ -163,7 +164,7 @@ export class DetailsComponent implements OnInit {
   }
 
   RemoveTeacherFromGroup(id: string) {
-    this.service.RemoveTeacherFromGroup(this.authService.authorizationHeaderValue, +this.selectedGroup, +id)
+    this.service.RemoveTeacherFromGroup(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedGroup, +id)
       .pipe(finalize(() => {
         // this.spinner.hide();
         // this.busy = false;

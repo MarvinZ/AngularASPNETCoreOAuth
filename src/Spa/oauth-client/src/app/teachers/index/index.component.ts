@@ -21,7 +21,7 @@ export class IndexComponent implements OnInit {
 
     this.busy = true;
     this.spinner.show();
-    this.service.GetAllTeachers(this.authService.authorizationHeaderValue)
+    this.service.GetAllTeachers(this.authService.authorizationHeaderValue, this.authService.clientId)
       .pipe(finalize(() => {
 
 

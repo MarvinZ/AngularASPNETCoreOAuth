@@ -31,7 +31,7 @@ export class CreateComponent implements OnInit {
   someText: string;
 
   telephoneInput: number;
-  newStudent: { name: string; lastname1: string; lastname2: string; birthday: string; genre: string; };
+  newStudent: { name: string; lastname1: string; lastname2: string; birthday: string; genre: any; };
   addStudentResult: any;
 
 
@@ -52,7 +52,7 @@ export class CreateComponent implements OnInit {
       lastname1: '',
       lastname2: '',
       birthday: '',
-      genre: ''
+      genre: []
     };
 
   }
@@ -60,8 +60,8 @@ export class CreateComponent implements OnInit {
   addStudent() {
     this.busy = true;
     this.spinner.show();
-    this.service.addStudent(this.authService.authorizationHeaderValue, this.newStudent.name,
-      this.newStudent.lastname1, this.newStudent.lastname2, this.newStudent.genre, this.newStudent.birthday)
+    this.service.addStudent(this.authService.authorizationHeaderValue, this.authService.clientId,  this.newStudent.name,
+      this.newStudent.lastname1, this.newStudent.lastname2, this.newStudent.genre.code, this.newStudent.birthday)
       .pipe(finalize(() => {
         this.spinner.hide();
         this.busy = false;

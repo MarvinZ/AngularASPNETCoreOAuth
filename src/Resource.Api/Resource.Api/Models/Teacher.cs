@@ -13,11 +13,13 @@ namespace Resource.Api.Models
         }
 
         public int Id { get; set; }
+        public int ClientId { get; set; }
         public string Name { get; set; }
         public string CountryId { get; set; }
         public string LastName1 { get; set; }
         public string LastName2 { get; set; }
         public DateTime Birthday { get; set; }
+        public string Gender { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
@@ -29,6 +31,7 @@ namespace Resource.Api.Models
         public DateTime? DeactivateDatetime { get; set; }
         public string DeactivateUser { get; set; }
 
+        public virtual Client Client { get; set; }
         public virtual ICollection<GroupTeacher> GroupTeachers { get; set; }
     }
 }

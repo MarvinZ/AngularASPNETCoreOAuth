@@ -58,7 +58,7 @@
 
           <div class="p-field p-col-12 p-md-4 form-group">
             <span class="p-float-label">
-              <p-calendar inputId="calendar" [(ngModel)]="newTeacher.birthday" name="birthday" required></p-calendar>
+              <p-calendar [yearNavigator]="true" yearRange="1900:2025"  inputId="calendar" [(ngModel)]="newTeacher.birthday" name="birthday" required></p-calendar>
               <label for="calendar">Fecha Nacimiento</label>
             </span>
           </div>

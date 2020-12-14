@@ -38,7 +38,7 @@ export class CreateComponent implements OnInit {
 
   newParent: {
     name: string; lastname1: string; lastname2: string; email: string; phone: string; birthday:
-    string; genre: string; cedula: string;
+    string; genre: any; cedula: string;
   };
   addStudentResult: any;
 
@@ -74,9 +74,9 @@ export class CreateComponent implements OnInit {
   addParent() {
     this.busy = true;
     this.spinner.show();
-    this.service.addParent(this.authService.authorizationHeaderValue, this.newParent.name,
-      this.newParent.lastname1, this.newParent.lastname2, this.newParent.genre, this.newParent.birthday,
-      this.newParent.email, this.newParent.phone, +this.selectedStudent)
+    this.service.addParent(this.authService.authorizationHeaderValue, this.authService.clientId, this.newParent.name,
+      this.newParent.lastname1, this.newParent.lastname2, this.newParent.genre.code, this.newParent.birthday,
+      this.newParent.email, this.newParent.phone, +this.selectedStudent, this.newParent.cedula)
       .pipe(finalize(() => {
         this.spinner.hide();
         this.busy = false;
@@ -89,7 +89,8 @@ export class CreateComponent implements OnInit {
   }
 
   GetNameFromCedula() {
-    this.service.GetNameFromCedula(this.authService.authorizationHeaderValue, this.newParent.cedula.replace('-', '').replace('-', ''))
+    this.service.GetNameFromCedula(this.authService.authorizationHeaderValue, this.authService.clientId,
+      this.newParent.cedula.replace('-', '').replace('-', ''))
       .pipe(finalize(() => {
 
       })).subscribe(

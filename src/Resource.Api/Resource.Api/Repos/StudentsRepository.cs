@@ -150,14 +150,15 @@ namespace Resource.Api
             }
         }
 
-        public bool AddStudent(string name, string lastName1, string lastName2, DateTime birthday, char genre)
+        public bool AddStudent(int clientId, string name, string lastName1, string lastName2, DateTime birthday, char genre)
         {
 
             try
             {
                 var newStudent = new Student()
                 {
-
+                    ClientId = clientId,
+                    Gender = genre.ToString(),
                     Name = name,
                     LastName2 = lastName2,
                     LastName1 = lastName1,

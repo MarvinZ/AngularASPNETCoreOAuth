@@ -146,7 +146,7 @@ namespace Resource.Api.Controllers
         {
             try
             {
-                return _StudentsRepo.AddStudent(request.Name, request.LastName1, request.LastName2, request.Birthday, request.Genre);
+                return _StudentsRepo.AddStudent(request.ClientId, request.Name, request.LastName1, request.LastName2, request.Birthday, request.Genre);
             }
             catch (Exception e)
             {
@@ -163,8 +163,9 @@ namespace Resource.Api.Controllers
         {
             try
             {
-                return _ParentsRepo.AddParentForStudent(request.Name, request.LastName1, request.LastName2,
-                                            request.Birthday, request.Genre, request.Email, request.Phone, request.StudentId);
+                return _ParentsRepo.AddParentForStudent(request.ClientId, request.Name, request.LastName1, request.LastName2,
+                                            request.Birthday, request.Genre, request.Email, request.Phone, request.StudentId,
+                                            request.Cedula);
             }
             catch (Exception e)
             {
@@ -181,7 +182,7 @@ namespace Resource.Api.Controllers
         {
             try
             {
-                return _TeachersRepo.AddTeacher(request.Name, request.LastName1, request.LastName2, request.Birthday, request.Genre, request.Email, request.Phone);
+                return _TeachersRepo.AddTeacher(request.ClientId, request.Name, request.LastName1, request.LastName2, request.Birthday, request.Genre, request.Email, request.Phone);
             }
             catch (Exception e)
             {

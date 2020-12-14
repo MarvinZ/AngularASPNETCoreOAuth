@@ -12,7 +12,9 @@ namespace Resource.Api
     }
     public class NewPersonDTO
     {
+        public int ClientId { get; set; }
         public string Name { get; set; }
+        public string Cedula { get; set; }
         public string LastName1 { get; set; }
         public string LastName2 { get; set; }
         public string Email { get; set; }
@@ -32,10 +34,12 @@ namespace Resource.Api
 
     public class NewGroupDTO
     {
+        public int ClientId { get; set; }
         public int LevelId { get; set; }
         public int CycleId { get; set; }
         public string ShortName { get; set; }
-        public DateTime requestDate { get; set; }
+        public string MinDate { get; set; }
+        public string MaxDate { get; set; }
     }
 
 

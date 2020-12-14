@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+// tslint:disable-next-line:quotemark
 import { BaseService } from "../shared/base.service";
 import { ConfigService } from '../shared/config.service';
 
@@ -14,12 +15,12 @@ export class TopSecretService extends BaseService {
     super();
   }
 
-  fetchTopSecretData(token: string) {
+  fetchTopSecretData(token: string, ClientId: number) {
 
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        'Authorization': token
+        Authorization: token
       })
     };
 

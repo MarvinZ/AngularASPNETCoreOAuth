@@ -88,14 +88,14 @@ namespace Resource.Api
 
 
 
-        public bool AddTeacher(string name, string lastName1, string lastName2, DateTime birthday, char genre, string email, string phone)
+        public bool AddTeacher(int clientId, string name, string lastName1, string lastName2, DateTime birthday, char genre, string email, string phone)
         {
 
             try
             {
                 var newTeacher = new Teacher()
                 {
-
+                    ClientId = clientId,
                     Name = name,
                     LastName2 = lastName2,
                     LastName1 = lastName1,

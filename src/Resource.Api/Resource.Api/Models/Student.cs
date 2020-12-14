@@ -15,10 +15,12 @@ namespace Resource.Api.Models
         }
 
         public int Id { get; set; }
+        public int ClientId { get; set; }
         public string Name { get; set; }
         public string LastName1 { get; set; }
         public string LastName2 { get; set; }
         public DateTime Birthday { get; set; }
+        public string Gender { get; set; }
         public DateTime RegistrationDate { get; set; }
         public DateTime CreateDatetime { get; set; }
         public string CreateUser { get; set; }
@@ -27,6 +29,7 @@ namespace Resource.Api.Models
         public DateTime? DeactivateDatetime { get; set; }
         public string DeactivateUser { get; set; }
 
+        public virtual Client Client { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<GroupStudent> GroupStudents { get; set; }
         public virtual ICollection<StudentParent> StudentParents { get; set; }

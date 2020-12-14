@@ -38,7 +38,7 @@ export class DetailsComponent implements OnInit {
     this.spinner.show();
     this.selectedTeacher = this.route.snapshot.paramMap.get('id');
 
-    this.service.getTeacherDetails(this.authService.authorizationHeaderValue, +this.selectedTeacher)
+    this.service.getTeacherDetails(this.authService.authorizationHeaderValue, this.authService.clientId,  +this.selectedTeacher)
       .pipe(finalize(() => {
 
 

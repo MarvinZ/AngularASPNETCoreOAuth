@@ -1,3 +1,4 @@
+import { UserManagerSettings } from 'oidc-client';
 import { SharedService } from './../../shared/services/shared.service';
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -28,7 +29,7 @@ export class CreateComponent implements OnInit {
 
 
   constructor(private authService: AuthService, private service: GroupsService, private spinner: NgxSpinnerService,
-              private sharedservice: SharedService, private toastr: ToastrService, private router: Router) {
+    private sharedservice: SharedService, private toastr: ToastrService, private router: Router) {
   }
 
   ngOnInit() {
@@ -43,7 +44,9 @@ export class CreateComponent implements OnInit {
     this.newGroup = {
       name: '',
       cycleId: null,
-      levelId: null
+      levelId: null,
+      minDate: new Date('02 - 15 - 2020'),
+      maxDate: new Date('02 - 15 - 2020')
     };
 
   }
@@ -53,7 +56,8 @@ export class CreateComponent implements OnInit {
 
     this.busy = true;
     this.spinner.show();
-    this.service.openGroup(this.authService.authorizationHeaderValue, +this.newGroup.cycleId, +this.newGroup.levelId, this.newGroup.name)
+    this.service.openGroup(this.authService.authorizationHeaderValue, this.authService.clientId,
+      +this.newGroup.cycleId, +this.newGroup.levelId, this.newGroup.name, this.newGroup.minDate, this.newGroup.maxDate)
       .pipe(finalize(() => {
         this.spinner.hide();
         this.busy = false;

@@ -15,12 +15,16 @@ namespace Resource.Api
         public string GroupShortname { get; set; }
         public int AmountOfStudents { get; set; }
         public DateTime CreateDatetime { get; set; }
+        public DateTime MinDate { get; set; }
+        public DateTime MaxDate { get; set; }
         public string CreateUser { get; set; }
         public string Status { get; set; }
          
         public List<TeacherDTO> Teachers { get; set; }
 
+        public int TotalStudents { get; set; }
 
 
-}
+
+    }
 }

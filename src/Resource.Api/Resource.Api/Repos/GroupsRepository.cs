@@ -32,29 +32,39 @@ namespace Resource.Api
         {
             var result = _context.Groups.Select(c => new GroupDTO
             {
+                MaxDate = c.MaxDate, 
+                MinDate = c.MinDate,
                 CycleName = c.Cycle.Name,
                 AmountOfStudents = 99,
                 CreateUser = c.CreateUser,
                 CreateDatetime = c.CreateDatetime,
                 LevelName = c.Level.Name,
                 GroupShortname = c.GroupShortname,
-                Id = c.Id
+                Id = c.Id,
+                Status = c.GroupStatus.Name,
+                TotalStudents = c.GroupStudents.Count
+
             }).ToList();
 
             return result;
         }
 
-        public bool CreateGroup(int levelId, int cycleId, string shortName)
+        public bool CreateGroup(int clientId, int levelId, int cycleId, string shortName, string min, string max)
         {
             try
             {
                 var newGroup = new Group()
                 {
+                    ClientId = clientId,
                     LevelId = levelId,
                     CycleId = cycleId,
                     GroupShortname = shortName,
+                    MaxDate = DateTime.Parse(max),
+                    MinDate = DateTime.Parse(min),
                     CreateDatetime = DateTime.UtcNow,
-                    CreateUser = "ADMIN"
+                    CreateUser = "ADMIN", 
+                    GroupStatusId = 1 
+
                 };
                 _context.Groups.Add(newGroup);
                 _context.SaveChanges();

@@ -49,6 +49,26 @@
 
             </div>
 
+
+            <div class="p-field p-col-12 p-md-4 form-group">
+              <span class="p-float-label">
+                <p-calendar [yearNavigator]="true" yearRange="1900:2025"  inputId="minDate" [(ngModel)]="newGroup.minDate" name="minDate" required></p-calendar>
+                <label for="minDate">Fecha Minima</label>
+              </span>
+            </div>
+
+
+
+
+            <div class="p-field p-col-12 p-md-4 form-group">
+              <span class="p-float-label">
+                <p-calendar [yearNavigator]="true" yearRange="1900:2025"  inputId="minDate" [(ngModel)]="newGroup.maxDate" name="maxDate" required ></p-calendar>
+                <label for="minDate">Fecha Maxima</label>
+              </span>
+            </div>
+
+
+
             <button type="submit" class="btn btn-success" [disabled]="!newGroupForm.form.valid">Submit</button>
             <button type="button" class="btn btn-default" (click)=" newGroupForm.reset()">Reset</button>
           </form>

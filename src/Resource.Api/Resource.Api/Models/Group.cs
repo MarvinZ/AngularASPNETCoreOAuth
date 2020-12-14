@@ -15,9 +15,13 @@ namespace Resource.Api.Models
         }
 
         public int Id { get; set; }
+        public int ClientId { get; set; }
         public int CycleId { get; set; }
         public int LevelId { get; set; }
+        public int GroupStatusId { get; set; }
         public string GroupShortname { get; set; }
+        public DateTime MinDate { get; set; }
+        public DateTime MaxDate { get; set; }
         public DateTime CreateDatetime { get; set; }
         public string CreateUser { get; set; }
         public string LastModifiedUser { get; set; }
@@ -25,7 +29,9 @@ namespace Resource.Api.Models
         public DateTime? DeactivateDatetime { get; set; }
         public string DeactivateUser { get; set; }
 
+        public virtual Client Client { get; set; }
         public virtual Cycle Cycle { get; set; }
+        public virtual GroupStatus GroupStatus { get; set; }
         public virtual Level Level { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<GroupStudent> GroupStudents { get; set; }
