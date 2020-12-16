@@ -81,15 +81,21 @@ namespace Resource.Api
         {
             try
             {
-                var result = _context.Groups.Select(c => new GroupDTO
+                var studentBirthday = _context.Students.Where(e => e.Id == studentId).FirstOrDefault().Birthday;
+                var result = _context.Groups.Where(e=>e.MinDate < studentBirthday && e.MaxDate >= studentBirthday)
+                    .Select(c => new GroupDTO
                 {
+                    MaxDate = c.MaxDate,
+                    MinDate = c.MinDate,
                     CycleName = c.Cycle.Name,
                     AmountOfStudents = 99,
                     CreateUser = c.CreateUser,
                     CreateDatetime = c.CreateDatetime,
                     LevelName = c.Level.Name,
                     GroupShortname = c.GroupShortname,
-                    Id = c.Id
+                    Id = c.Id,
+                    Status = c.GroupStatus.Name,
+                    TotalStudents = c.GroupStudents.Count
                 }).ToList();
 
                 return result;
