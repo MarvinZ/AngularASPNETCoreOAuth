@@ -4,10 +4,9 @@
 
       <a class=" " routerLink="/openGroup">Open group</a>
 
-      <!-- <div *ngIf="GroupSwitch == 'GROUPLIST'"> -->
-        <h3>Groups</h3>
+      <h3>Groups</h3>
 
-        <table class="table small">
+      <!-- <table class="table small">
           <thead>
             <tr>
               <th scope="col">Group</th>
@@ -24,34 +23,41 @@
           <tbody>
             <tr *ngFor="let group of groups; let i = index" [attr.data-index]="i">
               <td>
-                <a class="" routerLink="/groups/{{group.id}}">G{{group.groupShortname}}</a>
               </td>
-              <td>{{group.cycleName}}</td>
-              <td>{{group.levelName}}</td>
-              <td>{{group.minDate | date}}</td>
-              <td>{{group.maxDate | date}}</td>
-              <td>{{group.status}}</td>
-              <td>{{group.totalStudents}}</td>
-              <td><ul>
-                <li *ngFor="let item of group.teachers">
-                  <a class="" routerLink="/teachers/{{item.id}}">
-                    {{item.name}}</a>
 
-
-                </li>
-              </ul></td>
+              <td></td>
 
 
             </tr>
           </tbody>
-        </table>
 
-      <!-- </div> -->
 
-<!--
-      <div *ngIf=" GroupSwitch=='VIEWSTUDENTS'">
 
-      </div> -->
+        </table> -->
+
+
+
+      <p-card *ngFor="let group of groups;" [style]="{'width': '25rem', 'margin-bottom': '2em'}" >
+
+
+
+        <p-header [style]="{width: '360px'}" styleClass="p-card-shadow">
+          <a class="" routerLink="/groups/{{group.id}}">{{group.groupShortname}} </a> </p-header>
+        {{group.status}}
+        {{group.cycleName}} - {{group.levelName}} {{group.minDate | date}} - {{group.maxDate | date}}
+          {{group.totalStudents}} <ul>
+          <li *ngFor="let item of group.teachers">
+            <a class="" routerLink="/teachers/{{item.id}}">
+              {{item.name}}</a> </li>
+          </ul>
+
+          <p-footer>
+            Footer content here
+          </p-footer>
+      </p-card>
+
+
+
 
     </div>
   </div>

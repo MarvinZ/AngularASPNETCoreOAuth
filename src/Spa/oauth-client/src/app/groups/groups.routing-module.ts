@@ -5,6 +5,8 @@ import { IndexComponent } from './index/index.component';
 import { DetailsComponent } from './details/details.component';
 import { CreateComponent } from './create/create.component';
 
+
+
 import { AuthGuard } from '../core/authentication/auth.guard';
 
 const routes: Routes = [

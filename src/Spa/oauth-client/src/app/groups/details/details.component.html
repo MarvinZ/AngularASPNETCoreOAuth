@@ -1,46 +1,10 @@
 <div class="container">
   <div class="row">
     <div *ngIf="!busy" class="col-md-8">
-      <h3>Group Details - {{ group.groupShortname}} - </h3>
+      <h3>{{ group.groupShortname}} - {{ group.cycleName}} - {{ group.levelName}}</h3> {{ group.status}}
       <hr>
 
-      <a class=" " routerLink="/groups">Back to all Groups</a>
-
-      <hr>
-
-      <div class="row">
-
-        <h3>Students</h3>
-
-        <table class="table small">
-          <thead>
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Name </th>
-              <th scope="col">Birthday</th>
-              <th> </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let student of students; let i = index" [attr.data-index]="i">
-              <td>{{student.id}}</td>
-              <td>
-                <a class="" routerLink="/students/{{student.id}}">
-                  {{student.name + ' '+ student.lastname1 +' ' + student.lastname2}}</a>
-              </td>
-              <td></td>
-              <td>{{student.birthday}}</td>
-              <td>
-                <button (click)="RemoveStudentFromGroup(student.id)">
-                  Removerrr
-                </button>
-              </td>
-
-            </tr>
-          </tbody>
-        </table>
-
-      </div>
+      <a class=" " routerLink="/groups">Regresar a la lista de grupos</a>
 
       <hr>
 
@@ -51,7 +15,10 @@
         <table class="table small">
           <thead>
             <tr>
-              <th scope="col">Id</th>
+              <th>
+
+              </th>
+              <!-- <th scope="col">Id</th> -->
               <th scope="col">Name </th>
 
               <th> Details</th>
@@ -67,8 +34,7 @@
 
               <td>
                 <button (click)="RemoveTeacherFromGroup(teacher.id)">
-                  Removerrr Teacher
-                </button>
+                  Desasignar </button>
               </td>
 
             </tr>
@@ -108,13 +74,55 @@
 
       </div>
 
-      <hr>
 
-      <a class=" " routerLink="/groups">Back to all Groups</a>
 
       <hr>
+
 
       <div class="row">
+
+        <h3>Estudiantes</h3>
+
+        <table class="table small">
+          <thead>
+            <tr>
+              <th>
+
+              </th>
+              <!-- <th scope="col">Id</th> -->
+              <th scope="col">Nombre</th>
+              <th scope="col">Fecha Nacimiento</th>
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of students; let i = index" [attr.data-index]="i">
+              <td>{{student.id}}</td>
+              <td>
+                <a class="" routerLink="/students/{{student.id}}">
+                  {{student.name + ' '+ student.lastname1 +' ' + student.lastname2}}</a>
+              </td>
+              <td></td>
+              <td>{{student.birthday}}</td>
+              <td>
+                <button (click)="RemoveStudentFromGroup(student.id)">
+                  Dar de baja
+                </button>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <hr>
+
+      <a class=" " routerLink="/groups">Regresar a la lista de grupos</a>
+
+      <hr>
+
+      <!-- <div class="row">
         <div class="col-md-3">
           <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
           <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
@@ -127,7 +135,7 @@
             {{message}}
           </span>
         </div>
-      </div>
+      </div> -->
 
     </div>
   </div>

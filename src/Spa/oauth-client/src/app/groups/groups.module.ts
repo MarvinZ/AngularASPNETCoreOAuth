@@ -13,6 +13,8 @@ import { FormsModule } from '@angular/forms';
 
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import {CardModule} from 'primeng/card';
+
 
 
 
@@ -24,7 +26,7 @@ import { CalendarModule } from 'primeng/calendar';
     GroupsRoutingModule,
     SharedModule,
     FormsModule,
-    DropdownModule, CalendarModule
+    DropdownModule, CalendarModule, CardModule
   ]
 })
 export class GroupsModule { }

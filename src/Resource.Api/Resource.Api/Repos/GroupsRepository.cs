@@ -46,6 +46,7 @@ namespace Resource.Api
                      CreateUser = group.CreateUser,
                      CreateDatetime = group.CreateDatetime,
                      LevelName = group.Level.Name,
+                     CycleName = group.Cycle.Name,
                      GroupShortname = group.GroupShortname,
                      Id = group.Id,
                      Status = group.GroupStatus.Name,
@@ -202,7 +203,11 @@ namespace Resource.Api
                 {
                     Id = group.Id,
                     CycleName = group.Cycle.Name,
-                    LevelName = group.Level.Name
+                    LevelName = group.Level.Name, 
+                    TotalStudents = group.GroupStudents.Count,
+                    GroupShortname = group.GroupShortname,
+                    Status = group.GroupStatus.Name
+
                 }).FirstOrDefault();
 
                 if (tempRes != null)
