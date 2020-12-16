@@ -1,4 +1,5 @@
-﻿using Resource.Api.Models;
+﻿using Resource.Api.Enums;
+using Resource.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,21 +31,34 @@ namespace Resource.Api
         }
         public List<GroupDTO> GetAllGroups()
         {
-            var result = _context.Groups.Select(c => new GroupDTO
-            {
-                MaxDate = c.MaxDate, 
-                MinDate = c.MinDate,
-                CycleName = c.Cycle.Name,
-                AmountOfStudents = 99,
-                CreateUser = c.CreateUser,
-                CreateDatetime = c.CreateDatetime,
-                LevelName = c.Level.Name,
-                GroupShortname = c.GroupShortname,
-                Id = c.Id,
-                Status = c.GroupStatus.Name,
-                TotalStudents = c.GroupStudents.Count
 
-            }).ToList();
+            //var result2 = _context.Groups.Where(e => e.DeactivateDatetime == null && e.GroupStatusId == (int)GroupStatusName.Active)
+            //    .GroupJoin(_context.GroupTeachers.DefaultIfEmpty(), group => group.Id, gt => gt.GroupId,  
+
+            var result = _context.Groups.Where(e => e.DeactivateDatetime == null && e.GroupStatusId == (int)GroupStatusName.Active)
+               // .Join(_context.GroupTeachers.DefaultIfEmpty(), group => group.Id, gt => gt.GroupId,
+               .Select ( group => new GroupDTO()
+              //   (group, gt) => new GroupDTO
+
+                 {
+                     MaxDate = group.MaxDate,
+                     MinDate = group.MinDate,
+                     CreateUser = group.CreateUser,
+                     CreateDatetime = group.CreateDatetime,
+                     LevelName = group.Level.Name,
+                     GroupShortname = group.GroupShortname,
+                     Id = group.Id,
+                     Status = group.GroupStatus.Name,
+                     TotalStudents = group.GroupStudents.Count,
+                     Teachers = group.GroupStudents.Count() == 0 ? null : group.GroupTeachers.Select(e => new TeacherDTO()
+                     {
+                         Name = e.Teacher.Name +" " + e.Teacher.LastName1 + " " + e.Teacher.LastName2,
+                         Id = e.Teacher.Id
+                     }).ToList()
+
+                 }).ToList();
+
+
 
             return result;
         }
@@ -62,8 +76,8 @@ namespace Resource.Api
                     MaxDate = DateTime.Parse(max),
                     MinDate = DateTime.Parse(min),
                     CreateDatetime = DateTime.UtcNow,
-                    CreateUser = "ADMIN", 
-                    GroupStatusId = 1 
+                    CreateUser = "ADMIN",
+                    GroupStatusId = 1
 
                 };
                 _context.Groups.Add(newGroup);
@@ -82,21 +96,22 @@ namespace Resource.Api
             try
             {
                 var studentBirthday = _context.Students.Where(e => e.Id == studentId).FirstOrDefault().Birthday;
-                var result = _context.Groups.Where(e=>e.MinDate < studentBirthday && e.MaxDate >= studentBirthday)
+                var result = _context.Groups
+                    .Where(e => e.MinDate < studentBirthday && e.MaxDate >= studentBirthday
+                    && e.DeactivateDatetime == null && e.GroupStatusId == (int)GroupStatusName.Active)
                     .Select(c => new GroupDTO
-                {
-                    MaxDate = c.MaxDate,
-                    MinDate = c.MinDate,
-                    CycleName = c.Cycle.Name,
-                    AmountOfStudents = 99,
-                    CreateUser = c.CreateUser,
-                    CreateDatetime = c.CreateDatetime,
-                    LevelName = c.Level.Name,
-                    GroupShortname = c.GroupShortname,
-                    Id = c.Id,
-                    Status = c.GroupStatus.Name,
-                    TotalStudents = c.GroupStudents.Count
-                }).ToList();
+                    {
+                        MaxDate = c.MaxDate,
+                        MinDate = c.MinDate,
+                        CycleName = c.Cycle.Name,
+                        CreateUser = c.CreateUser,
+                        CreateDatetime = c.CreateDatetime,
+                        LevelName = c.Level.Name,
+                        GroupShortname = c.GroupShortname,
+                        Id = c.Id,
+                        Status = c.GroupStatus.Name,
+                        TotalStudents = c.GroupStudents.Count
+                    }).ToList();
 
                 return result;
             }
@@ -198,8 +213,7 @@ namespace Resource.Api
                         (teacher, groupTeacher) => new TeacherDTO
                         {
                             Id = teacher.Id,
-                            Name = teacher.Name,
-                            Lastnames = teacher.LastName1 + " " + teacher.LastName2,
+                            Name = teacher.Name + teacher.LastName1 + " " + teacher.LastName2,
                         }).ToList();
 
                     if (teachers != null)

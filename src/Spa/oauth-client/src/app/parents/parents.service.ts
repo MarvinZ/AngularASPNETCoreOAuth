@@ -114,6 +114,8 @@ export class ParentsService extends BaseService {
       ClientId, Cedula: +Cedula
     };
 
+    console.log(payload);
+
     return this.http.post(this.configService.resourceApiURI + '/people/GetExistingNameFromCedula ', payload,
       httpOptions).pipe(catchError(this.handleError));
   }

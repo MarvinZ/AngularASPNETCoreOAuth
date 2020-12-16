@@ -13,7 +13,6 @@ namespace Resource.Api
 
         public string LevelName { get; set; }
         public string GroupShortname { get; set; }
-        public int AmountOfStudents { get; set; }
         public DateTime CreateDatetime { get; set; }
         public DateTime MinDate { get; set; }
         public DateTime MaxDate { get; set; }

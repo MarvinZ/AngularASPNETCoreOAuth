@@ -54,7 +54,7 @@ export class TeachersService extends BaseService {
     };
 
     const payload = {
-      Name, Lastname1, Lastname2, Birthday, Email, Phone
+      ClientId, Name, Lastname1, Lastname2, Birthday, Email, Phone
     };
 
     return this.http.post(this.configService.resourceApiURI + '/people/AddTeacher ', payload,
