@@ -12,4 +12,8 @@ export class ConfigService {
   get resourceApiURI() {
     return 'http://localhost:5050/api';
   }
+
+  get profilePicApiURI() {
+    return 'http://localhost:5050/Resources/Images/';
+  }
 }

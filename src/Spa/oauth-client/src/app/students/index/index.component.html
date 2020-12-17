@@ -26,7 +26,8 @@
         </thead>
         <tbody>
           <tr *ngFor="let student of students; let i = index" [attr.data-index]="i">
-            <td>{{student.id}}</td>
+            <td>        <img  class="prfileImage" src={{imageUrl}}{{student.profilePic}} alt="">
+            </td>
             <td>
               <a class="" routerLink="/students/{{student.id}}">
                 {{student.name + ' '+ student.lastname1 +' ' + student.lastname2}}</a>

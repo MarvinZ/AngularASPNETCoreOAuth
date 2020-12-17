@@ -9,14 +9,47 @@
 
       <hr>
 
+
+      <div class="row">
+        <img width="250" height="300" [src]=imageUrl alt="">
+      </div>
+
+
+
+      <hr>
+
+
+      <hr>
+
+      <div class="row">
+        <div class="col-md-3">
+          <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+          <button type="button" class="btn btn-success" (click)="file.click()">Cambiar foto del estudiante</button>
+        </div>
+        <div class="col-md-4">
+          <span class="upload" *ngIf="progress > 0">
+            {{progress}}%
+          </span>
+          <span class="upload" *ngIf="message">
+            {{message}}
+          </span>
+        </div>
+      </div>
+
+
+
+
+
       <div class="row">
         <div [hidden]="submitted">
 
           <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
 
-            <img width="250" height="300"
-              src="https://mk0salkeizk12or7kyfk.kinstacdn.com/wp-content/uploads/2019/07/jumpstart_kinder_2019.jpg"
-              alt="">
+
+
+
+
+
 
 
             <div class="form-group">

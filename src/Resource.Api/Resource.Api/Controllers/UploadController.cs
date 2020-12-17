@@ -26,6 +26,8 @@ namespace Resource.Api.Controllers
                 var dict = Request.Form.ToDictionary(x => x.Key, x => x.Value.ToString());
                 var studentId = int.Parse(dict["StudentId"]);
                 var groupId = int.Parse(dict["GroupId"]);
+                var clientId = int.Parse(dict["ClientId"]);
+                var isProfilePic = bool.Parse(dict["IsProfilePic"]);
 
                 var folderName = Path.Combine("Resources", "Images");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
@@ -41,7 +43,7 @@ namespace Resource.Api.Controllers
                     {
                         file.CopyTo(stream);
                     }
-                    success = _DocumentsRepo.CreateDocument(studentId, groupId, dbPath, fileName);
+                    success = _DocumentsRepo.CreateDocument(clientId, isProfilePic,  studentId, groupId, dbPath, fileName);
 
                     if (success)
                     {

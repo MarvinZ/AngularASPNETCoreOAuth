@@ -10,7 +10,7 @@ namespace Resource.Api
 
     public interface IStudentRepository
     {
-        List<Student> GetAllStudents();
+        List<StudentDTO> GetAllStudents();
     }
 
 
@@ -21,9 +21,90 @@ namespace Resource.Api
         {
             _context = context;
         }
-        public List<Student> GetAllStudents()
+        public List<StudentDTO> GetAllStudents()
         {
-            return _context.Students.ToList();
+
+
+
+            try
+            {
+                var tempRes = _context.Students.Where(e => e.DeactivateDatetime == null).Select(student => new StudentDTO
+                {
+                    Id = student.Id,
+                    Birthday = student.Birthday,
+                    RegistrationDate = student.RegistrationDate,
+                    Name = student.Name,
+                    Lastnames = student.LastName1 + " " + student.LastName2,
+                    ProfilePic = ""
+                }).ToList();
+
+
+                if (tempRes.Count > 0)
+                {
+
+                    foreach (var item in tempRes)
+                    {
+                        var profilePic = _context.Documents
+                      .Where(e => e.StudentId == item.Id && e.IsProfilePic == true).OrderByDescending(e => e.Id).FirstOrDefault();
+                        item.ProfilePic = profilePic?.Title;
+
+                        var parents = _context.Parents.Join(_context.StudentParents.Where(e => e.StudentId == item.Id && e.DeactivateDatetime == null),
+                            parent => parent.Id,
+                            studentParent => studentParent.ParentId,
+                            (parent, studentParent) => new ParentDTO
+                            {
+                                Id = parent.Id,
+                                Email = parent.Email,
+                                Name = parent.Name,
+                                Lastnames = parent.LastName1 + " " + parent.LastName2,
+                            }).ToList();
+
+                        if (parents != null)
+                        {
+                            item.Parents = new List<ParentDTO>();
+
+                            foreach (var par in parents)
+                            {
+                                item.Parents.Add(par);
+                            }
+                        }
+
+                        var groups = _context.Groups.Join(_context.GroupStudents.Where(e => e.StudentId == item.Id && e.DeactivateDatetime == null),
+                            group => group.Id,
+                            groupStudent => groupStudent.GroupId,
+                            (group, groupStudent) => new GroupDTO
+                            {
+                                Id = group.Id,
+                                GroupShortname = group.GroupShortname,
+                                LevelName = group.Level.Name,
+                                CycleName = group.Cycle.Name,
+                                Status = "ACTIVEXXX"
+                            }).ToList();
+
+                        if (groups != null)
+                        {
+                            item.Groups = new List<GroupDTO>();
+
+                            foreach (var g in groups)
+                            {
+                                item.Groups.Add(g);
+                            }
+                        }
+                    }
+                  
+
+                }
+                return tempRes;
+
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
+
+
         }
 
         public List<StudentDTO> GetStudentsByParentId(int parentId)
@@ -92,10 +173,16 @@ namespace Resource.Api
                     RegistrationDate = student.RegistrationDate,
                     Name = student.Name,
                     Lastnames = student.LastName1 + " " + student.LastName2,
+                    ProfilePic = ""
                 }).FirstOrDefault();
+
 
                 if (tempRes != null)
                 {
+                    var profilePic = _context.Documents
+                        .Where(e => e.StudentId == studentId && e.IsProfilePic == true).OrderByDescending(e=> e.Id).FirstOrDefault();
+                    tempRes.ProfilePic = profilePic?.Title;
+
                     var parents = _context.Parents.Join(_context.StudentParents.Where(e => e.StudentId == studentId && e.DeactivateDatetime == null),
                         parent => parent.Id,
                         studentParent => studentParent.ParentId,

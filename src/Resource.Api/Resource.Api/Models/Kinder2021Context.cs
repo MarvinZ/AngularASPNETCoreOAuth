@@ -131,17 +131,17 @@ namespace Resource.Api.Models
                     .WithMany(p => p.Documents)
                     .HasForeignKey(d => d.ClientId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Document__Client__1E6F845E");
+                    .HasConstraintName("FK__Document__Client__308E3499");
 
                 entity.HasOne(d => d.Group)
                     .WithMany(p => p.Documents)
                     .HasForeignKey(d => d.GroupId)
-                    .HasConstraintName("FK__Document__GroupI__1D7B6025");
+                    .HasConstraintName("FK__Document__GroupI__2F9A1060");
 
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.Documents)
                     .HasForeignKey(d => d.StudentId)
-                    .HasConstraintName("FK__Document__Studen__1C873BEC");
+                    .HasConstraintName("FK__Document__Studen__2EA5EC27");
             });
 
             modelBuilder.Entity<Group>(entity =>

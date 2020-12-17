@@ -12,6 +12,7 @@ namespace Resource.Api.Models
         public int? StudentId { get; set; }
         public int? GroupId { get; set; }
         public string Title { get; set; }
+        public bool? IsProfilePic { get; set; }
         public string FileLocation { get; set; }
         public DateTime CreateDatetime { get; set; }
         public string CreateUser { get; set; }

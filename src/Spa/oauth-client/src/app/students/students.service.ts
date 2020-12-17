@@ -15,7 +15,7 @@ export class StudentsService extends BaseService {
     super();
   }
 
-  fetchTopSecretData(token: string, ClientId: number) {
+  GetAllStudents(token: string, ClientId: number) {
 
     const httpOptions = {
       headers: new HttpHeaders({

@@ -7,6 +7,7 @@ import { StudentsService } from '../students.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpEventType, HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { ConfigService } from 'src/app/shared/config.service';
 
 
 
@@ -31,12 +32,14 @@ export class DetailsComponent implements OnInit {
 
   executionResult: any = [];
 
+  displayUploadPicControls = false;
 
   @Output() public UploadFinished = new EventEmitter();
+  imageUrl: any;
 
   constructor(private route: ActivatedRoute, private authService: AuthService,
     private service: StudentsService, private spinner: NgxSpinnerService,
-    private http: HttpClient, private toastr: ToastrService) {
+    private http: HttpClient, private toastr: ToastrService, private configService: ConfigService) {
 
     this.availableGroups = [];
 
@@ -63,6 +66,8 @@ export class DetailsComponent implements OnInit {
       })).subscribe(
         result => {
           this.student = result;
+          this.imageUrl = this.configService.profilePicApiURI + this.student.profilePic;
+
           this.spinner.hide();
           this.busy = false;
         });
@@ -90,6 +95,8 @@ export class DetailsComponent implements OnInit {
     const formData = new FormData();
     formData.append('StudentId', this.selectedStudent);
     formData.append('GroupId', '0');  // 0 means no group, since this is a personal doc
+    formData.append('ClientId', this.authService.clientId.toString());  // 0 means no group, since this is a personal doc
+    formData.append('IsProfilePic', 'true');  // 0 means no group, since this is a personal doc
 
     formData.append('file', fileToUpload, fileToUpload.name);
     this.http.post('http://localhost:5050/api/Upload', formData, { reportProgress: true, observe: 'events' })
@@ -99,6 +106,7 @@ export class DetailsComponent implements OnInit {
         } else if (event.type === HttpEventType.Response) {
           this.message = 'Upload success.';
           this.UploadFinished.emit(event.body);
+          this.getInitialData();
         }
       });
   }
@@ -166,6 +174,13 @@ export class DetailsComponent implements OnInit {
           }
         });
   }
+
+
+  replaceProfilePic() {
+    this.displayUploadPicControls = true;
+  }
+
+
 
 
 }

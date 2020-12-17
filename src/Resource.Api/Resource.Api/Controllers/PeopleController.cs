@@ -85,7 +85,7 @@ namespace Resource.Api.Controllers
         /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
         [HttpPost]
         [Route("GetAllStudents")]
-        public List<Student> GetAllStudents()
+        public List<StudentDTO> GetAllStudents()
         {
             return _StudentsRepo.GetAllStudents();
         }
