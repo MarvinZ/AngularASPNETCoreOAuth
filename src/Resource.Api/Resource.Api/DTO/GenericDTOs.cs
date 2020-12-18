@@ -46,6 +46,7 @@ namespace Resource.Api
 
     public class PaymentsDTO
     {
+        public int ClientId { get; set; }
         public int ParentId { get; set; }
         public int PaymentRequestId { get; set; }
         public int StudentId { get; set; }
@@ -54,7 +55,8 @@ namespace Resource.Api
 
         public decimal Amount { get; set; }
 
-        public DateTime DueDate { get; set; }
+        public string Details { get; set; }
+        public string DueDate { get; set; }
         public DateTime RequestDate { get; set; }
     }
 

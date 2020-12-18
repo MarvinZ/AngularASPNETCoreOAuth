@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { BaseService } from '../shared/base.service';
 import { ConfigService } from '../shared/config.service';
+import { DecimalPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -81,7 +82,7 @@ export class StudentsService extends BaseService {
 
   }
 
-  RemoveParent(authorizationHeaderValue: string, ClientId: number,  ParentId: number, StudentId: number) {
+  RemoveParent(authorizationHeaderValue: string, ClientId: number, ParentId: number, StudentId: number) {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -114,7 +115,23 @@ export class StudentsService extends BaseService {
     return this.http.post(this.configService.resourceApiURI + '/people/AddStudentToGroup ', payload,
       httpOptions).pipe(catchError(this.handleError));
   }
+  CreateStudentPaymentRequest(authorizationHeaderValue: string, ClientId: number, StudentId: number,
+    Amount: number, PaymentRequestTypeId: number, Details: string, Duedate: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: authorizationHeaderValue
+      })
+    };
 
+    const payload = {
+      ClientId, PaymentRequestTypeId, StudentId, Amount, Details, Duedate
+    };
+
+    console.log(payload);
+    return this.http.post(this.configService.resourceApiURI + '/financial/CreateStudentPaymentRequest ', payload,
+      httpOptions).pipe(catchError(this.handleError));
+  }
 
   GetAvailableGroups(token: string, ClientId: number, StudentId: number) {
 

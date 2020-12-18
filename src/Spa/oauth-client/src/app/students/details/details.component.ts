@@ -41,12 +41,18 @@ export class DetailsComponent implements OnInit {
 
   CreatePaymentRequest = false;
 
-  selectedPaymentType = 'Mensualidad';
+  selectedPaymentType = [];
 
   Amount = 0;
 
-  @Output() public UploadFinished = new EventEmitter();
+  paymentDetails = '';
+
+  dueDate = '2012-12-31';
   imageUrl: any;
+
+  @Output() public UploadFinished = new EventEmitter();
+
+
 
   constructor(private route: ActivatedRoute, private authService: AuthService,
     private service: StudentsService, private spinner: NgxSpinnerService,
@@ -218,10 +224,32 @@ export class DetailsComponent implements OnInit {
 
   CancelPaymentRequest() {
     this.CreatePaymentRequest = false;
-    this.Amount = 0;
-    this.selectedPaymentType = 'Mensualidad';
+    this.Amount = 999;
+    this.selectedPaymentType = [];
+    this.dueDate = '2012-12-31';
   }
 
+
+  CreateStudentPaymentRequest() {
+    this.service.CreateStudentPaymentRequest(this.authService.authorizationHeaderValue, this.authService.clientId,
+      +this.selectedStudent, this.Amount, +this.selectedPaymentType.id, this.paymentDetails, this.dueDate)
+      .pipe(finalize(() => {
+
+        // this.spinner.hide();
+        // this.busy = false;
+      })).subscribe(
+        result => {
+          this.executionResult = result;
+          if (this.executionResult) {
+            this.toastr.success('El cobreo ha sido agregado para el estudiante', '!Éxito!');
+            this.getInitialData();
+          } else {
+            this.toastr.error('errorrrrr', 'ERROR');
+            this.getInitialData();
+          }
+        });
+
+  }
 
 }
 

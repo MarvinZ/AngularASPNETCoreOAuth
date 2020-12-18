@@ -31,5 +31,7 @@ namespace Resource.Api.Models
         public virtual PaymentType PaymentType { get; set; }
         public virtual Student Student { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
+
+   
     }
 }

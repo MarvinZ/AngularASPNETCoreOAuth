@@ -42,7 +42,7 @@ namespace Resource.Api.Controllers
         [Route("CreateStudentPaymentRequest")]
         public bool CreateStudentPaymentRequest(PaymentsDTO request)
         {
-            return _PaymentsRepo.CreateStudentPaymentRequest(request.StudentId, request.Amount, request.DueDate, request.PaymentRequestTypeId);
+            return _PaymentsRepo.CreateStudentPaymentRequest(request.ClientId, request.PaymentRequestTypeId, request.StudentId, request.Amount, request.Details, request.DueDate);
         }
 
         [HttpPost]

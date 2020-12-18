@@ -57,30 +57,32 @@ namespace Resource.Api
                 return false;
             }
         }
-        internal bool CreateStudentPaymentRequest(int studentId, decimal amount, DateTime dueDate, int paymentType)
+        internal bool CreateStudentPaymentRequest(int clientId, int PaymentRequestTypeId, int studentId, decimal amount,string details, string duedate)
         {
             try
             {
                 var newPaymentRequest = new PaymentRequest()
                 {
+                    ClientId = clientId,
                     Amount = amount,
                     StudentId = studentId,
                     CreateDatetime = DateTime.UtcNow,
                     CreateUser = "admin",
-                    PaymentTypeId = paymentType,
-                    DueDate = dueDate
+                    PaymentTypeId = PaymentRequestTypeId,
+                    DueDate = DateTime.Parse(duedate), 
+                    PaymentStatusId = 1
 
                 };
                 _context.PaymentRequests.Add(newPaymentRequest);
                 _context.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
         }
-        internal bool CreateGroupPaymentRequest(int groupId, decimal amount, DateTime dueDate, int paymentType)
+        internal bool CreateGroupPaymentRequest(int groupId, decimal amount, string dueDate, int paymentType)
         {
             try
             {
@@ -96,7 +98,7 @@ namespace Resource.Api
                         CreateDatetime = DateTime.UtcNow,
                         CreateUser = "admin",
                         PaymentTypeId = paymentType,
-                        DueDate = dueDate
+                        DueDate = DateTime.Parse(dueDate)
 
                     };
                     _context.PaymentRequests.Add(newPaymentRequest);
@@ -132,7 +134,7 @@ namespace Resource.Api
         internal List<FinancialDTO> GetAllFinancialsForParent(int parentId)
         {
             var students = _context.StudentParents.Where(e => e.ParentId == parentId).Select(e => new int()).ToList();
-            var result = _context.PaymentRequests.Where(e=> students.Contains(e.StudentId) && e.DeactivateDatetime == null)
+            var result = _context.PaymentRequests.Where(e => students.Contains(e.StudentId) && e.DeactivateDatetime == null)
                 .Select(e => new FinancialDTO()
                 {
                     Id = e.Id,
@@ -143,13 +145,13 @@ namespace Resource.Api
                     PaidBy = e.Payments.FirstOrDefault() == null ? "" : e.Payments.FirstOrDefault().Parent.Name + " " + e.Payments.FirstOrDefault().Parent.LastName1,
                     PaymentRequestTypeName = e.PaymentType.Name,
                     PaymentStatusName = e.PaymentStatus.Name,
-                    StudentName = e.Student.Name + " " + e.Student.LastName1                    
+                    StudentName = e.Student.Name + " " + e.Student.LastName1
 
                 }).ToList();
 
             return result;
         }
 
-        
+
     }
 }

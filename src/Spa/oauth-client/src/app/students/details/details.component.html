@@ -227,20 +227,18 @@
 
           <div class="p-field p-col-12 p-md-4">
             <span class="p-float-label">
-              <p-inputMask inputId="amount" mask="" [(ngModel)]="Amount" name="amount">
-              </p-inputMask>
+              <input inputId="amount" type="number" [(ngModel)]="Amount" name="amount">
+
               <label for="cedula">Amount</label>
             </span>
           </div>
-
-
 
 
           <button class="button" (click)="CancelPaymentRequest()">
             Cancelar
           </button>
 
-          <button class="button" (click)="CreatePaymentRequest()">
+          <button class="button" (click)="CreateStudentPaymentRequest()">
             Generar cobro
           </button>
 
