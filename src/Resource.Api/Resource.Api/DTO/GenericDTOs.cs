@@ -44,12 +44,16 @@ namespace Resource.Api
 
 
 
-    public class NewPaymentDTO
+    public class PaymentsDTO
     {
         public int ParentId { get; set; }
+        public int PaymentRequestId { get; set; }
+        public int StudentId { get; set; }
+        public int PaymentRequestTypeId { get; set; }
 
         public decimal Amount { get; set; }
 
+        public DateTime DueDate { get; set; }
         public DateTime RequestDate { get; set; }
     }
 

@@ -32,9 +32,17 @@ namespace Resource.Api.Controllers
 
         [HttpPost]
         [Route("CreatePayment")]
-        public bool CreatePayment(NewPaymentDTO request)
+        public bool CreatePayment(PaymentsDTO request)
         {
-            return _PaymentsRepo.CreatePayment(request.ParentId, request.Amount);
+            return _PaymentsRepo.CreatePayment(request.PaymentRequestId, request.ParentId, request.Amount);
+        }
+
+
+        [HttpPost]
+        [Route("CreatePaymentRequest")]
+        public bool CreatePaymentRequest(PaymentsDTO request)
+        {
+            return _PaymentsRepo.CreatePaymentRequest(request.StudentId, request.Amount, request.DueDate, request.PaymentRequestTypeId);
         }
 
 

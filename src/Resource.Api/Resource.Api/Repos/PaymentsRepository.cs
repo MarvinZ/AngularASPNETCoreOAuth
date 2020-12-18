@@ -9,7 +9,7 @@ namespace Resource.Api
     public interface IPaymentRepository
     {
         public List<PaymentDTO> GetNewPayments();
-        public bool CreatePayment(int parentId, decimal amount);
+        public bool CreatePayment(int requestId, int parentId, decimal amount);
 
 
     }
@@ -37,7 +37,7 @@ namespace Resource.Api
             return result;
         }
 
-        public bool CreatePayment(int parentId, decimal amount)
+        public bool CreatePayment(int requestId, int parentId, decimal amount)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace Resource.Api
                     ParentId = parentId,
                     CreateDatetime = DateTime.UtcNow,
                     CreateUser = "admin",
-
+                    PaymentRequestId = requestId
                 };
                 _context.Payments.Add(newPayment);
                 _context.SaveChanges();
@@ -59,7 +59,29 @@ namespace Resource.Api
             }
         }
 
+        internal bool CreatePaymentRequest(int studentId, decimal amount, DateTime dueDate, int paymentType)
+        {
+            try
+            {
+                var newPaymentRequest = new PaymentRequest()
+                {
+                    Amount = amount,
+                    StudentId = studentId,
+                    CreateDatetime = DateTime.UtcNow,
+                    CreateUser = "admin",
+                    PaymentRequestTypeId = paymentType, 
+                    DueDate = dueDate                    
 
+                };
+                _context.PaymentRequests.Add(newPaymentRequest);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
 
     }
