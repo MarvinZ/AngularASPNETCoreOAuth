@@ -11,6 +11,7 @@ import { ConfigService } from '../shared/config.service';
 export class StudentsService extends BaseService {
 
 
+
   constructor(private http: HttpClient, private configService: ConfigService) {
     super();
   }
@@ -125,7 +126,7 @@ export class StudentsService extends BaseService {
     };
 
     const payload = {
-      StudentId
+      ClientId, StudentId
     };
 
     return this.http.post(this.configService.resourceApiURI + '/things/GetAvailableGroups',
@@ -133,7 +134,21 @@ export class StudentsService extends BaseService {
   }
 
 
+  GetAllFinancialsForStudent(token: string, clientId: number, StudentId: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
 
+    const payload = {
+      clientId, StudentId
+    };
+
+    return this.http.post(this.configService.resourceApiURI + '/financial/GetAllFinancialsForStudent',
+      payload, httpOptions).pipe(catchError(this.handleError));
+  }
 
 
 

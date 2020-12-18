@@ -336,6 +336,8 @@ StudentId int not null,
 PaymentStatusId int not null, 
 PaymentTypeId int not null, 
 Amount decimal (10,4) NOT NULL,
+Details nvarchar(1000) NOT NULL,
+
 DueDate datetime NOT NULL,
 CreateDatetime datetime NOT NULL,
 CreateUser nvarchar(100) NOT NULL,

@@ -11,13 +11,13 @@ import { ConfigService } from '../config.service';
 export class SharedService extends BaseService {
 
 
- public theCatalog: any;
+  public theCatalog: any;
 
   constructor(private http: HttpClient, private configService: ConfigService) {
     super();
   }
 
-  getCatalog(){
+  getCatalog() {
 
     const httpOptions = {
       headers: new HttpHeaders({

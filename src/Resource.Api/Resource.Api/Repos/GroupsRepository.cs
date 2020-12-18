@@ -188,7 +188,8 @@ namespace Resource.Api
             var result = new CatalogDTO()
             {
                 Cycles = _context.Cycles.Where(e => e.DeactivateDatetime == null).ToList(),
-                Levels = _context.Levels.Where(e => e.DeactivateDatetime == null).ToList()
+                Levels = _context.Levels.Where(e => e.DeactivateDatetime == null).ToList(),
+                PaymentTypes = _context.PaymentTypes.Where(e => e.DeactivateDatetime == null).ToList()
 
             };
             return result;

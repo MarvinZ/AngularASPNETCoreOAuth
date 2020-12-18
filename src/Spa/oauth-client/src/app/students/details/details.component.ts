@@ -8,6 +8,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpEventType, HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { ConfigService } from 'src/app/shared/config.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 
 
@@ -30,19 +31,30 @@ export class DetailsComponent implements OnInit {
   availableGroups: AvailableGroup[];
   selectedGroup: AvailableGroup;
 
+
+  availablePaymentTypes: any = [];
   executionResult: any = [];
 
   displayUploadPicControls = false;
+
+  tableItems: any = [];
+
+  CreatePaymentRequest = false;
+
+  selectedPaymentType = 'Mensualidad';
+
+  Amount = 0;
 
   @Output() public UploadFinished = new EventEmitter();
   imageUrl: any;
 
   constructor(private route: ActivatedRoute, private authService: AuthService,
     private service: StudentsService, private spinner: NgxSpinnerService,
-    private http: HttpClient, private toastr: ToastrService, private configService: ConfigService) {
+    private http: HttpClient, private toastr: ToastrService, private configService: ConfigService,
+    private sharedService: SharedService) {
 
     this.availableGroups = [];
-
+    this.availablePaymentTypes = this.sharedService.theCatalog.paymentTypes;
 
   }
 
@@ -58,6 +70,11 @@ export class DetailsComponent implements OnInit {
   }
 
   getInitialData() {
+    this.GetStudentDetails();
+    this.GetStudentFinancialInformation();
+  }
+
+  GetStudentDetails() {
     this.service.getStudentDetails(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedStudent)
       .pipe(finalize(() => {
 
@@ -84,6 +101,18 @@ export class DetailsComponent implements OnInit {
           this.availableGroups = result as AvailableGroup[];
           this.spinner.hide();
           this.busy = false;
+        });
+  }
+
+  GetStudentFinancialInformation() {
+    this.service.GetAllFinancialsForStudent(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedStudent)
+      .pipe(finalize(() => {
+
+
+      })).subscribe(
+        result => {
+          this.tableItems = result;
+
         });
   }
 
@@ -180,7 +209,18 @@ export class DetailsComponent implements OnInit {
     this.displayUploadPicControls = true;
   }
 
+  OpenCreatePaymentRequest() {
+    this.CreatePaymentRequest = true;
 
+  }
+
+
+
+  CancelPaymentRequest() {
+    this.CreatePaymentRequest = false;
+    this.Amount = 0;
+    this.selectedPaymentType = 'Mensualidad';
+  }
 
 
 }
