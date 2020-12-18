@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace Resource.Api.Models
 {
-    public partial class PaymentStatus
+    public partial class PaymentType
     {
-        public PaymentStatus()
+        public PaymentType()
         {
             PaymentRequests = new HashSet<PaymentRequest>();
         }

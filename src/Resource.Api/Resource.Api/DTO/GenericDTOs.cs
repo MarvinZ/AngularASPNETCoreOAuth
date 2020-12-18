@@ -49,6 +49,7 @@ namespace Resource.Api
         public int ParentId { get; set; }
         public int PaymentRequestId { get; set; }
         public int StudentId { get; set; }
+        public int GroupId { get; set; }
         public int PaymentRequestTypeId { get; set; }
 
         public decimal Amount { get; set; }

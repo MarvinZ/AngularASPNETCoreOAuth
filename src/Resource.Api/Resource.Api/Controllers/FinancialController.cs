@@ -25,7 +25,7 @@ namespace Resource.Api.Controllers
 
         [HttpPost]
         [Route("GetNewPayments")]
-        public List<PaymentDTO> GetNewPayments()
+        public List<FinancialDTO> GetNewPayments()
         {
             return _PaymentsRepo.GetNewPayments();
         }
@@ -39,10 +39,33 @@ namespace Resource.Api.Controllers
 
 
         [HttpPost]
-        [Route("CreatePaymentRequest")]
-        public bool CreatePaymentRequest(PaymentsDTO request)
+        [Route("CreateStudentPaymentRequest")]
+        public bool CreateStudentPaymentRequest(PaymentsDTO request)
         {
-            return _PaymentsRepo.CreatePaymentRequest(request.StudentId, request.Amount, request.DueDate, request.PaymentRequestTypeId);
+            return _PaymentsRepo.CreateStudentPaymentRequest(request.StudentId, request.Amount, request.DueDate, request.PaymentRequestTypeId);
+        }
+
+        [HttpPost]
+        [Route("CreateGroupPaymentRequest")]
+        public bool CreateGroupPaymentRequest(PaymentsDTO request)
+        {
+            return _PaymentsRepo.CreateGroupPaymentRequest(request.GroupId, request.Amount, request.DueDate, request.PaymentRequestTypeId);
+        }
+
+
+        [HttpPost]
+        [Route("GetAllFinancialsForStudent")]
+        public List<FinancialDTO> GetAllFinancialsForStudent(PaymentsDTO request)
+        {
+            return _PaymentsRepo.GetAllFinancialsForStudent(request.StudentId);
+        }
+
+
+        [HttpPost]
+        [Route("GetAllFinancialsForParent")]
+        public List<FinancialDTO> GetAllFinancialsForParent(PaymentsDTO request)
+        {
+            return _PaymentsRepo.GetAllFinancialsForParent(request.StudentId);
         }
 
 

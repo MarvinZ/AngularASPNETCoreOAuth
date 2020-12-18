@@ -31,8 +31,8 @@ namespace Resource.Api.Models
         public virtual DbSet<Parent> Parents { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<PaymentRequest> PaymentRequests { get; set; }
-        public virtual DbSet<PaymentRequestType> PaymentRequestTypes { get; set; }
         public virtual DbSet<PaymentStatus> PaymentStatuses { get; set; }
+        public virtual DbSet<PaymentType> PaymentTypes { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<StudentParent> StudentParents { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
@@ -481,13 +481,13 @@ namespace Resource.Api.Models
                     .WithMany(p => p.Payments)
                     .HasForeignKey(d => d.ParentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Payment__ParentI__7814D14C");
+                    .HasConstraintName("FK__Payment__ParentI__1975C517");
 
                 entity.HasOne(d => d.PaymentRequest)
                     .WithMany(p => p.Payments)
                     .HasForeignKey(d => d.PaymentRequestId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Payment__Payment__7908F585");
+                    .HasConstraintName("FK__Payment__Payment__1A69E950");
             });
 
             modelBuilder.Entity<PaymentRequest>(entity =>
@@ -516,24 +516,30 @@ namespace Resource.Api.Models
                     .WithMany(p => p.PaymentRequests)
                     .HasForeignKey(d => d.ClientId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PaymentRe__Clien__74444068");
+                    .HasConstraintName("FK__PaymentRe__Clien__14B10FFA");
 
-                entity.HasOne(d => d.PaymentRequestType)
+                entity.HasOne(d => d.PaymentStatus)
                     .WithMany(p => p.PaymentRequests)
-                    .HasForeignKey(d => d.PaymentRequestTypeId)
+                    .HasForeignKey(d => d.PaymentStatusId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PaymentRe__Payme__753864A1");
+                    .HasConstraintName("FK__PaymentRe__Payme__15A53433");
+
+                entity.HasOne(d => d.PaymentType)
+                    .WithMany(p => p.PaymentRequests)
+                    .HasForeignKey(d => d.PaymentTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PaymentRe__Payme__1699586C");
 
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.PaymentRequests)
                     .HasForeignKey(d => d.StudentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PaymentRe__Stude__73501C2F");
+                    .HasConstraintName("FK__PaymentRe__Stude__13BCEBC1");
             });
 
-            modelBuilder.Entity<PaymentRequestType>(entity =>
+            modelBuilder.Entity<PaymentStatus>(entity =>
             {
-                entity.ToTable("PaymentRequestType");
+                entity.ToTable("PaymentStatus");
 
                 entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
 
@@ -554,9 +560,9 @@ namespace Resource.Api.Models
                     .HasMaxLength(250);
             });
 
-            modelBuilder.Entity<PaymentStatus>(entity =>
+            modelBuilder.Entity<PaymentType>(entity =>
             {
-                entity.ToTable("PaymentStatus");
+                entity.ToTable("PaymentType");
 
                 entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
 

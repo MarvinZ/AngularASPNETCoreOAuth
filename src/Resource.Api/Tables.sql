@@ -257,12 +257,7 @@ ALTER TABLE Document
 ADD FOREIGN KEY (ClientId) REFERENCES Client(Id)
 
 
--------------------------------------------------
-
-
-
-
-
+/*********************ACTIVITY***************************/
 
 DROP TABLE IF EXISTS ActivityType;
 CREATE TABLE ActivityType
@@ -275,9 +270,6 @@ LastModifiedUser nvarchar(100) NULL,
 LastModificationDatetime datetime NULL,
 DeactivateDatetime datetime NULL,
 DeactivateUser nvarchar(100) NULL);
-
-
-
 
 DROP TABLE IF EXISTS Activity;
 CREATE TABLE Activity
@@ -306,6 +298,21 @@ ADD FOREIGN KEY (ClientId) REFERENCES Client(Id)
 
 ALTER TABLE Activity
 ADD FOREIGN KEY (ActivityTypeId) REFERENCES ActivityType(Id)
+/*******************************************************************************************/
+
+
+DROP TABLE IF EXISTS PaymentType;
+CREATE TABLE PaymentType
+(Id int NOT NULL IDENTITY(1,1) PRIMARY KEY ,
+Name nvarchar(250) NOT NULL,
+
+CreateDatetime datetime NOT NULL,
+CreateUser nvarchar(100) NOT NULL,
+LastModifiedUser nvarchar(100) NULL,
+LastModificationDatetime datetime NULL,
+DeactivateDatetime datetime NULL,
+DeactivateUser nvarchar(100) NULL);
+
 
 
 
@@ -327,6 +334,7 @@ CREATE TABLE PaymentRequest
  ClientId int NOT NULL,
 StudentId int not null, 
 PaymentStatusId int not null, 
+PaymentTypeId int not null, 
 Amount decimal (10,4) NOT NULL,
 DueDate datetime NOT NULL,
 CreateDatetime datetime NOT NULL,
@@ -342,6 +350,12 @@ ADD FOREIGN KEY (StudentId) REFERENCES Student(Id);
 
 ALTER TABLE PaymentRequest
 ADD FOREIGN KEY (ClientId) REFERENCES Client(Id);
+
+ALTER TABLE PaymentRequest
+ADD FOREIGN KEY (PaymentStatusId) REFERENCES PaymentStatus(Id);
+
+ALTER TABLE PaymentRequest
+ADD FOREIGN KEY (PaymentTypeId) REFERENCES PaymentType(Id);
 
 
 
