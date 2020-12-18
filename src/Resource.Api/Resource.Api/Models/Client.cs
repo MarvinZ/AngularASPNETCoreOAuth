@@ -9,10 +9,11 @@ namespace Resource.Api.Models
     {
         public Client()
         {
+            Activities = new HashSet<Activity>();
             Documents = new HashSet<Document>();
             Groups = new HashSet<Group>();
             Parents = new HashSet<Parent>();
-            Payments = new HashSet<Payment>();
+            PaymentRequests = new HashSet<PaymentRequest>();
             Students = new HashSet<Student>();
             Teachers = new HashSet<Teacher>();
         }
@@ -30,10 +31,11 @@ namespace Resource.Api.Models
         public DateTime? DeactivateDatetime { get; set; }
         public string DeactivateUser { get; set; }
 
+        public virtual ICollection<Activity> Activities { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
         public virtual ICollection<Parent> Parents { get; set; }
-        public virtual ICollection<Payment> Payments { get; set; }
+        public virtual ICollection<PaymentRequest> PaymentRequests { get; set; }
         public virtual ICollection<Student> Students { get; set; }
         public virtual ICollection<Teacher> Teachers { get; set; }
     }

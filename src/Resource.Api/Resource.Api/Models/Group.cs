@@ -9,6 +9,7 @@ namespace Resource.Api.Models
     {
         public Group()
         {
+            Activities = new HashSet<Activity>();
             Documents = new HashSet<Document>();
             GroupStudents = new HashSet<GroupStudent>();
             GroupTeachers = new HashSet<GroupTeacher>();
@@ -33,6 +34,7 @@ namespace Resource.Api.Models
         public virtual Cycle Cycle { get; set; }
         public virtual GroupStatus GroupStatus { get; set; }
         public virtual Level Level { get; set; }
+        public virtual ICollection<Activity> Activities { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<GroupStudent> GroupStudents { get; set; }
         public virtual ICollection<GroupTeacher> GroupTeachers { get; set; }

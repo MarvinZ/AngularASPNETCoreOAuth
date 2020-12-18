@@ -9,8 +9,10 @@ namespace Resource.Api.Models
     {
         public Student()
         {
+            Activities = new HashSet<Activity>();
             Documents = new HashSet<Document>();
             GroupStudents = new HashSet<GroupStudent>();
+            PaymentRequests = new HashSet<PaymentRequest>();
             StudentParents = new HashSet<StudentParent>();
         }
 
@@ -30,8 +32,10 @@ namespace Resource.Api.Models
         public string DeactivateUser { get; set; }
 
         public virtual Client Client { get; set; }
+        public virtual ICollection<Activity> Activities { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<GroupStudent> GroupStudents { get; set; }
+        public virtual ICollection<PaymentRequest> PaymentRequests { get; set; }
         public virtual ICollection<StudentParent> StudentParents { get; set; }
     }
 }

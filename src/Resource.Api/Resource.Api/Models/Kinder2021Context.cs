@@ -17,6 +17,8 @@ namespace Resource.Api.Models
         {
         }
 
+        public virtual DbSet<Activity> Activities { get; set; }
+        public virtual DbSet<ActivityType> ActivityTypes { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Cycle> Cycles { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
@@ -28,6 +30,8 @@ namespace Resource.Api.Models
         public virtual DbSet<PadronCompleto> PadronCompletos { get; set; }
         public virtual DbSet<Parent> Parents { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<PaymentRequest> PaymentRequests { get; set; }
+        public virtual DbSet<PaymentStatus> PaymentStatuses { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<StudentParent> StudentParents { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
@@ -43,6 +47,76 @@ namespace Resource.Api.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Activity>(entity =>
+            {
+                entity.ToTable("Activity");
+
+                entity.Property(e => e.ActivityDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.CreateUser)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.DeactivateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.DeactivateUser).HasMaxLength(100);
+
+                entity.Property(e => e.LastModificationDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.LastModifiedUser).HasMaxLength(100);
+
+                entity.Property(e => e.Notes)
+                    .IsRequired()
+                    .HasMaxLength(1000);
+
+                entity.HasOne(d => d.ActivityType)
+                    .WithMany(p => p.Activities)
+                    .HasForeignKey(d => d.ActivityTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Activity__Activi__4E1E9780");
+
+                entity.HasOne(d => d.Client)
+                    .WithMany(p => p.Activities)
+                    .HasForeignKey(d => d.ClientId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Activity__Client__4D2A7347");
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.Activities)
+                    .HasForeignKey(d => d.GroupId)
+                    .HasConstraintName("FK__Activity__GroupI__4C364F0E");
+
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.Activities)
+                    .HasForeignKey(d => d.StudentId)
+                    .HasConstraintName("FK__Activity__Studen__4B422AD5");
+            });
+
+            modelBuilder.Entity<ActivityType>(entity =>
+            {
+                entity.ToTable("ActivityType");
+
+                entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.CreateUser)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.DeactivateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.DeactivateUser).HasMaxLength(100);
+
+                entity.Property(e => e.LastModificationDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.LastModifiedUser).HasMaxLength(100);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(250);
+            });
+
             modelBuilder.Entity<Client>(entity =>
             {
                 entity.ToTable("Client");
@@ -402,17 +476,73 @@ namespace Resource.Api.Models
 
                 entity.Property(e => e.LastModifiedUser).HasMaxLength(100);
 
-                entity.HasOne(d => d.Client)
-                    .WithMany(p => p.Payments)
-                    .HasForeignKey(d => d.ClientId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Payment__ClientI__19AACF41");
-
                 entity.HasOne(d => d.Parent)
                     .WithMany(p => p.Payments)
                     .HasForeignKey(d => d.ParentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Payment__ParentI__18B6AB08");
+                    .HasConstraintName("FK__Payment__ParentI__5E54FF49");
+
+                entity.HasOne(d => d.PaymentRequest)
+                    .WithMany(p => p.Payments)
+                    .HasForeignKey(d => d.PaymentRequestId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Payment__Payment__5F492382");
+            });
+
+            modelBuilder.Entity<PaymentRequest>(entity =>
+            {
+                entity.ToTable("PaymentRequest");
+
+                entity.Property(e => e.Amount).HasColumnType("decimal(10, 4)");
+
+                entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.CreateUser)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.DeactivateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.DeactivateUser).HasMaxLength(100);
+
+                entity.Property(e => e.LastModificationDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.LastModifiedUser).HasMaxLength(100);
+
+                entity.HasOne(d => d.Client)
+                    .WithMany(p => p.PaymentRequests)
+                    .HasForeignKey(d => d.ClientId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PaymentRe__Clien__5B78929E");
+
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.PaymentRequests)
+                    .HasForeignKey(d => d.StudentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PaymentRe__Stude__5A846E65");
+            });
+
+            modelBuilder.Entity<PaymentStatus>(entity =>
+            {
+                entity.ToTable("PaymentStatus");
+
+                entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.CreateUser)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.DeactivateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.DeactivateUser).HasMaxLength(100);
+
+                entity.Property(e => e.LastModificationDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.LastModifiedUser).HasMaxLength(100);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(250);
             });
 
             modelBuilder.Entity<Student>(entity =>
