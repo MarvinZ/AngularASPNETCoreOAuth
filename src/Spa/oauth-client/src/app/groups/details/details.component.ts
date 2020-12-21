@@ -8,6 +8,7 @@ import { GroupsService } from '../groups.service';
 
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpEventType, HttpClient } from '@angular/common/http';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 
 @Component({
@@ -19,28 +20,41 @@ export class DetailsComponent implements OnInit {
 
   busy: boolean;
   selectedGroup: string;
-  group: any;
+  group: any = [];
   students = null;
   openAddTeacherToGroup = false;
 
   availableTeachers: AvailableTeacher[] = [];
 
+  availablePaymentTypes: PaymentType[];
+  selectedPaymentType: PaymentType;
+
 
   selectedTeacher: AvailableTeacher;
 
   executionResult: any;
+  paymentRequest = false;
 
+  Amount = 0;
+
+  paymentDetails = '';
+
+  dueDate = '2012-12-31';
 
   public progress: number;
   public message: string;
   @Output() public UploadFinished = new EventEmitter();
 
 
+
   constructor(private route: ActivatedRoute, private authService: AuthService,
     private service: GroupsService, private spinner: NgxSpinnerService,
-    private http: HttpClient, private toastr: ToastrService, private router: Router) {
+    private http: HttpClient, private toastr: ToastrService, private router: Router,
+    private sharedService: SharedService) {
 
     this.availableTeachers = [];
+    this.availablePaymentTypes = this.sharedService.theCatalog.paymentTypes;
+
 
   }
 
@@ -51,8 +65,7 @@ export class DetailsComponent implements OnInit {
 
     this.getInitialData();
 
-    this.spinner.hide();
-    this.busy = false;
+
 
   }
 
@@ -181,11 +194,45 @@ export class DetailsComponent implements OnInit {
         });
   }
 
+  OpenPaymentRequest() {
+    this.paymentRequest = true;
+  }
+  ClosePaymentRequest() {
+    this.paymentRequest = false;
+  }
+
+
+  CreateGroupPaymentRequest() {
+    this.service.CreateGroupPaymentRequest(this.authService.authorizationHeaderValue, this.authService.clientId,
+      +this.selectedGroup, this.Amount, +this.selectedPaymentType.id, this.paymentDetails, this.dueDate)
+      .pipe(finalize(() => {
+
+        // this.spinner.hide();
+        // this.busy = false;
+      })).subscribe(
+        result => {
+          this.executionResult = result;
+          if (this.executionResult) {
+            this.toastr.success('El cobreo ha sido agregado para el estudiante', '!Éxito!');
+            this.getInitialData();
+          } else {
+            this.toastr.error('errorrrrr', 'ERROR');
+            this.getInitialData();
+          }
+        });
+
+  }
+
 
 
 }
 
 interface AvailableTeacher {
   name: string;
+  id: string;
+}
+
+interface PaymentType {
+  GroupShortname: string;
   id: string;
 }

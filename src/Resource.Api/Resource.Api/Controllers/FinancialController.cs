@@ -49,7 +49,7 @@ namespace Resource.Api.Controllers
         [Route("CreateGroupPaymentRequest")]
         public bool CreateGroupPaymentRequest(PaymentsDTO request)
         {
-            return _PaymentsRepo.CreateGroupPaymentRequest(request.GroupId, request.Amount, request.DueDate, request.PaymentRequestTypeId);
+            return _PaymentsRepo.CreateGroupPaymentRequest(request.ClientId, request.GroupId, request.Amount, request.DueDate, request.PaymentRequestTypeId);
         }
 
 

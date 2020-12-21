@@ -16,8 +16,10 @@ namespace Resource.Api.Models
         public string PaymentRequestTypeName { get; set; }
         public string PaidBy { get; set; }
         public string StudentName { get; set; }
+        public string Details { get; set; }
 
         public DateTime RequestedTime { get; set; }
+        public DateTime DueDate { get; set; }
         public DateTime? PaidTime { get; set; }
         public DateTime CreateDatetime { get; set; }
         public string CreateUser { get; set; }

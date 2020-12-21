@@ -1,12 +1,53 @@
 <div class="container">
   <div class="row">
     <div *ngIf="!busy" class="col-md-8">
-      <h3>{{ group.groupShortname}} - {{ group.cycleName}} - {{ group.levelName}}</h3> {{ group.status}}
+
+      <h3 *ngIf="group">{{ group.groupShortname}} - {{ group.cycleName}} - {{ group.levelName}}</h3> {{ group.status}}
       <hr>
 
       <a class=" " routerLink="/groups">Regresar a la lista de grupos</a>
 
       <hr>
+
+      <div class="row" *ngIf="!paymentRequest">
+        <button class="button" (click)="OpenPaymentRequest()">
+          Crear cobro grupal
+        </button>
+      </div>
+
+      <div class="row" *ngIf="paymentRequest">
+
+
+        <div class="p-field p-col-12 p-md-4">
+          <span class="p-float-label">
+            <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availablePaymentTypes"
+              [(ngModel)]="selectedPaymentType" optionLabel="name"></p-dropdown>
+            <label for="dropdown">Tipos de pago</label>
+          </span>
+        </div>
+
+
+        <div class="p-field p-col-12 p-md-4">
+          <span class="p-float-label">
+            <p-inputNumber [(ngModel)]="Amount"></p-inputNumber>
+
+
+
+            <label for="amount">Amount</label>
+          </span>
+        </div>
+
+
+
+
+        <button class="button" (click)="CreateGroupPaymentRequest()">
+          Generar cobro grupal
+        </button>
+
+        <button class="button danger" (click)="ClosePaymentRequest()">
+          Cancelar
+        </button>
+      </div>
 
       <div class="row">
         <h3>Teachers</h3>

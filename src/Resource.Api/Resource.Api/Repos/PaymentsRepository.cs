@@ -82,23 +82,26 @@ namespace Resource.Api
                 return false;
             }
         }
-        internal bool CreateGroupPaymentRequest(int groupId, decimal amount, string dueDate, int paymentType)
+        internal bool CreateGroupPaymentRequest(int clientId, int groupId, decimal amount, string dueDate, int paymentType)
         {
             try
             {
 
-                var students = _context.GroupStudents.Where(e => e.GroupId == groupId).Select(e => new int()).ToList();
+                var students = _context.GroupStudents.Where(e => e.GroupId == groupId).ToList();
 
                 foreach (var item in students)
                 {
                     var newPaymentRequest = new PaymentRequest()
                     {
                         Amount = amount,
-                        StudentId = item,
+                        StudentId = item.StudentId,
                         CreateDatetime = DateTime.UtcNow,
                         CreateUser = "admin",
                         PaymentTypeId = paymentType,
-                        DueDate = DateTime.Parse(dueDate)
+                        DueDate = DateTime.Parse(dueDate),
+                        ClientId = clientId, 
+                        PaymentStatusId = 1, 
+                        
 
                     };
                     _context.PaymentRequests.Add(newPaymentRequest);
@@ -107,7 +110,7 @@ namespace Resource.Api
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
@@ -120,11 +123,15 @@ namespace Resource.Api
                     Id = e.Id,
                     RequestedAmount = e.Amount,
                     PaidAmount = e.Payments.FirstOrDefault() == null ? 0 : e.Payments.FirstOrDefault().Amount,
-                    RequestedTime = e.CreateDatetime,
-                    PaidTime = e.Payments.FirstOrDefault() != null ? e.Payments.FirstOrDefault().CreateDatetime : new DateTime(),
+                    RequestedTime =  e.CreateDatetime,
+                    PaidTime =  e.Payments.FirstOrDefault() == null ? new DateTime(1900,1,1): e.Payments.FirstOrDefault().CreateDatetime ,
                     PaidBy = e.Payments.FirstOrDefault() == null ? "" : e.Payments.FirstOrDefault().Parent.Name + " " + e.Payments.FirstOrDefault().Parent.LastName1,
                     PaymentRequestTypeName = e.PaymentType.Name,
-                    PaymentStatusName = e.PaymentStatus.Name
+                    PaymentStatusName = e.PaymentStatus.Name, 
+                    DueDate = e.DueDate,
+                    Details = "NEED CODE FIX"
+                    
+                    
 
                 }).ToList();
 

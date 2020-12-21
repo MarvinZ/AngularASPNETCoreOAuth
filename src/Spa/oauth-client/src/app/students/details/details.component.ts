@@ -32,7 +32,8 @@ export class DetailsComponent implements OnInit {
   selectedGroup: AvailableGroup;
 
 
-  availablePaymentTypes: any = [];
+  availablePaymentTypes: PaymentType[];
+  selectedPaymentType: PaymentType;
   executionResult: any = [];
 
   displayUploadPicControls = false;
@@ -41,7 +42,7 @@ export class DetailsComponent implements OnInit {
 
   CreatePaymentRequest = false;
 
-  selectedPaymentType = [];
+
 
   Amount = 0;
 
@@ -118,6 +119,7 @@ export class DetailsComponent implements OnInit {
       })).subscribe(
         result => {
           this.tableItems = result;
+          console.log(this.tableItems);
 
         });
   }
@@ -224,8 +226,8 @@ export class DetailsComponent implements OnInit {
 
   CancelPaymentRequest() {
     this.CreatePaymentRequest = false;
-    this.Amount = 999;
-    this.selectedPaymentType = [];
+    this.Amount = 0;
+    this.selectedPaymentType = null;
     this.dueDate = '2012-12-31';
   }
 
@@ -254,6 +256,11 @@ export class DetailsComponent implements OnInit {
 }
 
 interface AvailableGroup {
+  GroupShortname: string;
+  id: string;
+}
+
+interface PaymentType {
   GroupShortname: string;
   id: string;
 }

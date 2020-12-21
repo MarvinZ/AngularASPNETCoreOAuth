@@ -18,6 +18,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 
 
@@ -29,7 +30,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     StudentsRoutingModule,
     SharedModule,
     FormsModule,
-    SelectButtonModule, CalendarModule, DropdownModule, InputMaskModule, InputSwitchModule, InputTextModule, InputTextareaModule
+    SelectButtonModule, CalendarModule, DropdownModule, InputMaskModule, InputSwitchModule,
+    InputTextModule, InputTextareaModule, InputNumberModule
   ]
 })
 export class StudentsModule { }
