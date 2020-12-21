@@ -65,9 +65,15 @@ namespace Resource.Api.Controllers
         [Route("GetAllFinancialsForParent")]
         public List<FinancialDTO> GetAllFinancialsForParent(PaymentsDTO request)
         {
-            return _PaymentsRepo.GetAllFinancialsForParent(request.StudentId);
+            return _PaymentsRepo.GetAllFinancialsForParent(request.ParentId);
         }
 
+        [HttpPost]
+        [Route("Pay")]
+        public bool Pay(PaymentsDTO request)
+        {
+            return _PaymentsRepo.Pay(request.ClientId, request.ParentId, request.PaymentRequestId);
+        }
 
     }
 }

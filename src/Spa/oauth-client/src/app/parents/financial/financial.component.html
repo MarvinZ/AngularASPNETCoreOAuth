@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="row">
+    <div *ngIf="!busy" class="col-md-8">
+      <h3>Parent - Financial</h3>
+
+
+      <a class=" " routerLink="/parents/{{selectedParent}}">Back to parent details</a>
+
+    </div>
+  </div>
+
+
+
+  <div class="row">
+
+    <h3>Cobros y pagos</h3>
+
+
+    <table class="table small">
+      <thead>
+        <tr>
+          <th scope="col">Estado</th>
+          <th scope="col">Tipo </th>
+          <th scope="col">Detalles</th>
+          <th>Monto a cancelar</th>
+          <th>Fecha de cobro </th>
+          <th>Fecha limite de pago </th>
+          <th>Monto cancelado</th>
+          <th>Pagado por </th>
+          <th>Fecha de ultimo pago</th>
+          <th> </th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of tableItems; let i = index" [attr.data-index]="i">
+          <td>{{item.paymentStatusName}}</td>
+          <td>{{item.paymentRequestTypeName}}</td>
+          <td>{{item.details}}</td>
+          <td>{{item.requestedAmount}}</td>
+          <td>{{item.requestedTime  | date}}</td>
+          <td>{{item.dueDate | date}}</td>
+          <td>{{item.paidAmount}}</td>
+          <td>{{item.paidBy}}</td>
+          <td>{{item.paidTime  | date}}</td>
+          <td><button class="button" (click)="Pay(item.id)">Pagar</button></td>
+          <td>{{item.paidTime  | date}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <hr>
+
+
+  <!-- <hr>
+      <hr>
+      <hr>
+      <div class="row" style="margin-bottom:15px;">
+        <div class="col-md-3">
+          <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+          <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
+        </div>
+        <div class="col-md-4">
+          <span class="upload" *ngIf="progress > 0">
+            {{progress}}%
+          </span>
+          <span class="upload" *ngIf="message">
+            {{message}}
+          </span>
+        </div>
+      </div>
+      <hr>
+      <hr>
+      <hr> -->
+
+
+  <ngx-spinner></ngx-spinner>
+</div>

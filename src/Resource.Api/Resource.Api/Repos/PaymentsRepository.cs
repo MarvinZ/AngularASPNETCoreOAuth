@@ -1,4 +1,5 @@
-﻿using Resource.Api.Models;
+﻿using Resource.Api.Enums;
+using Resource.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,7 +58,7 @@ namespace Resource.Api
                 return false;
             }
         }
-        internal bool CreateStudentPaymentRequest(int clientId, int PaymentRequestTypeId, int studentId, decimal amount,string details, string duedate)
+        internal bool CreateStudentPaymentRequest(int clientId, int PaymentRequestTypeId, int studentId, decimal amount, string details, string duedate)
         {
             try
             {
@@ -69,7 +70,7 @@ namespace Resource.Api
                     CreateDatetime = DateTime.UtcNow,
                     CreateUser = "admin",
                     PaymentTypeId = PaymentRequestTypeId,
-                    DueDate = DateTime.Parse(duedate), 
+                    DueDate = DateTime.Parse(duedate),
                     PaymentStatusId = 1
 
                 };
@@ -99,9 +100,9 @@ namespace Resource.Api
                         CreateUser = "admin",
                         PaymentTypeId = paymentType,
                         DueDate = DateTime.Parse(dueDate),
-                        ClientId = clientId, 
-                        PaymentStatusId = 1, 
-                        
+                        ClientId = clientId,
+                        PaymentStatusId = 1,
+
 
                     };
                     _context.PaymentRequests.Add(newPaymentRequest);
@@ -123,15 +124,15 @@ namespace Resource.Api
                     Id = e.Id,
                     RequestedAmount = e.Amount,
                     PaidAmount = e.Payments.FirstOrDefault() == null ? 0 : e.Payments.FirstOrDefault().Amount,
-                    RequestedTime =  e.CreateDatetime,
-                    PaidTime =  e.Payments.FirstOrDefault() == null ? new DateTime(1900,1,1): e.Payments.FirstOrDefault().CreateDatetime ,
+                    RequestedTime = e.CreateDatetime,
+                    PaidTime = e.Payments.FirstOrDefault() == null ? new DateTime(1900, 1, 1) : e.Payments.FirstOrDefault().CreateDatetime,
                     PaidBy = e.Payments.FirstOrDefault() == null ? "" : e.Payments.FirstOrDefault().Parent.Name + " " + e.Payments.FirstOrDefault().Parent.LastName1,
                     PaymentRequestTypeName = e.PaymentType.Name,
-                    PaymentStatusName = e.PaymentStatus.Name, 
+                    PaymentStatusName = e.PaymentStatus.Name,
                     DueDate = e.DueDate,
                     Details = "NEED CODE FIX"
-                    
-                    
+
+
 
                 }).ToList();
 
@@ -140,23 +141,59 @@ namespace Resource.Api
 
         internal List<FinancialDTO> GetAllFinancialsForParent(int parentId)
         {
-            var students = _context.StudentParents.Where(e => e.ParentId == parentId).Select(e => new int()).ToList();
-            var result = _context.PaymentRequests.Where(e => students.Contains(e.StudentId) && e.DeactivateDatetime == null)
+            var students = _context.StudentParents.Where(e => e.ParentId == parentId).ToList();
+            var tempStudents = new List<int>();
+            foreach (var item in students)
+            {
+                tempStudents.Add(item.StudentId);
+            }
+            var result = _context.PaymentRequests.Where(e => tempStudents.Contains(e.StudentId) && e.DeactivateDatetime == null)
                 .Select(e => new FinancialDTO()
                 {
                     Id = e.Id,
                     RequestedAmount = e.Amount,
                     PaidAmount = e.Payments.FirstOrDefault() == null ? 0 : e.Payments.FirstOrDefault().Amount,
                     RequestedTime = e.CreateDatetime,
-                    PaidTime = e.Payments.FirstOrDefault() != null ? e.Payments.FirstOrDefault().CreateDatetime : new DateTime(),
+                    PaidTime = e.Payments.FirstOrDefault() == null ? new DateTime(1900, 1, 1) : e.Payments.FirstOrDefault().CreateDatetime,
                     PaidBy = e.Payments.FirstOrDefault() == null ? "" : e.Payments.FirstOrDefault().Parent.Name + " " + e.Payments.FirstOrDefault().Parent.LastName1,
                     PaymentRequestTypeName = e.PaymentType.Name,
                     PaymentStatusName = e.PaymentStatus.Name,
-                    StudentName = e.Student.Name + " " + e.Student.LastName1
+                    DueDate = e.DueDate,
+                    Details = "NEED CODE FIX",
+                    StudentName = e.Student.Name + " " + e.Student.LastName1,
+
 
                 }).ToList();
 
             return result;
+        }
+
+
+
+
+        internal bool Pay(int clientId, int parentId, int PaymentRequestId)
+        {
+            try
+            {
+                var originalPaymentRequest = _context.PaymentRequests.Where(e => e.Id == PaymentRequestId).FirstOrDefault();
+                var newPayment = new Payment()
+                {
+                    PaymentRequestId = PaymentRequestId,
+                    Amount = originalPaymentRequest.Amount,
+                    CreateDatetime = DateTime.UtcNow,
+                    CreateUser = "admin",
+                    ParentId = parentId
+
+                };
+                _context.Payments.Add(newPayment);
+                originalPaymentRequest.PaymentStatusId = (int)PaymentStatusEnum.InReview;
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
 

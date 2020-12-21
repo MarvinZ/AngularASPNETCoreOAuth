@@ -35,7 +35,7 @@ namespace Resource.Api
             //var result2 = _context.Groups.Where(e => e.DeactivateDatetime == null && e.GroupStatusId == (int)GroupStatusName.Active)
             //    .GroupJoin(_context.GroupTeachers.DefaultIfEmpty(), group => group.Id, gt => gt.GroupId,  
 
-            var result = _context.Groups.Where(e => e.DeactivateDatetime == null && e.GroupStatusId == (int)GroupStatusName.Active)
+            var result = _context.Groups.Where(e => e.DeactivateDatetime == null && e.GroupStatusId == (int)GroupStatusEnum.Active)
                // .Join(_context.GroupTeachers.DefaultIfEmpty(), group => group.Id, gt => gt.GroupId,
                .Select ( group => new GroupDTO()
               //   (group, gt) => new GroupDTO
@@ -99,7 +99,7 @@ namespace Resource.Api
                 var studentBirthday = _context.Students.Where(e => e.Id == studentId).FirstOrDefault().Birthday;
                 var result = _context.Groups
                     .Where(e => e.MinDate < studentBirthday && e.MaxDate >= studentBirthday
-                    && e.DeactivateDatetime == null && e.GroupStatusId == (int)GroupStatusName.Active)
+                    && e.DeactivateDatetime == null && e.GroupStatusId == (int)GroupStatusEnum.Active)
                     .Select(c => new GroupDTO
                     {
                         MaxDate = c.MaxDate,

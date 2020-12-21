@@ -121,5 +121,39 @@ export class ParentsService extends BaseService {
   }
 
 
+  GetAllFinancialsForParent(token: string, clientId: number, ParentId: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
+
+    const payload = {
+      clientId, ParentId
+    };
+    console.log(payload);
+    return this.http.post(this.configService.resourceApiURI + '/financial/GetAllFinancialsForParent',
+      payload, httpOptions).pipe(catchError(this.handleError));
+  }
+
+
+  Pay(token: string, clientId: number, ParentId: number, PaymentRequestId: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
+
+    const payload = {
+      clientId, ParentId, PaymentRequestId
+    };
+    console.log(payload);
+    return this.http.post(this.configService.resourceApiURI + '/financial/Pay',
+      payload, httpOptions).pipe(catchError(this.handleError));
+  }
+
+
 
 }
