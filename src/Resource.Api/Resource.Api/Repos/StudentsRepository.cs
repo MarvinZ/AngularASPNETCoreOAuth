@@ -120,6 +120,12 @@ namespace Resource.Api
             return students;
         }
 
+        internal List<ActivityDTO> GetStudentActivities(int studentId)
+        {
+            //var tempResult = _context.Student
+            return new List<ActivityDTO>();
+        }
+
         public List<StudentDTO> GetStudentsByGroupId(int groupId)
         {
             var students = _context.Students.Join(_context.GroupStudents.Where(e => e.GroupId == groupId && e.DeactivateDatetime == null), student => student.Id,

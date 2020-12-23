@@ -2,7 +2,8 @@
   <div class="row">
     <div *ngIf="!busy" class="col-md-8">
 
-      <h3 *ngIf="group">ACTIVITY for {{ group.groupShortname}} - {{ group.cycleName}} - {{ group.levelName}}</h3> {{ group.status}}
+      <h3 *ngIf="group">ACTIVITY for {{ group.groupShortname}} - {{ group.cycleName}} - {{ group.levelName}}</h3>
+      {{ group.status}}
       <hr>
 
       <a class=" " routerLink="/groups">Regresar a la lista de grupos</a>
@@ -18,7 +19,7 @@
       <div class="row" *ngIf="newAcivity">
 
 
-        <div class="p-field p-col-12 p-md-4">
+        <div class="p-field p-col-12 p-md-4 form-group">
           <span class="p-float-label">
             <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableActivityTypes"
               [(ngModel)]="selectedActivityType" optionLabel="name"></p-dropdown>
@@ -27,13 +28,11 @@
         </div>
 
 
-        <div class="p-field p-col-12 p-md-4">
+        <div class="p-field p-col-12 p-md-4 form-group">
           <span class="p-float-label">
-            <p-inputNumber [(ngModel)]="Amount"></p-inputNumber>
-
-
-
-            <label for="amount">Amount</label>
+            <p-calendar [yearNavigator]="true" yearRange="2020:2022" inputId="calendar" [(ngModel)]="activityDate"
+              name="activityDate" required></p-calendar>
+            <label for="calendar">Fecha de la actividad</label>
           </span>
         </div>
 
@@ -74,19 +73,36 @@
         </div>
 
 
+        <div class="row">
+          <div class="col-md-3">
+            <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+            <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
+          </div>
+          <div class="col-md-4">
+            <span class="upload" *ngIf="progress > 0">
+              {{progress}}%
+            </span>
+            <span class="upload" *ngIf="message">
+              {{message}}
+            </span>
+          </div>
+        </div>
 
-        <button class="button" (click)="CreateGroupPaymentRequest()">
-          Generar actividad grupal
-        </button>
 
-        <button class="button danger" (click)="CloseNewActivity()">
-          Cancelar
-        </button>
+
+        <div class="row">
+          <button class="button" (click)="CreateGroupPaymentRequest()">
+            Generar actividad grupal
+          </button>
+
+          <button class="button danger" (click)="CloseNewActivity()">
+            Cancelar
+          </button>
+        </div>
+
+
+
       </div>
-
-
-
-      <hr>
 
 
 
@@ -98,20 +114,7 @@
 
 
 
-      <!-- <div class="row">
-        <div class="col-md-3">
-          <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
-          <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
-        </div>
-        <div class="col-md-4">
-          <span class="upload" *ngIf="progress > 0">
-            {{progress}}%
-          </span>
-          <span class="upload" *ngIf="message">
-            {{message}}
-          </span>
-        </div>
-      </div> -->
+
 
     </div>
   </div>

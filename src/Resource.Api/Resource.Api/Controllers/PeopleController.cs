@@ -124,6 +124,14 @@ namespace Resource.Api.Controllers
         }
 
         [HttpPost]
+        [Route("GetStudentActivities")]
+        public List<ActivityDTO> GetStudentActivities(StudentRequestDTO request)
+        {
+            return _StudentsRepo.GetStudentActivities(request.StudentId);
+        }
+        
+
+        [HttpPost]
         [Route("GetParentDetails")]
         public ParentDTO GetParentDetails(ParentRequestDTO request)
         {

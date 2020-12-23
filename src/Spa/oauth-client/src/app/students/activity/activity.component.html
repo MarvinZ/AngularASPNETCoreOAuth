@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row">
+    <div *ngIf="!busy" class="col-md-8">
+      <h3>Activities - {{student.name}} - </h3>
+
+      <hr>
+
+      <a class=" " routerLink="/students">Back to all students</a>
+
+      <hr>
+
+
+      <div class="row">
+        <div class="col-md-3">
+          <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+          <button type="button" class="btn btn-success" (click)="file.click()">Cambiar foto del estudiante</button>
+        </div>
+        <div class="col-md-4">
+          <span class="upload" *ngIf="progress > 0">
+            {{progress}}%
+          </span>
+          <span class="upload" *ngIf="message">
+            {{message}}
+          </span>
+        </div>
+      </div>
+
+
+      <hr>
+
+      <div class="row">
+
+
+        <h3>Activities</h3>
+
+        <table class="table small">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col"> </th>
+              <th scope="col"> </th>
+
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let act of activities; let i = index" [attr.data-index]="i">
+              <td>
+                {{act.id}}
+              </td>
+
+              <td>
+
+              </td>
+
+              <td>
+
+              </td>
+
+
+
+            </tr>
+          </tbody>
+        </table>
+
+        <hr>
+
+
+
+
+        <hr>
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+
+  <ngx-spinner></ngx-spinner>
+</div>

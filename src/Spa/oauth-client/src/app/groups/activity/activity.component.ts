@@ -29,17 +29,14 @@ export class ActivityComponent implements OnInit {
 
   executionResult: any;
   newAcivity = false;
-
   Amount = 0;
-
   paymentDetails = '';
-
   dueDate = '2012-12-31';
+  activityDate = new Date();
 
   public progress: number;
   public message: string;
   @Output() public UploadFinished = new EventEmitter();
-
 
 
   constructor(private route: ActivatedRoute, private authService: AuthService,
@@ -47,7 +44,6 @@ export class ActivityComponent implements OnInit {
     private http: HttpClient, private toastr: ToastrService, private router: Router,
     private sharedService: SharedService) {
       console.log(this.sharedService.theCatalog);
-
     this.availableActivityTypes = this.sharedService.theCatalog.activityTypes;
   }
 
