@@ -25,6 +25,7 @@ export class CreateComponent implements OnInit {
   levels: any = [];
   cycles: any = [];
   paymentTypes: any = [];
+  activityTypes: any = [];
 
   openGroupResult: any = [];
 
@@ -39,6 +40,7 @@ export class CreateComponent implements OnInit {
     this.levels = this.sharedservice.theCatalog.levels;
     this.cycles = this.sharedservice.theCatalog.cycles;
     this.paymentTypes = this.sharedservice.theCatalog.paymentTypes;
+    this.activityTypes = this.sharedservice.theCatalog.activityTypes;
     this.busy = true;
     this.spinner.show();
     this.spinner.hide();

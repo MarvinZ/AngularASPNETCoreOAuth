@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { IndexComponent } from './index/index.component';
+import { ActivityComponent } from './activity/activity.component';
 import { DetailsComponent } from './details/details.component';
+
 import { GroupsService } from '../groups/groups.service';
 import { CreateComponent } from './create/create.component';
 
@@ -13,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
-import {CardModule} from 'primeng/card';
+import { CardModule } from 'primeng/card';
 import { InputNumberModule } from 'primeng/inputnumber';
 
 
@@ -21,7 +23,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 
 
 @NgModule({
-  declarations: [IndexComponent, DetailsComponent, CreateComponent],
+  declarations: [IndexComponent, DetailsComponent, CreateComponent, ActivityComponent],
   providers: [GroupsService],
   imports: [
     CommonModule,

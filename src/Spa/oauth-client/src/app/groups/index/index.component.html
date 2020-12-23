@@ -43,6 +43,9 @@
 
         <p-header [style]="{width: '360px'}" styleClass="p-card-shadow">
           <a class="" routerLink="/groups/{{group.id}}">{{group.groupShortname}} </a> </p-header>
+          <p>
+            <a class="" routerLink="/group_activities/{{group.id}}">{{group.groupShortname}} </a>
+          </p>
         {{group.status}}
         {{group.cycleName}} - {{group.levelName}} {{group.minDate | date}} - {{group.maxDate | date}}
           {{group.totalStudents}} <ul>

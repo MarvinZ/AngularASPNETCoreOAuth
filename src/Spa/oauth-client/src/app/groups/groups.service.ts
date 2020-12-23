@@ -169,4 +169,24 @@ export class GroupsService extends BaseService {
       httpOptions).pipe(catchError(this.handleError));
   }
 
+
+  CreateNewGroupActivity(authorizationHeaderValue: string, ClientId: number, GroupId: number,
+    Amount: number, PaymentRequestTypeId: number, Details: string, Duedate: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: authorizationHeaderValue
+      })
+    };
+
+    const payload = {
+      ClientId, PaymentRequestTypeId, GroupId, Amount, Details, Duedate
+    };
+
+    console.log(payload);
+    return this.http.post(this.configService.resourceApiURI + '/financial/CreateGroupPaymentRequest ', payload,
+      httpOptions).pipe(catchError(this.handleError));
+  }
+
+
 }
