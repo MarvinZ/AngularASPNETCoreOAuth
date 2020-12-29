@@ -169,4 +169,20 @@ export class StudentsService extends BaseService {
 
 
 
+  GetStudentActivities(token: string, clientId: number, StudentId: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
+
+    const payload = {
+      clientId, StudentId
+    };
+
+    return this.http.post(this.configService.resourceApiURI + '/people/GetStudentActivities',
+      payload, httpOptions).pipe(catchError(this.handleError));
+  }
+
 }

@@ -32,7 +32,7 @@ namespace Resource.Api
                 {
                     Id = student.Id,
                     Birthday = student.Birthday,
-                    RegistrationDate = student.RegistrationDate,
+                    RegistrationDate = student.RegistrationDate.ToString(),
                     Name = student.Name,
                     Lastnames = student.LastName1 + " " + student.LastName2,
                     ProfilePic = ""
@@ -134,7 +134,7 @@ namespace Resource.Api
                           {
                               Id = student.Id,
                               Birthday = student.Birthday,
-                              RegistrationDate = student.RegistrationDate,
+                              RegistrationDate = student.RegistrationDate.ToString(),
                               Name = student.Name,
                               Lastnames = student.LastName1 + " " + student.LastName2,
                           }).ToList();
@@ -176,10 +176,13 @@ namespace Resource.Api
                 {
                     Id = student.Id,
                     Birthday = student.Birthday,
-                    RegistrationDate = student.RegistrationDate,
+                    RegistrationDate = student.RegistrationDate.ToString(),
                     Name = student.Name,
                     Lastnames = student.LastName1 + " " + student.LastName2,
-                    ProfilePic = ""
+                    ProfilePic = "",
+                    LastName1 = student.LastName1,
+                    LastName2 = student.LastName2,
+                    Genre = char.Parse(student.Gender)
                 }).FirstOrDefault();
 
 

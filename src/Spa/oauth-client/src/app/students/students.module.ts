@@ -22,6 +22,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 
 
 
+
 @NgModule({
   declarations: [IndexComponent, DetailsComponent, CreateComponent],
   providers: [StudentsService],

@@ -1,7 +1,7 @@
 // import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 import { AuthService } from '../../core/authentication/auth.service';
 import { StudentsService } from '../students.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
@@ -18,10 +18,12 @@ import { SharedService } from 'src/app/shared/services/shared.service';
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit {
+  genres: Genre[];
+  studentGenre = new Genre();
 
   busy: boolean;
   selectedStudent: string;
-  student: any = [];
+  student: Student;
 
   public progress: number;
   public message: string;
@@ -51,6 +53,8 @@ export class DetailsComponent implements OnInit {
   dueDate = '2012-12-31';
   imageUrl: any;
 
+  fixedDate: Date;
+
   @Output() public UploadFinished = new EventEmitter();
 
 
@@ -62,6 +66,14 @@ export class DetailsComponent implements OnInit {
 
     this.availableGroups = [];
     this.availablePaymentTypes = this.sharedService.theCatalog.paymentTypes;
+
+    this.genres = [
+      { name: 'Mujer', code: 'F' },
+      { name: 'Hombre', code: 'M' }
+    ];
+
+
+
 
   }
 
@@ -83,18 +95,28 @@ export class DetailsComponent implements OnInit {
 
   GetStudentDetails() {
     this.service.getStudentDetails(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedStudent)
-      .pipe(finalize(() => {
+      .pipe(
 
-        this.spinner.hide();
-        this.busy = false;
-      })).subscribe(
-        result => {
-          this.student = result;
-          this.imageUrl = this.configService.profilePicApiURI + this.student.profilePic;
+        // map((res: any) => res.birthday = new Date(res.birthday)),
+
+
+        finalize(() => {
 
           this.spinner.hide();
           this.busy = false;
-        });
+        })).subscribe(
+          result => {
+            this.student = result as Student;
+            console.log(this.student);
+
+            this.fixedDate = new Date(this.student.birthday);
+
+            this.imageUrl = this.configService.profilePicApiURI + this.student.profilePic;
+            this.studentGenre = this.genres.find(x => x.code === this.student.genre);
+            this.spinner.hide();
+            this.busy = false;
+            console.log(this.studentGenre);
+          });
   }
 
   GetAvailableGroups() {
@@ -113,15 +135,16 @@ export class DetailsComponent implements OnInit {
 
   GetStudentFinancialInformation() {
     this.service.GetAllFinancialsForStudent(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedStudent)
-      .pipe(finalize(() => {
+      .pipe(
+        finalize(() => {
 
 
-      })).subscribe(
-        result => {
-          this.tableItems = result;
-          console.log(this.tableItems);
+        })).subscribe(
+          result => {
+            this.tableItems = result;
+            console.log(this.tableItems);
 
-        });
+          });
   }
 
   public uploadFile = (files) => {
@@ -263,4 +286,21 @@ interface AvailableGroup {
 interface PaymentType {
   GroupShortname: string;
   id: string;
+}
+
+
+interface Student {
+  name: string;
+  lastName1: string;
+  lastName2: string;
+  birthday: Date;
+  genre: string;
+  id: number;
+  profilePic: string;
+}
+
+
+export class Genre {
+  name: string;
+  code: string;
 }

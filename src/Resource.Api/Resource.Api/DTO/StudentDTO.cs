@@ -12,7 +12,7 @@ namespace Resource.Api
  
 
         public DateTime Birthday { get; set; }
-        public DateTime RegistrationDate { get; set; }
+        public string RegistrationDate { get; set; }
 
         // more
 
@@ -22,5 +22,8 @@ namespace Resource.Api
 
         public List<ParentDTO> Parents { get; internal set; }
         public List<GroupDTO> Groups { get; internal set; }
+
+        public char Genre { get; set; }
+
     }
 }

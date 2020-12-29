@@ -13,9 +13,9 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 
 
 @Component({
-  selector: 'app-students-details',
-  templateUrl: './details.component.html',
-  styleUrls: ['./details.component.scss']
+  selector: 'app-students-activity',
+  templateUrl: './activity.component.html',
+  styleUrls: ['./activity.component.scss']
 })
 export class ActivityComponent implements OnInit {
 
@@ -66,7 +66,7 @@ export class ActivityComponent implements OnInit {
 
   }
 
-  GetStudentDetails() {
+  GetStudentActivities() {
     this.service.GetStudentActivities(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedStudent)
       .pipe(finalize(() => {
 
