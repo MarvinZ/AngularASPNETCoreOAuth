@@ -19,8 +19,11 @@ namespace Resource.Api.Models
 
         public virtual DbSet<Activity> Activities { get; set; }
         public virtual DbSet<ActivityType> ActivityTypes { get; set; }
+        public virtual DbSet<Canton> Cantons { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Cycle> Cycles { get; set; }
+        public virtual DbSet<Distrito> Distritos { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<GroupStatus> GroupStatuses { get; set; }
@@ -33,6 +36,8 @@ namespace Resource.Api.Models
         public virtual DbSet<PaymentRequest> PaymentRequests { get; set; }
         public virtual DbSet<PaymentStatus> PaymentStatuses { get; set; }
         public virtual DbSet<PaymentType> PaymentTypes { get; set; }
+        public virtual DbSet<PhysicalAddress> PhysicalAddresses { get; set; }
+        public virtual DbSet<StateOrProvince> StateOrProvinces { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<StudentParent> StudentParents { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
@@ -118,6 +123,35 @@ namespace Resource.Api.Models
                     .HasMaxLength(250);
             });
 
+            modelBuilder.Entity<Canton>(entity =>
+            {
+                entity.ToTable("Canton");
+
+                entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.CreateUser)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.DeactivateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.DeactivateUser).HasMaxLength(100);
+
+                entity.Property(e => e.LastModificationDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.LastModifiedUser).HasMaxLength(100);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(250);
+
+                entity.HasOne(d => d.StateOrProvince)
+                    .WithMany(p => p.Cantons)
+                    .HasForeignKey(d => d.StateOrProvinceId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Canton__StateOrP__2C88998B");
+            });
+
             modelBuilder.Entity<Client>(entity =>
             {
                 entity.ToTable("Client");
@@ -155,6 +189,29 @@ namespace Resource.Api.Models
                 entity.Property(e => e.RegistrationDate).HasColumnType("datetime");
             });
 
+            modelBuilder.Entity<Country>(entity =>
+            {
+                entity.ToTable("Country");
+
+                entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.CreateUser)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.DeactivateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.DeactivateUser).HasMaxLength(100);
+
+                entity.Property(e => e.LastModificationDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.LastModifiedUser).HasMaxLength(100);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(250);
+            });
+
             modelBuilder.Entity<Cycle>(entity =>
             {
                 entity.ToTable("Cycle");
@@ -176,6 +233,35 @@ namespace Resource.Api.Models
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(250);
+            });
+
+            modelBuilder.Entity<Distrito>(entity =>
+            {
+                entity.ToTable("Distrito");
+
+                entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.CreateUser)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.DeactivateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.DeactivateUser).HasMaxLength(100);
+
+                entity.Property(e => e.LastModificationDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.LastModifiedUser).HasMaxLength(100);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(250);
+
+                entity.HasOne(d => d.Canton)
+                    .WithMany(p => p.Distritos)
+                    .HasForeignKey(d => d.CantonId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Distrito__Canton__2F650636");
             });
 
             modelBuilder.Entity<Document>(entity =>
@@ -581,6 +667,84 @@ namespace Resource.Api.Models
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(250);
+            });
+
+            modelBuilder.Entity<PhysicalAddress>(entity =>
+            {
+                entity.ToTable("PhysicalAddress");
+
+                entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.CreateUser)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.DeactivateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.DeactivateUser).HasMaxLength(100);
+
+                entity.Property(e => e.LastModificationDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.LastModifiedUser).HasMaxLength(100);
+
+                entity.Property(e => e.Line1)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Line2).HasMaxLength(500);
+
+                entity.Property(e => e.ZipCode).HasMaxLength(50);
+
+                entity.HasOne(d => d.Canton)
+                    .WithMany(p => p.PhysicalAddresses)
+                    .HasForeignKey(d => d.CantonId)
+                    .HasConstraintName("FK__PhysicalA__Canto__3335971A");
+
+                entity.HasOne(d => d.Country)
+                    .WithMany(p => p.PhysicalAddresses)
+                    .HasForeignKey(d => d.CountryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PhysicalA__Count__351DDF8C");
+
+                entity.HasOne(d => d.Distrito)
+                    .WithMany(p => p.PhysicalAddresses)
+                    .HasForeignKey(d => d.DistritoId)
+                    .HasConstraintName("FK__PhysicalA__Distr__3429BB53");
+
+                entity.HasOne(d => d.StateOrProvince)
+                    .WithMany(p => p.PhysicalAddresses)
+                    .HasForeignKey(d => d.StateOrProvinceId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PhysicalA__State__324172E1");
+            });
+
+            modelBuilder.Entity<StateOrProvince>(entity =>
+            {
+                entity.ToTable("StateOrProvince");
+
+                entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.CreateUser)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.DeactivateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.DeactivateUser).HasMaxLength(100);
+
+                entity.Property(e => e.LastModificationDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.LastModifiedUser).HasMaxLength(100);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(250);
+
+                entity.HasOne(d => d.Country)
+                    .WithMany(p => p.StateOrProvinces)
+                    .HasForeignKey(d => d.CountryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__StateOrPr__Count__29AC2CE0");
             });
 
             modelBuilder.Entity<Student>(entity =>

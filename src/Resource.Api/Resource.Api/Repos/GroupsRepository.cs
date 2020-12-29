@@ -37,27 +37,27 @@ namespace Resource.Api
 
             var result = _context.Groups.Where(e => e.DeactivateDatetime == null && e.GroupStatusId == (int)GroupStatusEnum.Active)
                // .Join(_context.GroupTeachers.DefaultIfEmpty(), group => group.Id, gt => gt.GroupId,
-               .Select ( group => new GroupDTO()
-              //   (group, gt) => new GroupDTO
+               .Select(group => new GroupDTO()
+               //   (group, gt) => new GroupDTO
 
-                 {
-                     MaxDate = group.MaxDate,
-                     MinDate = group.MinDate,
-                     CreateUser = group.CreateUser,
-                     CreateDatetime = group.CreateDatetime,
-                     LevelName = group.Level.Name,
-                     CycleName = group.Cycle.Name,
-                     GroupShortname = group.GroupShortname,
-                     Id = group.Id,
-                     Status = group.GroupStatus.Name,
-                     TotalStudents = group.GroupStudents.Count,
-                     Teachers = group.GroupStudents.Count() == 0 ? null : group.GroupTeachers.Select(e => new TeacherDTO()
-                     {
-                         Name = e.Teacher.Name +" " + e.Teacher.LastName1 + " " + e.Teacher.LastName2,
-                         Id = e.Teacher.Id
-                     }).ToList()
+               {
+                   MaxDate = group.MaxDate,
+                   MinDate = group.MinDate,
+                   CreateUser = group.CreateUser,
+                   CreateDatetime = group.CreateDatetime,
+                   LevelName = group.Level.Name,
+                   CycleName = group.Cycle.Name,
+                   GroupShortname = group.GroupShortname,
+                   Id = group.Id,
+                   Status = group.GroupStatus.Name,
+                   TotalStudents = group.GroupStudents.Count,
+                   Teachers = group.GroupStudents.Count() == 0 ? null : group.GroupTeachers.Select(e => new TeacherDTO()
+                   {
+                       Name = e.Teacher.Name + " " + e.Teacher.LastName1 + " " + e.Teacher.LastName2,
+                       Id = e.Teacher.Id
+                   }).ToList()
 
-                 }).ToList();
+               }).ToList();
 
 
 
@@ -190,7 +190,10 @@ namespace Resource.Api
                 Cycles = _context.Cycles.Where(e => e.DeactivateDatetime == null).ToList(),
                 Levels = _context.Levels.Where(e => e.DeactivateDatetime == null).ToList(),
                 PaymentTypes = _context.PaymentTypes.Where(e => e.DeactivateDatetime == null).ToList(),
-                ActivityTypes = _context.ActivityTypes.Where(e => e.DeactivateDatetime == null).ToList()
+                ActivityTypes = _context.ActivityTypes.Where(e => e.DeactivateDatetime == null).ToList(),
+                Cities = _context.Cantons.Where(e => e.DeactivateDatetime == null).ToList(),
+                Distritos = _context.Distritos.Where(e => e.DeactivateDatetime == null).ToList(),
+                Provinces = _context.StateOrProvinces.Where(e => e.DeactivateDatetime == null).ToList()
 
             };
             return result;
@@ -205,7 +208,7 @@ namespace Resource.Api
                 {
                     Id = group.Id,
                     CycleName = group.Cycle.Name,
-                    LevelName = group.Level.Name, 
+                    LevelName = group.Level.Name,
                     TotalStudents = group.GroupStudents.Count,
                     GroupShortname = group.GroupShortname,
                     Status = group.GroupStatus.Name

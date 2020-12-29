@@ -90,7 +90,6 @@ export class CreateComponent implements OnInit {
       })).subscribe(
         result => {
           this.tempResult = result;
-          console.log(this.tempResult);
           this.newTeacher.name = this.tempResult?.name;
           this.newTeacher.lastname1 = this.tempResult?.lastName1;
           this.newTeacher.lastname2 = this.tempResult?.lastName2;

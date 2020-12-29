@@ -36,6 +36,19 @@ export class DetailsComponent implements OnInit {
 
   availablePaymentTypes: PaymentType[];
   selectedPaymentType: PaymentType;
+
+  availableProvinces: Province[];
+  selectedProvince: Province;
+
+  allCantons: Canton[];
+  availableCantons: any;
+  selectedCanton: Canton;
+
+  allDistritos: Distrito[];
+  availableDistritos: any;
+  selectedDistrito: Distrito;
+
+
   executionResult: any = [];
 
   displayUploadPicControls = false;
@@ -43,8 +56,6 @@ export class DetailsComponent implements OnInit {
   tableItems: any = [];
 
   CreatePaymentRequest = false;
-
-
 
   Amount = 0;
 
@@ -59,6 +70,7 @@ export class DetailsComponent implements OnInit {
 
 
 
+
   constructor(private route: ActivatedRoute, private authService: AuthService,
     private service: StudentsService, private spinner: NgxSpinnerService,
     private http: HttpClient, private toastr: ToastrService, private configService: ConfigService,
@@ -66,13 +78,16 @@ export class DetailsComponent implements OnInit {
 
     this.availableGroups = [];
     this.availablePaymentTypes = this.sharedService.theCatalog.paymentTypes;
+    this.availableProvinces = this.sharedService.theCatalog.provinces;
+    this.allCantons = this.sharedService.theCatalog.cities;
+    this.allDistritos = this.sharedService.theCatalog.distritos;
+
+
 
     this.genres = [
-      { name: 'Mujer', code: 'F' },
-      { name: 'Hombre', code: 'M' }
+      { name: 'Niña', code: 'F' },
+      { name: 'Niño', code: 'M' }
     ];
-
-
 
 
   }
@@ -83,6 +98,7 @@ export class DetailsComponent implements OnInit {
     this.selectedStudent = this.route.snapshot.paramMap.get('id');
 
     this.getInitialData();
+
 
 
 
@@ -107,7 +123,6 @@ export class DetailsComponent implements OnInit {
         })).subscribe(
           result => {
             this.student = result as Student;
-            console.log(this.student);
 
             this.fixedDate = new Date(this.student.birthday);
 
@@ -115,7 +130,6 @@ export class DetailsComponent implements OnInit {
             this.studentGenre = this.genres.find(x => x.code === this.student.genre);
             this.spinner.hide();
             this.busy = false;
-            console.log(this.studentGenre);
           });
   }
 
@@ -142,7 +156,6 @@ export class DetailsComponent implements OnInit {
         })).subscribe(
           result => {
             this.tableItems = result;
-            console.log(this.tableItems);
 
           });
   }
@@ -276,6 +289,14 @@ export class DetailsComponent implements OnInit {
 
   }
 
+  UpdateCantones() {
+    this.availableCantons = this.allCantons.filter(x => x.stateOrProvinceId === this.selectedProvince.id);
+  }
+
+  UpdateDistritos() {
+    this.availableDistritos = this.allDistritos.filter(x => x.cantonId === this.selectedCanton.id);
+  }
+
 }
 
 interface AvailableGroup {
@@ -286,6 +307,23 @@ interface AvailableGroup {
 interface PaymentType {
   GroupShortname: string;
   id: string;
+}
+
+interface Province {
+  Name: string;
+  id: string;
+}
+
+interface Canton {
+  Name: string;
+  id: string;
+  stateOrProvinceId: string;
+}
+
+interface Distrito {
+  Name: string;
+  id: string;
+  cantonId: string;
 }
 
 

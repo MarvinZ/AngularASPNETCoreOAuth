@@ -164,7 +164,6 @@ export class GroupsService extends BaseService {
       ClientId, PaymentRequestTypeId, GroupId, Amount, Details, Duedate
     };
 
-    console.log(payload);
     return this.http.post(this.configService.resourceApiURI + '/financial/CreateGroupPaymentRequest ', payload,
       httpOptions).pipe(catchError(this.handleError));
   }
@@ -183,7 +182,6 @@ export class GroupsService extends BaseService {
       ClientId, PaymentRequestTypeId, GroupId, Amount, Details, Duedate
     };
 
-    console.log(payload);
     return this.http.post(this.configService.resourceApiURI + '/financial/CreateGroupPaymentRequest ', payload,
       httpOptions).pipe(catchError(this.handleError));
   }

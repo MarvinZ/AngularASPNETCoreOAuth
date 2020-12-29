@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Resource.Api.Models;
 using System.IO;
 using System.Security.Claims;
+//using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace Resource.Api
 {
@@ -60,11 +61,19 @@ namespace Resource.Api
             })
                 .SetCompatibilityVersion(CompatibilityVersion.Latest);
 
-            services.Configure<FormOptions>(o => {
+            services.Configure<FormOptions>(o =>
+            {
                 o.ValueLengthLimit = int.MaxValue;
                 o.MultipartBodyLengthLimit = int.MaxValue;
                 o.MemoryBufferThreshold = int.MaxValue;
             });
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,7 +102,7 @@ namespace Resource.Api
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-          //  app.UseStaticFiles();
+            //  app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),

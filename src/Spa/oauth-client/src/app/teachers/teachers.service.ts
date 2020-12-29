@@ -62,8 +62,6 @@ export class TeachersService extends BaseService {
   }
 
   GetNameFromCedula(token: string, ClientId: number, Cedula: string) {
-    console.log(Cedula);
-
 
     const httpOptions = {
       headers: new HttpHeaders({

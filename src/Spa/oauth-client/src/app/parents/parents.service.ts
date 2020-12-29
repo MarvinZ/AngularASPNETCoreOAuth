@@ -56,7 +56,6 @@ export class ParentsService extends BaseService {
     const payload = {
       ClientId, Name, Lastname1, Lastname2, Birthday, Email, Phone, StudentId, Genre, Cedula
     };
-    console.log(payload);
 
     return this.http.post(this.configService.resourceApiURI + '/people/AddParent ', payload,
       httpOptions).pipe(catchError(this.handleError));
@@ -81,8 +80,6 @@ export class ParentsService extends BaseService {
 
 
   GetNameFromCedula(token: string, ClientId: number, Cedula: string) {
-    console.log(Cedula);
-
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -100,8 +97,6 @@ export class ParentsService extends BaseService {
   }
 
   GetExistingNameFromCedula(token: string, ClientId: number, Cedula: string) {
-    console.log(Cedula);
-
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -113,8 +108,6 @@ export class ParentsService extends BaseService {
     const payload = {
       ClientId, Cedula: +Cedula
     };
-
-    console.log(payload);
 
     return this.http.post(this.configService.resourceApiURI + '/people/GetExistingNameFromCedula ', payload,
       httpOptions).pipe(catchError(this.handleError));
@@ -132,7 +125,6 @@ export class ParentsService extends BaseService {
     const payload = {
       clientId, ParentId
     };
-    console.log(payload);
     return this.http.post(this.configService.resourceApiURI + '/financial/GetAllFinancialsForParent',
       payload, httpOptions).pipe(catchError(this.handleError));
   }
@@ -149,7 +141,6 @@ export class ParentsService extends BaseService {
     const payload = {
       clientId, ParentId, PaymentRequestId
     };
-    console.log(payload);
     return this.http.post(this.configService.resourceApiURI + '/financial/Pay',
       payload, httpOptions).pipe(catchError(this.handleError));
   }

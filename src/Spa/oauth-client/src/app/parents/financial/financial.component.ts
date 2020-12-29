@@ -77,7 +77,6 @@ export class FinancialComponent implements OnInit {
       })).subscribe(
         result => {
           this.tableItems = result;
-          console.log(this.tableItems);
           this.spinner.hide();
           this.busy = false;
 
@@ -93,7 +92,6 @@ export class FinancialComponent implements OnInit {
       })).subscribe(
         result => {
           this.tableItems = result;
-          console.log(this.tableItems);
           this.spinner.hide();
           this.busy = false;
 

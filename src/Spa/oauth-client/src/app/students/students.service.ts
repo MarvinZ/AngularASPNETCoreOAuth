@@ -128,7 +128,6 @@ export class StudentsService extends BaseService {
       ClientId, PaymentRequestTypeId, StudentId, Amount, Details, Duedate
     };
 
-    console.log(payload);
     return this.http.post(this.configService.resourceApiURI + '/financial/CreateStudentPaymentRequest ', payload,
       httpOptions).pipe(catchError(this.handleError));
   }

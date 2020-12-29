@@ -43,7 +43,6 @@ export class ActivityComponent implements OnInit {
     private service: GroupsService, private spinner: NgxSpinnerService,
     private http: HttpClient, private toastr: ToastrService, private router: Router,
     private sharedService: SharedService) {
-      console.log(this.sharedService.theCatalog);
     this.availableActivityTypes = this.sharedService.theCatalog.activityTypes;
   }
 
