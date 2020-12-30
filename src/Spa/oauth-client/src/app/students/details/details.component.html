@@ -3,179 +3,151 @@
     <div *ngIf="!busy" class="col-12">
       <h3>Student Details - {{student.name}} - </h3>
 
-      <hr>
-
       <a class=" " routerLink="/students">Back to all students</a>
 
       <hr>
-
-
-      <div class="row">
-        <img width="250" height="300" [src]=imageUrl alt="">
-        <div class="row">
-          <div class="col-md-3">
-            <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
-            <button type="button" class="btn btn-success" (click)="file.click()">Cambiar foto del estudiante</button>
-          </div>
-          <div class="col-md-4">
-            <span class="upload" *ngIf="progress > 0">
-              {{progress}}%
-            </span>
-            <span class="upload" *ngIf="message">
-              {{message}}
-            </span>
-          </div>
-        </div>
-
-      </div>
-
-      <hr>
-
-
-
-
-
-
-
-      <form>
-        <div class="form-row">
-          <div class="form-group col-md-4">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" required [(ngModel)]="student.name" name="name"
-              placeholder="Nombre" required #name="ngModel">
-            <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-              Nombre es requerido
-            </div>
-          </div>
-          <div class="form-group col-md-4">
-            <label for="lastname1">Last name</label>
-            <input type="text" class="form-control" id="lastname1" [(ngModel)]="student.lastName1" name="lastname1"
-              placeholder="Primer Apellido" required #lastname1="ngModel">
-            <div [hidden]="lastname1.valid || lastname1.pristine" class="alert alert-danger">
-              Apellido es requerido
-            </div>
-          </div>
-          <div class="form-group col-md-4">
-            <label for="lastname1">Last name</label>
-            <input type="text" class="form-control" id="lastname1" [(ngModel)]="student.lastName2" name="lastname2"
-              placeholder="Segundo Apellido" #lastname2="ngModel">
-
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <span class="p-float-label">
-              <p-calendar [yearNavigator]="true" inputId="calendar" [(ngModel)]="fixedDate" name="birthday" required>
-              </p-calendar>
-              <label for="calendar">Fecha Nacimiento</label>
-            </span>
-            <!-- <div [hidden]="birthday.valid || birthday.pristine" class="alert alert-danger">
-              Birthday is required
-            </div> -->
-          </div>
-          <div class="form-group col-md-6">
-
-            <span class="p-float-label">
-              <p-selectButton [options]="genres" [(ngModel)]="studentGenre" optionLabel="name" name="genre" required>
-              </p-selectButton>
-            </span>
-
-
-          </div>
-
-        </div>
-
-
-        <hr>
-
-
-
-
-        <div class="form-group">
-          <label for="inputAddress">Dirección</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="Residencial Verde Casa #56">
-        </div>
-
-
-        <div class="form-row">
-
-          <div class="form-group col-md-4">
-            <span class="p-float-label">
-              <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableProvinces"  name="selectedProvince" (onChange)="UpdateCantones()"
-                [(ngModel)]="selectedProvince" optionLabel="name"></p-dropdown>
-              <label for="dropdown">Provincia</label>
-            </span>
-          </div>
-
-          <div class="form-group col-md-4">
-            <span class="p-float-label">
-              <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableCantons"  name="selectedCanton" (onChange)="UpdateDistritos()"
-                [(ngModel)]="selectedCanton" optionLabel="name"></p-dropdown>
-              <label for="dropdown">Cantón</label>
-            </span>
-          </div>
-
-          <div class="form-group col-md-4">
-            <span class="p-float-label">
-              <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableDistritos"  name="selectedDistrito"
-                [(ngModel)]="selectedDistrito" optionLabel="name"></p-dropdown>
-              <label for="dropdown">Distrito</label>
-            </span>
-          </div>
-
-          <!-- <div class="form-group col-md-2">
-            <label for="inputZip">Zip</label>
-            <input type="text" class="form-control" id="inputZip">
-          </div> -->
-        </div>
-
-
-        <button> + Agregar direccion</button>
-
-        <hr>
-        {{Cantones}}
-        <hr>
-
-      </form>
-
-
-
-
-
-
-
-
-
-
-      <hr>
-
-
-
+      <br>
 
       <div class="row">
-        <div [hidden]="submitted">
-
-          <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
-
-            <div class="form-group">
-
+        <div class="col-4">
+          <img width="250" height="300" [src]=imageUrl alt="">
+          <div class="row">
+            <div class="col-md-3">
+              <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)"
+                style="display:none;">
+              <button type="button" class="btn btn-success" (click)="file.click()">Cambiar foto del estudiante</button>
             </div>
-
-            <div class="form-group">
-
+            <div class="col-md-4">
+              <span class="upload" *ngIf="progress > 0">
+                {{progress}}%
+              </span>
+              <span class="upload" *ngIf="message">
+                {{message}}
+              </span>
             </div>
+          </div>
+        </div>
+
+        <div class="col-8">
+          <div class="row">
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <span class="p-float-label">
+                    <input id="float-input" type="text" pInputText [(ngModel)]="student.name" name="nombre" required>
+                    <label for="float-input">Nombre</label>
+                  </span>
+                </div>
+                <div class="form-group col-md-4">
+                  <span class="p-float-label">
+                    <input id="float-input-2" type="text" pInputText [(ngModel)]="student.lastName1" name="lastName1"
+                      required>
+                    <label for="float-input-2">Primer Apellido</label>
+                  </span>
+
+                </div>
+                <div class="form-group col-md-4">
+                  <span class="p-float-label">
+                    <input id="float-input-2" type="text" pInputText [(ngModel)]="student.lastName2" name="lastName2">
+                    <label for="float-input-3">Segundo Apellido</label>
+                  </span>
+
+                </div>
+              </div>
+              <br>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <span class="p-float-label">
+                    <p-calendar [yearNavigator]="true" inputId="calendar" [(ngModel)]="fixedDate" name="birthday"
+                      required>
+                    </p-calendar>
+                    <label for="calendar">Fecha Nacimiento</label>
+                  </span>
+
+                </div>
+                <div class="form-group col-md-6">
+                  <span class="p-float-label">
+                    <p-selectButton [options]="genres" [(ngModel)]="studentGenre" optionLabel="name" name="genre"
+                      inputId="genre">
+                    </p-selectButton>
+
+                  </span>
+                </div>
+
+              </div>
+
+              <br>
+
+              <div class="form-row">
+
+                <div class="form-group col-md-4">
+                  <span class="p-float-label">
+                    <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableProvinces"
+                      name="selectedProvince" (onChange)="UpdateCantones()" [(ngModel)]="selectedProvince"
+                      optionLabel="name">
+                    </p-dropdown>
+                    <label for="dropdown">Provincia</label>
+                  </span>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <span class="p-float-label">
+                    <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableCantons"
+                      name="selectedCanton" (onChange)="UpdateDistritos()" [(ngModel)]="selectedCanton"
+                      optionLabel="name">
+                    </p-dropdown>
+                    <label for="dropdown">Cantón</label>
+                  </span>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <span class="p-float-label">
+                    <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableDistritos"
+                      name="selectedDistrito" [(ngModel)]="selectedDistrito" optionLabel="name"></p-dropdown>
+                    <label for="dropdown">Distrito</label>
+                  </span>
+                </div>
+
+                <!-- <div class="form-group col-md-2">
+<label for="inputZip">Zip</label>
+<input type="text" class="form-control" id="inputZip">
+</div> -->
+              </div>
 
 
+              <br>
+              <div class="form-row">
+                <span class="p-float-label fullWidthMZ">
+                  <input id="line1" type="text" pInputText [(ngModel)]="student.line1" name="line1" required
+                    class="fullWidthMZ">
+                  <label for="line1">Dirección</label>
+                </span>
+              </div>
 
+              <br>
 
-            <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button>
-            <button type="button" class="btn btn-default" (click)="newHero(); heroForm.reset()">New Hero</button>
-          </form>
+              <div class="form-row">
+                <span class="p-float-label fullWidthMZ">
+                  <input id="line2" type="text" pInputText [(ngModel)]="student.line2" name="line2" class="fullWidthMZ">
+                  <label for="line2">Otra señas</label>
+                </span>
+
+              </div>
+
+              <br>
+
+              <!-- <button> + Agregar direccion</button> -->
+
+            </form>
+
+          </div>
+
         </div>
 
 
       </div>
+
 
       <hr>
 
@@ -251,6 +223,7 @@
 
         <hr>
       </div>
+
       <hr>
 
       <div class="row">
@@ -292,6 +265,8 @@
 
 
       </div>
+
+      <hr>
 
       <div class="row">
 

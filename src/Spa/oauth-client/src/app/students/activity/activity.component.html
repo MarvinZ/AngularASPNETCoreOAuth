@@ -1,10 +1,7 @@
 <div class="container">
   <div class="row">
     <div *ngIf="!busy" class="col-md-12">
-      <h3>Activities - {{student.name}} - </h3>
-
-      <hr>
-
+      <h3>Activities </h3>
       <a class=" " routerLink="/students">Back to all students</a>
 
       <hr>
@@ -13,7 +10,7 @@
       <div class="row">
         <div class="col-md-3">
           <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
-          <button type="button" class="btn btn-success" (click)="file.click()">Cambiar foto del estudiante</button>
+          <button type="button" class="btn btn-success" (click)="file.click()">Agregar imagen</button>
         </div>
         <div class="col-md-4">
           <span class="upload" *ngIf="progress > 0">

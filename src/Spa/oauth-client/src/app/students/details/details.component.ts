@@ -12,6 +12,7 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 
 
 
+
 @Component({
   selector: 'app-students-details',
   templateUrl: './details.component.html',
@@ -98,9 +99,6 @@ export class DetailsComponent implements OnInit {
     this.selectedStudent = this.route.snapshot.paramMap.get('id');
 
     this.getInitialData();
-
-
-
 
   }
 
@@ -291,6 +289,7 @@ export class DetailsComponent implements OnInit {
 
   UpdateCantones() {
     this.availableCantons = this.allCantons.filter(x => x.stateOrProvinceId === this.selectedProvince.id);
+    this.availableDistritos = [];
   }
 
   UpdateDistritos() {

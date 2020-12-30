@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { IndexComponent } from './index/index.component';
 import { DetailsComponent } from './details/details.component';
+import { ActivityComponent } from './activity/activity.component';
 import { CreateComponent } from './create/create.component';
 
 import { StudentsService } from '../students/students.service';
@@ -24,7 +25,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 
 
 @NgModule({
-  declarations: [IndexComponent, DetailsComponent, CreateComponent],
+  declarations: [IndexComponent, DetailsComponent, CreateComponent, ActivityComponent],
   providers: [StudentsService],
   imports: [
     CommonModule,

@@ -48,7 +48,7 @@ export class CreateComponent implements OnInit {
 
   ngOnInit() {
     this.newStudent = {
-      name: '',
+      name: 'xxxxx',
       lastname1: '',
       lastname2: '',
       birthday: '',
