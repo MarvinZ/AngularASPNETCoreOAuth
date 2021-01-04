@@ -383,3 +383,103 @@ ADD FOREIGN KEY (PaymentRequestId) REFERENCES PaymentRequest(Id);
 
 
 --Addresses
+
+
+DROP TABLE IF EXISTS Country;
+CREATE TABLE Country
+(Id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+Name nvarchar(250) NOT NULL,
+CreateDatetime datetime NOT NULL,
+CreateUser nvarchar(100) NOT NULL,
+LastModifiedUser nvarchar(100) NULL,
+LastModificationDatetime datetime NULL,
+DeactivateDatetime datetime NULL,
+DeactivateUser nvarchar(100) NULL
+);
+
+
+DROP TABLE IF EXISTS StateOrProvince;
+CREATE TABLE StateOrProvince
+(Id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+CountryId INT not null,
+Name nvarchar(250) NOT NULL,
+CreateDatetime datetime NOT NULL,
+CreateUser nvarchar(100) NOT NULL,
+LastModifiedUser nvarchar(100) NULL,
+LastModificationDatetime datetime NULL,
+DeactivateDatetime datetime NULL,
+DeactivateUser nvarchar(100) NULL
+);
+
+
+ALTER TABLE StateOrProvince
+ADD FOREIGN KEY (CountryId) REFERENCES Country(Id);
+
+
+DROP TABLE IF EXISTS Canton;
+CREATE TABLE Canton
+(Id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+StateOrProvinceId INT not null,
+Name nvarchar(250) NOT NULL,
+CreateDatetime datetime NOT NULL,
+CreateUser nvarchar(100) NOT NULL,
+LastModifiedUser nvarchar(100) NULL,
+LastModificationDatetime datetime NULL,
+DeactivateDatetime datetime NULL,
+DeactivateUser nvarchar(100) NULL
+);
+
+
+ALTER TABLE Canton
+ADD FOREIGN KEY (StateOrProvinceId) REFERENCES StateOrProvince(Id);
+
+DROP TABLE IF EXISTS Distrito;
+CREATE TABLE Distrito
+(Id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+CantonId INT not null,
+Name nvarchar(250) NOT NULL,
+CreateDatetime datetime NOT NULL,
+CreateUser nvarchar(100) NOT NULL,
+LastModifiedUser nvarchar(100) NULL,
+LastModificationDatetime datetime NULL,
+DeactivateDatetime datetime NULL,
+DeactivateUser nvarchar(100) NULL
+);
+
+ALTER TABLE Distrito
+ADD FOREIGN KEY (CantonId) REFERENCES Canton(Id);
+
+
+DROP TABLE IF EXISTS PhysicalAddress;
+CREATE TABLE PhysicalAddress
+(Id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+CountryId INT not null,
+StateOrProvinceId INT not null,
+CantonId INT  null,
+DistritoId INT  null,
+Line1 nvarchar(500) NOT NULL,
+Line2 nvarchar(500)  NULL,
+ZipCode nvarchar(50)  NULL,
+CreateDatetime datetime NOT NULL,
+CreateUser nvarchar(100) NOT NULL,
+LastModifiedUser nvarchar(100) NULL,
+LastModificationDatetime datetime NULL,
+DeactivateDatetime datetime NULL,
+DeactivateUser nvarchar(100) NULL
+);
+
+
+ALTER TABLE PhysicalAddress
+ADD FOREIGN KEY (StateOrProvinceId) REFERENCES StateOrProvince(Id);
+
+ALTER TABLE PhysicalAddress
+ADD FOREIGN KEY (CantonId) REFERENCES Canton(Id);
+
+ALTER TABLE PhysicalAddress
+ADD FOREIGN KEY (DistritoId) REFERENCES Distrito(Id);
+
+ALTER TABLE PhysicalAddress
+ADD FOREIGN KEY (CountryId) REFERENCES Country(Id);
+
+
+--activty tables are missing here
