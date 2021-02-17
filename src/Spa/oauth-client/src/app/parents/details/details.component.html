@@ -1,13 +1,7 @@
 <div class="container">
   <div class="row">
     <div *ngIf="!busy" class="col-md-12">
-      <h3>Parent Details</h3>
-
-
-      The parent {{selectedStudent}} details go here!!!
-
-
-      {{parent | json}}
+      <h3>Parent Details - {{parent.name}}</h3>
 
 
       <a class=" " routerLink="/parents">Back to all parents</a>
@@ -16,69 +10,131 @@
 
     </div>
   </div>
-  <div class="row">
-    <div [hidden]="submitted">
-
-      <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
-
-        <img width="250" height="300" [src]=imageUrl alt="">
 
 
 
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" id="name" required [(ngModel)]="parent.name" name="name"
-            #name="ngModel">
-          <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-            Name is required
+
+  <div class="col-8">
+    <div class="row">
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <span class="p-float-label">
+              <input id="float-input" type="text" pInputText [(ngModel)]="parent.name" name="nombre" required>
+              <label for="float-input">Nombre</label>
+            </span>
+          </div>
+          <div class="form-group col-md-4">
+            <span class="p-float-label">
+              <input id="float-input-2" type="text" pInputText [(ngModel)]="parent.lastName1" name="lastName1"
+                required>
+              <label for="float-input-2">Primer Apellido</label>
+            </span>
+
+          </div>
+          <div class="form-group col-md-4">
+            <span class="p-float-label">
+              <input id="float-input-2" type="text" pInputText [(ngModel)]="parent.lastName2" name="lastName2">
+              <label for="float-input-3">Segundo Apellido</label>
+            </span>
+
           </div>
         </div>
+        <br>
 
-        <div class="form-group">
-          <label for="lastname1">Last name</label>
-          <input type="text" class="form-control" id="lastname1" [(ngModel)]="parent.lastnames" name="lastname1"
-            #lastname1="ngModel">
-          <div [hidden]="lastname1.valid || lastname1.pristine" class="alert alert-danger">
-            Lastname is required
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <span class="p-float-label">
+              <p-calendar [yearNavigator]="true" inputId="calendar" [(ngModel)]="fixedDate" name="birthday" required>
+              </p-calendar>
+              <label for="calendar">Fecha Nacimiento</label>
+            </span>
+
           </div>
+          <div class="form-group col-md-6">
+            <span class="p-float-label">
+              <p-selectButton [options]="genres" [(ngModel)]="parentGenre" optionLabel="name" name="genre"
+                inputId="genre">
+              </p-selectButton>
+
+            </span>
+          </div>
+
+        </div>
+
+        <br>
+
+        <div class="form-row">
+
+          <div class="form-group col-md-4">
+            <span class="p-float-label">
+              <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableProvinces"
+                name="selectedProvince" (onChange)="UpdateCantones()" [(ngModel)]="selectedProvince"
+                optionLabel="name">
+              </p-dropdown>
+              <label for="dropdown">Provincia</label>
+            </span>
+          </div>
+
+          <div class="form-group col-md-4">
+            <span class="p-float-label">
+              <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableCantons"
+                name="selectedCanton" (onChange)="UpdateDistritos()" [(ngModel)]="selectedCanton" optionLabel="name">
+              </p-dropdown>
+              <label for="dropdown">Cantón</label>
+            </span>
+          </div>
+
+          <div class="form-group col-md-4">
+            <span class="p-float-label">
+              <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableDistritos"
+                name="selectedDistrito" [(ngModel)]="selectedDistrito" optionLabel="name"></p-dropdown>
+              <label for="dropdown">Distrito</label>
+            </span>
+          </div>
+
+          <!-- <div class="form-group col-md-2">
+<label for="inputZip">Zip</label>
+<input type="text" class="form-control" id="inputZip">
+</div> -->
         </div>
 
 
-        <div class="form-group">
-          <label for="lastname2">Last name</label>
-          <input type="text" class="form-control" id="lastname2" [(ngModel)]="parent.lastnames" name="lastname2"
-            #lastname2="ngModel">
-          <div [hidden]="lastname2.valid || lastname2.pristine" class="alert alert-danger">
-            Lastname is required
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="birthday">Birthday</label>
-          <input type="text" class="form-control" id="birthday" [(ngModel)]="parent.birthday" name="birthday"
-            #birthday="ngModel">
-          <div [hidden]="birthday.valid || birthday.pristine" class="alert alert-danger">
-            Birthday is required
-          </div>
-        </div>
-
-
-        <div class="form-group col-md-6">
-          <span class="p-float-label">
-            <p-selectButton [options]="genres" [(ngModel)]="parentGenre" optionLabel="name" name="genre"
-              inputId="genre">
-            </p-selectButton>
-
+        <br>
+        <div class="form-row">
+          <span class="p-float-label fullWidthMZ">
+            <input id="line1" type="text" pInputText [(ngModel)]="parent.line1" name="line1" required
+              class="fullWidthMZ">
+            <label for="line1">Dirección</label>
           </span>
         </div>
 
-        <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button>
-        <button type="button" class="btn btn-default" (click)="newHero(); heroForm.reset()">New Hero</button>
+        <br>
+
+        <div class="form-row">
+          <span class="p-float-label fullWidthMZ">
+            <input id="line2" type="text" pInputText [(ngModel)]="parent.line2" name="line2" class="fullWidthMZ">
+            <label for="line2">Otra señas</label>
+          </span>
+
+        </div>
+
+        <br>
+
+        <!-- <button> + Agregar direccion</button> -->
+
       </form>
+
     </div>
+
+    <hr>
+
+    <a class=" " routerLink="/financial/{{selectedParent}}">Financias</a>
 
 
   </div>
+
+
 
   <div class="row">
 

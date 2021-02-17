@@ -1,0 +1,8 @@
+.prfileImage{
+  width: 75px;
+  height: 75px;
+  border-radius: 50%; /*don't forget prefixes*/
+  background-position: center center;
+  /* as mentioned by Vad: */
+  background-size: cover;
+}

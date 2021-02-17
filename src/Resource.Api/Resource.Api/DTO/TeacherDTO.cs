@@ -23,6 +23,9 @@ namespace Resource.Api
         public string LastName2 { get; internal set; }
         public string Cedula { get; internal set; }
 
+        public string Phone { get; set; }
+        public string Email { get; set; }
+
         public List<ParentDTO> Parents { get; internal set; }
         public List<GroupDTO> Groups { get; internal set; }
     }

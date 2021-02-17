@@ -8,7 +8,7 @@ namespace Resource.Api
 
     public interface ITeacherRepository
     {
-        List<Teacher> GetAllTeachers();
+        List<TeacherDTO> GetAllTeachers();
     }
 
 
@@ -19,9 +19,71 @@ namespace Resource.Api
         {
             _context = context;
         }
-        public List<Teacher> GetAllTeachers()
+        public List<TeacherDTO> GetAllTeachers()
         {
-            return _context.Teachers.ToList();
+
+
+            try
+            {
+                var tempRes = _context.Teachers.Where(e => e.DeactivateDatetime == null).Select(teacher => new TeacherDTO
+                {
+                    Id = teacher.Id,
+                    Birthday = teacher.Birthday,
+                    Name = teacher.Name,
+                    Lastnames = teacher.LastName1 + " " + teacher.LastName2,
+                    ProfilePic = "",
+                    Phone = teacher.Phone,
+                    Email = teacher.Email
+                }).ToList();
+
+
+                if (tempRes.Count > 0)
+                {
+
+                    foreach (var item in tempRes)
+                    {
+                        var profilePic = _context.Documents
+                      .Where(e => e.TeacherId == item.Id && e.IsProfilePic == true).OrderByDescending(e => e.Id).FirstOrDefault();
+                        item.ProfilePic = profilePic?.Title;
+
+
+
+                        var groups = _context.Groups.Join(_context.GroupStudents.Where(e => e.StudentId == item.Id && e.DeactivateDatetime == null),
+                            group => group.Id,
+                            groupStudent => groupStudent.GroupId,
+                            (group, groupStudent) => new GroupDTO
+                            {
+                                Id = group.Id,
+                                GroupShortname = group.GroupShortname,
+                                LevelName = group.Level.Name,
+                                CycleName = group.Cycle.Name,
+                                Status = "ACTIVEXXX"
+                            }).ToList();
+
+                        if (groups != null)
+                        {
+                            item.Groups = new List<GroupDTO>();
+
+                            foreach (var g in groups)
+                            {
+                                item.Groups.Add(g);
+                            }
+                        }
+                    }
+
+
+                }
+                return tempRes;
+
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
+
+
         }
 
         public List<TeacherDTO> GetAllAvailableTeachers(int groupId)

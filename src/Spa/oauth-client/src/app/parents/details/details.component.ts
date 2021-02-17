@@ -8,6 +8,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpEventType, HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { ConfigService } from 'src/app/shared/config.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
+
 
 
 
@@ -28,6 +30,16 @@ export class DetailsComponent implements OnInit {
   submitted = false;
   genres: Genre[];
   parentGenre = new Genre();
+  availableProvinces: Province[];
+  selectedProvince: Province;
+
+  allCantons: Canton[];
+  availableCantons: any;
+  selectedCanton: Canton;
+
+  allDistritos: Distrito[];
+  availableDistritos: any;
+  selectedDistrito: Distrito;
 
 
   imageUrl: any;
@@ -35,11 +47,23 @@ export class DetailsComponent implements OnInit {
   fixedDate: Date;
 
 
+
   @Output() public UploadFinished = new EventEmitter();
 
   constructor(private route: ActivatedRoute, private authService: AuthService,
     private service: ParentsService, private spinner: NgxSpinnerService,
-    private http: HttpClient, private toastr: ToastrService, private configService: ConfigService) {
+    private http: HttpClient, private toastr: ToastrService, private configService: ConfigService,
+    private sharedService: SharedService) {
+
+      this.genres = [
+        { name: 'Mujer', code: 'F' },
+        { name: 'Hombre', code: 'M' }
+      ];
+
+      this.availableProvinces = this.sharedService.theCatalog.provinces;
+      this.allCantons = this.sharedService.theCatalog.cities;
+      this.allDistritos = this.sharedService.theCatalog.distritos;
+
   }
 
   ngOnInit() {
@@ -104,4 +128,23 @@ export class DetailsComponent implements OnInit {
 export class Genre {
   name: string;
   code: string;
+}
+
+
+
+interface Province {
+  Name: string;
+  id: string;
+}
+
+interface Canton {
+  Name: string;
+  id: string;
+  stateOrProvinceId: string;
+}
+
+interface Distrito {
+  Name: string;
+  id: string;
+  cantonId: string;
 }

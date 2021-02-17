@@ -99,7 +99,7 @@ namespace Resource.Api.Controllers
 
         [HttpPost]
         [Route("GetAllTeachers")]
-        public List<Teacher> GetAllTeachers()
+        public List<TeacherDTO> GetAllTeachers()
         {
             return _TeachersRepo.GetAllTeachers();
         }
