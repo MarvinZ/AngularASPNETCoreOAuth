@@ -24,17 +24,18 @@ namespace Resource.Api
             return _context.Students.ToList();
         }
 
-        public bool CreateDocument(int clientId, bool isProfilePic,  int? studentId, int? groupId, string dbPath, string title)
+        public bool CreateDocument(int clientId, bool isProfilePic,  int? studentId, int? teacherId, int? groupId, string dbPath, string title)
         {
             try
             {
                 var newDoc = new Document()
                 {
                     IsProfilePic = isProfilePic,
-                    ClientId = clientId, 
+                    ClientId = clientId,
                     FileLocation = dbPath,
                     GroupId = groupId == 0 ? null : groupId,
                     StudentId = studentId == 0 ? null : studentId,
+                    TeacherId = teacherId == 0 ? null : teacherId,
                     Title = title,
                     CreateDatetime = DateTime.UtcNow,
                     CreateUser = "admin",

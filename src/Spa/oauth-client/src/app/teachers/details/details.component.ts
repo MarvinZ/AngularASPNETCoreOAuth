@@ -7,6 +7,9 @@ import { TeachersService } from '../teachers.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpEventType, HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { SharedService } from 'src/app/shared/services/shared.service';
+import { ConfigService } from 'src/app/shared/config.service';
+
 
 
 @Component({
@@ -25,12 +28,42 @@ export class DetailsComponent implements OnInit {
 
   submitted = false;
 
+  genres: Genre[];
+  studentGenre = new Genre();
+  availableProvinces: Province[];
+  selectedProvince: Province;
+
+  allCantons: Canton[];
+  availableCantons: any;
+  selectedCanton: Canton;
+
+  allDistritos: Distrito[];
+  availableDistritos: any;
+  selectedDistrito: Distrito;
+
+  fixedDate: Date;
+
+  imageUrl: any;
+
+
+
 
   @Output() public UploadFinished = new EventEmitter();
 
   constructor(private route: ActivatedRoute, private authService: AuthService,
-              private service: TeachersService, private spinner: NgxSpinnerService,
-              private http: HttpClient, private toastr: ToastrService) {
+    private service: TeachersService, private spinner: NgxSpinnerService,
+    private http: HttpClient, private toastr: ToastrService, private configService: ConfigService,
+    private sharedService: SharedService) {
+
+    this.genres = [
+      { name: 'Mujer', code: 'F' },
+      { name: 'Hombre', code: 'M' }
+    ];
+
+    this.availableProvinces = this.sharedService.theCatalog.provinces;
+    this.allCantons = this.sharedService.theCatalog.cities;
+    this.allDistritos = this.sharedService.theCatalog.distritos;
+
   }
 
   ngOnInit() {
@@ -38,7 +71,13 @@ export class DetailsComponent implements OnInit {
     this.spinner.show();
     this.selectedTeacher = this.route.snapshot.paramMap.get('id');
 
-    this.service.getTeacherDetails(this.authService.authorizationHeaderValue, this.authService.clientId,  +this.selectedTeacher)
+    this.getInitialData();
+  }
+
+
+  getInitialData() {
+
+    this.service.getTeacherDetails(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedTeacher)
       .pipe(finalize(() => {
 
 
@@ -47,16 +86,19 @@ export class DetailsComponent implements OnInit {
       })).subscribe(
         result => {
           this.teacher = result;
+          this.fixedDate = new Date(this.teacher.birthday);
+
+          this.imageUrl = this.configService.profilePicApiURI + this.teacher.profilePic;
+          this.studentGenre = this.genres.find(x => x.code === this.teacher.genre);
+          this.spinner.hide();
+          this.busy = false;
+
+
         });
 
 
-
-    this.spinner.hide();
-    this.busy = false;
-
-
-
   }
+
 
   public uploadFile = (files) => {
     if (files.length === 0) {
@@ -64,8 +106,11 @@ export class DetailsComponent implements OnInit {
     }
     const fileToUpload = files[0] as File;
     const formData = new FormData();
-    formData.append('StudentId', this.selectedTeacher);
+    formData.append('TeacherId', this.selectedTeacher);
+    formData.append('StudentId', '0');
     formData.append('GroupId', '0');  // 0 means no group, since this is a personal doc
+    formData.append('ClientId', this.authService.clientId.toString());  // 0 means no group, since this is a personal doc
+    formData.append('IsProfilePic', 'true');  // 0 means no group, since this is a personal doc
 
     formData.append('file', fileToUpload, fileToUpload.name);
     this.http.post('http://localhost:5050/api/Upload', formData, { reportProgress: true, observe: 'events' })
@@ -75,10 +120,48 @@ export class DetailsComponent implements OnInit {
         } else if (event.type === HttpEventType.Response) {
           this.message = 'Upload success.';
           this.UploadFinished.emit(event.body);
+          this.getInitialData();
+
         }
       });
   }
 
   onSubmit() { this.submitted = true; }
 
+  UpdateCantones() {
+    this.availableCantons = this.allCantons.filter(x => x.stateOrProvinceId === this.selectedProvince.id);
+    this.availableDistritos = [];
+  }
+
+  UpdateDistritos() {
+    this.availableDistritos = this.allDistritos.filter(x => x.cantonId === this.selectedCanton.id);
+  }
+
+}
+
+
+
+
+interface Province {
+  Name: string;
+  id: string;
+}
+
+interface Canton {
+  Name: string;
+  id: string;
+  stateOrProvinceId: string;
+}
+
+interface Distrito {
+  Name: string;
+  id: string;
+  cantonId: string;
+}
+
+
+
+export class Genre {
+  name: string;
+  code: string;
 }

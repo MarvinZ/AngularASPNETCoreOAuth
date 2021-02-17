@@ -303,6 +303,11 @@ namespace Resource.Api.Models
                     .WithMany(p => p.Documents)
                     .HasForeignKey(d => d.StudentId)
                     .HasConstraintName("FK__Document__Studen__2EA5EC27");
+
+                entity.HasOne(d => d.Teacher)
+                    .WithMany(p => p.Documents)
+                    .HasForeignKey(d => d.TeacherId)
+                    .HasConstraintName("FK__Document__Teache__45544755");
             });
 
             modelBuilder.Entity<Group>(entity =>

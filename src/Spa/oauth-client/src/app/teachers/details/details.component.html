@@ -3,93 +3,153 @@
     <div *ngIf="!busy" class="col-md-12">
       <h3>Teacher Details</h3>
 
-
-      The teacher {{selectedTeacher}} details go here!!!
-
-
-      {{teacher | json}}
-
-
-      <a class=" " routerLink="/teachers">Back to all teachers</a>
-
-
-
+      <a class=" " routerLink="/teachers">Regresar a la lista de teachers.</a>
 
     </div>
   </div>
+
+
   <div class="row">
-    <div [hidden]="submitted">
-
-      <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
-
-        <img width="250" height="300"
-          src="https://mk0salkeizk12or7kyfk.kinstacdn.com/wp-content/uploads/2019/07/jumpstart_kinder_2019.jpg" alt="">
-
-
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" id="name" required [(ngModel)]="teacher.name" name="name"
-            #name="ngModel">
-          <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-            Name is required
-          </div>
+    <div class="col-4">
+      <img width="250" height="300" [src]=imageUrl alt="">
+      <div class="row">
+        <div class="col-md-3">
+          <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+          <button type="button" class="btn btn-success" (click)="file.click()">Cambiar foto de la teacher</button>
         </div>
-
-        <div class="form-group">
-          <label for="lastname1">Last name</label>
-          <input type="text" class="form-control" id="lastname1" [(ngModel)]="teacher.lastnames" name="lastname1"
-            #lastname1="ngModel">
-          <div [hidden]="lastname1.valid || lastname1.pristine" class="alert alert-danger">
-            Lastname is required
-          </div>
+        <div class="col-md-4">
+          <span class="upload" *ngIf="progress > 0">
+            {{progress}}%
+          </span>
+          <span class="upload" *ngIf="message">
+            {{message}}
+          </span>
         </div>
+      </div>
+    </div>
 
+    <div class="col-8">
+      <div class="row">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <span class="p-float-label">
+                <input id="float-input" type="text" pInputText [(ngModel)]="teacher.name" name="nombre" required>
+                <label for="float-input">Nombre</label>
+              </span>
+            </div>
+            <div class="form-group col-md-4">
+              <span class="p-float-label">
+                <input id="float-input-2" type="text" pInputText [(ngModel)]="teacher.lastName1" name="lastName1"
+                  required>
+                <label for="float-input-2">Primer Apellido</label>
+              </span>
 
-        <div class="form-group">
-          <label for="lastname2">Last name</label>
-          <input type="text" class="form-control" id="lastname2" [(ngModel)]="teacher.lastnames" name="lastname2"
-            #lastname2="ngModel">
-          <div [hidden]="lastname2.valid || lastname2.pristine" class="alert alert-danger">
-            Lastname is required
+            </div>
+            <div class="form-group col-md-4">
+              <span class="p-float-label">
+                <input id="float-input-2" type="text" pInputText [(ngModel)]="teacher.lastName2" name="lastName2">
+                <label for="float-input-3">Segundo Apellido</label>
+              </span>
+
+            </div>
           </div>
-        </div>
+          <br>
 
-        <div class="form-group">
-          <label for="birthday">Birthday</label>
-          <input type="text" class="form-control" id="birthday" [(ngModel)]="teacher.birthday" name="birthday"
-            #birthday="ngModel">
-          <div [hidden]="birthday.valid || birthday.pristine" class="alert alert-danger">
-            Birthday is required
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <span class="p-float-label">
+                <p-calendar [yearNavigator]="true" inputId="calendar" [(ngModel)]="fixedDate" name="birthday" required>
+                </p-calendar>
+                <label for="calendar">Fecha Nacimiento</label>
+              </span>
+
+            </div>
+            <div class="form-group col-md-6">
+              <span class="p-float-label">
+                <p-selectButton [options]="genres" [(ngModel)]="teacherGenre" optionLabel="name" name="genre"
+                  inputId="genre">
+                </p-selectButton>
+
+              </span>
+            </div>
+
           </div>
-        </div>
 
+          <br>
 
-        <!--
-        <div class="form-group">
-          <label for="power">Hero Power</label>
-          <select class="form-control" id="power" required [(ngModel)]="student.power" name="power" #power="ngModel">
-            <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>
-          </select>
-          <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
-            Power is required
+          <div class="form-row">
+
+            <div class="form-group col-md-4">
+              <span class="p-float-label">
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableProvinces"
+                  name="selectedProvince" (onChange)="UpdateCantones()" [(ngModel)]="selectedProvince"
+                  optionLabel="name">
+                </p-dropdown>
+                <label for="dropdown">Provincia</label>
+              </span>
+            </div>
+
+            <div class="form-group col-md-4">
+              <span class="p-float-label">
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableCantons"
+                  name="selectedCanton" (onChange)="UpdateDistritos()" [(ngModel)]="selectedCanton" optionLabel="name">
+                </p-dropdown>
+                <label for="dropdown">Cantón</label>
+              </span>
+            </div>
+
+            <div class="form-group col-md-4">
+              <span class="p-float-label">
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="availableDistritos"
+                  name="selectedDistrito" [(ngModel)]="selectedDistrito" optionLabel="name"></p-dropdown>
+                <label for="dropdown">Distrito</label>
+              </span>
+            </div>
+
+            <!-- <div class="form-group col-md-2">
+<label for="inputZip">Zip</label>
+<input type="text" class="form-control" id="inputZip">
+</div> -->
           </div>
-        </div> -->
 
-        <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button>
-        <button type="button" class="btn btn-default" (click)="newHero(); heroForm.reset()">New Hero</button>
-      </form>
+
+          <br>
+          <div class="form-row">
+            <span class="p-float-label fullWidthMZ">
+              <input id="line1" type="text" pInputText [(ngModel)]="teacher.line1" name="line1" required
+                class="fullWidthMZ">
+              <label for="line1">Dirección</label>
+            </span>
+          </div>
+
+          <br>
+
+          <div class="form-row">
+            <span class="p-float-label fullWidthMZ">
+              <input id="line2" type="text" pInputText [(ngModel)]="teacher.line2" name="line2" class="fullWidthMZ">
+              <label for="line2">Otra señas</label>
+            </span>
+
+          </div>
+
+          <br>
+
+          <!-- <button> + Agregar direccion</button> -->
+
+        </form>
+
+      </div>
+
     </div>
 
 
   </div>
+
 
   <div class="row">
 
     <h3>Grupos</h3>
-
-
-
-
 
 
     <table class="table small">

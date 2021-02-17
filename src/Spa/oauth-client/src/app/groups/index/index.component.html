@@ -6,57 +6,46 @@
 
       <h3>Groups</h3>
 
-      <!-- <table class="table small">
-          <thead>
-            <tr>
-              <th scope="col">Group</th>
-              <th scope="col">Ciclo Lectivo </th>
-              <th scope="col">Nivel</th>
-              <th scope="col">Minima Fecha Nacimiento</th>
-              <th scope="col">Maxima Fecha Nacimiento</th>
-              <th scope="col">Status</th>
-              <th scope="col">Cantidad estudiantes</th>
-              <th scope="col">Teachers</th>
-
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let group of groups; let i = index" [attr.data-index]="i">
-              <td>
-              </td>
-
-              <td></td>
-
-
-            </tr>
-          </tbody>
+      <p>
+        TODO: Filters
+      </p>
 
 
 
-        </table> -->
-
-
-
-      <p-card *ngFor="let group of groups;" [style]="{'width': '25rem', 'margin-bottom': '2em'}" >
+      <p-card *ngFor="let group of groups;" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
 
 
 
         <p-header [style]="{width: '360px'}" styleClass="p-card-shadow">
-          <a class="" routerLink="/groups/{{group.id}}">{{group.groupShortname}} </a> </p-header>
-          <p>
-            <a class="" routerLink="/group_activities/{{group.id}}">Activities </a>
-          </p>
-        {{group.status}}
-        {{group.cycleName}} - {{group.levelName}} {{group.minDate | date}} - {{group.maxDate | date}}
-          {{group.totalStudents}} <ul>
+
+          <a class="" routerLink="/groups/{{group.id}}">{{group.groupShortname}} </a>
+          <div> {{group.status}} </div>
+          <div>
+            {{group.cycleName}} - {{group.levelName}}
+          </div>
+          <div>
+            {{group.groupShortname}}
+          </div>
+        </p-header>
+        <p>
+          <a class="" routerLink="/group_activities/{{group.id}}">Activities </a>
+        </p>
+        <p>
+          Teachers:
+        </p>
+
+     <ul>
           <li *ngFor="let item of group.teachers">
             <a class="" routerLink="/teachers/{{item.id}}">
               {{item.name}}</a> </li>
-          </ul>
+        </ul>
+        <div *ngIf="!group.teachers">
+          NECESITA TEACHER!!!!!!!
+        </div>
 
-          <p-footer>
-            Footer content here
-          </p-footer>
+        <p-footer>
+          {{group.totalStudents}} estudiantes
+        </p-footer>
       </p-card>
 
 

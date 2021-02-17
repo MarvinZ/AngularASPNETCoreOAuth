@@ -7,6 +7,8 @@ import { ParentsService } from '../parents.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpEventType, HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { ConfigService } from 'src/app/shared/config.service';
+
 
 
 @Component({
@@ -24,21 +26,34 @@ export class DetailsComponent implements OnInit {
   public message: string;
 
   submitted = false;
+  genres: Genre[];
+  parentGenre = new Genre();
+
+
+  imageUrl: any;
+
+  fixedDate: Date;
 
 
   @Output() public UploadFinished = new EventEmitter();
 
   constructor(private route: ActivatedRoute, private authService: AuthService,
-              private service: ParentsService, private spinner: NgxSpinnerService,
-              private http: HttpClient, private toastr: ToastrService) {
+    private service: ParentsService, private spinner: NgxSpinnerService,
+    private http: HttpClient, private toastr: ToastrService, private configService: ConfigService) {
   }
 
   ngOnInit() {
     this.busy = true;
     this.spinner.show();
     this.selectedParent = this.route.snapshot.paramMap.get('id');
+    this.getInitialData();
 
-    this.service.getParentDetails(this.authService.authorizationHeaderValue, this.authService.clientId,  +this.selectedParent)
+  }
+
+  getInitialData() {
+
+
+    this.service.getParentDetails(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedParent)
       .pipe(finalize(() => {
 
 
@@ -47,14 +62,13 @@ export class DetailsComponent implements OnInit {
       })).subscribe(
         result => {
           this.parent = result;
+          this.fixedDate = new Date(this.parent.birthday);
+
+          this.imageUrl = this.configService.profilePicApiURI + this.parent.profilePic;
+          this.parentGenre = this.genres.find(x => x.code === this.parent.genre);
+          this.spinner.hide();
+          this.busy = false;
         });
-
-
-
-    this.spinner.hide();
-    this.busy = false;
-
-
 
   }
 
@@ -75,10 +89,19 @@ export class DetailsComponent implements OnInit {
         } else if (event.type === HttpEventType.Response) {
           this.message = 'Upload success.';
           this.UploadFinished.emit(event.body);
+          this.getInitialData();
+
         }
       });
   }
 
   onSubmit() { this.submitted = true; }
 
+}
+
+
+
+export class Genre {
+  name: string;
+  code: string;
 }

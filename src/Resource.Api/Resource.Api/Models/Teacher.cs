@@ -9,6 +9,7 @@ namespace Resource.Api.Models
     {
         public Teacher()
         {
+            Documents = new HashSet<Document>();
             GroupTeachers = new HashSet<GroupTeacher>();
         }
 
@@ -32,6 +33,7 @@ namespace Resource.Api.Models
         public string DeactivateUser { get; set; }
 
         public virtual Client Client { get; set; }
+        public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<GroupTeacher> GroupTeachers { get; set; }
     }
 }

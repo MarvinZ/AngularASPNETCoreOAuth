@@ -235,6 +235,7 @@ CREATE TABLE Document
 (Id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
  ClientId int NOT NULL,
 StudentId int null,
+TeacherId int null,
 GroupId int  null,  
 Title nvarchar(200) NULL,
 IsProfilePic bit NULL,
@@ -249,6 +250,9 @@ DeactivateUser nvarchar(100) NULL
 
 ALTER TABLE Document
 ADD FOREIGN KEY (StudentId) REFERENCES Student(Id);
+
+ALTER TABLE Document
+ADD FOREIGN KEY (TeacherId) REFERENCES Teacher(Id);
 
 ALTER TABLE Document
 ADD FOREIGN KEY (GroupId) REFERENCES [Group](Id);

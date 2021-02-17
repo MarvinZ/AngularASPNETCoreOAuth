@@ -9,8 +9,8 @@ namespace Resource.Api
         public string Name { get; set; }
         public string Lastnames { get; set; }
         public string ProfilePic { get; set; }
- 
 
+        public char Genre { get; set; }
         public DateTime Birthday { get; set; }
         public string RegistrationDate { get; set; }
 
@@ -23,7 +23,7 @@ namespace Resource.Api
         public List<ParentDTO> Parents { get; internal set; }
         public List<GroupDTO> Groups { get; internal set; }
 
-        public char Genre { get; set; }
+
 
     }
 }

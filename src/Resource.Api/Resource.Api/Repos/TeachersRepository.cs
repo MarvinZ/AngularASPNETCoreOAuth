@@ -41,17 +41,28 @@ namespace Resource.Api
             try
             {
 
-                var tempRes = _context.Teachers.Where(e => e.Id == teacherId).Select(student => new TeacherDTO
+                var tempRes = _context.Teachers.Where(e => e.Id == teacherId).Select(teacher => new TeacherDTO
                 {
-                    Id = student.Id,
-                    Birthday = student.Birthday,
-                    RegistrationDate = student.RegistrationDate,
-                    Name = student.Name,
-                    Lastnames = student.LastName1 + " " + student.LastName2,
+                    Id = teacher.Id,
+                    Birthday = teacher.Birthday,
+                    RegistrationDate = teacher.RegistrationDate,
+                    Name = teacher.Name,
+                    LastName1 = teacher.LastName1,
+                    LastName2 = teacher.LastName2,
+                    Cedula = teacher.CountryId,
+                    Lastnames = teacher.LastName1 + " " + teacher.LastName2,
+                    Genre = char.Parse(teacher.Gender)
+
                 }).FirstOrDefault();
 
                 if (tempRes != null)
                 {
+                    //FIX ME FIX ME!!!! teadcherid
+                    var profilePic = _context.Documents
+                        .Where(e => e.TeacherId == teacherId && e.IsProfilePic == true).OrderByDescending(e => e.Id).FirstOrDefault();
+                    tempRes.ProfilePic = profilePic?.Title;
+
+
                     var groups = _context.Groups.Join(_context.GroupTeachers.Where(e => e.TeacherId == teacherId && e.DeactivateDatetime == null),
                         group => group.Id,
                         groupTeacher => groupTeacher.GroupId,
@@ -73,13 +84,13 @@ namespace Resource.Api
                         {
                             tempRes.Groups.Add(par);
                         }
-                    }                    
+                    }
 
                 }
                 return tempRes;
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
                 return null;
