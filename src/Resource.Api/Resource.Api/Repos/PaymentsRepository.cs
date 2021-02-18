@@ -159,7 +159,7 @@ namespace Resource.Api
                     PaymentRequestTypeName = e.PaymentType.Name,
                     PaymentStatusName = e.PaymentStatus.Name,
                     DueDate = e.DueDate,
-                    Details = "NEED CODE FIX",
+                    Details = e.PaymentType.Name,
                     StudentName = e.Student.Name + " " + e.Student.LastName1,
 
 
