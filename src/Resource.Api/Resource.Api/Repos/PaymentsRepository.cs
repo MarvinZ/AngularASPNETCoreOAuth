@@ -131,9 +131,6 @@ namespace Resource.Api
                     PaymentStatusName = e.PaymentStatus.Name,
                     DueDate = e.DueDate,
                     Details = "NEED CODE FIX"
-
-
-
                 }).ToList();
 
             return result;
