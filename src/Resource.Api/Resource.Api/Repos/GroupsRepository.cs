@@ -246,6 +246,7 @@ namespace Resource.Api
             }
         }
 
+
         public bool UnAssignTeacher(int groupId, int teacherId)
         {
             try

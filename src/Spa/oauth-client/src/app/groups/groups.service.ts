@@ -80,6 +80,25 @@ export class GroupsService extends BaseService {
   }
 
 
+  GetAllGroupActivities(token: string, ClientId: number, GroupId: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
+
+    const payload = {
+      GroupId
+    };
+
+
+    return this.http.post(this.configService.resourceApiURI + '/things/GetAllGroupActivities', payload,
+      httpOptions).pipe(catchError(this.handleError));
+  }
+
+
+
   openGroup(token: string, ClientId: number, CycleId: number, LevelId: number, ShortName: string, MinDate: string, MaxDate: string) {
 
     const httpOptions = {

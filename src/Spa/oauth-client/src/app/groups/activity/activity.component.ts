@@ -20,6 +20,7 @@ export class ActivityComponent implements OnInit {
 
   busy: boolean;
   selectedGroup: string;
+  groupActivities: any = [];
   group: any = [];
   students = null;
   openAddTeacherToGroup = false;
@@ -56,14 +57,23 @@ export class ActivityComponent implements OnInit {
 
 
   getInitialData() {
-    this.service.getGroupDetails(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedGroup)
+    this.service.GetAllGroupActivities(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedGroup)
       .pipe(finalize(() => {
         this.spinner.hide();
         this.busy = false;
       })).subscribe(
         result => {
-          this.group = result;
+          this.groupActivities = result;
         });
+
+        this.service.getGroupDetails(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedGroup)
+        .pipe(finalize(() => {
+          this.spinner.hide();
+          this.busy = false;
+        })).subscribe(
+          result => {
+            this.group  = result;
+          });
 
     this.getStudentsForGroup(+this.selectedGroup);
   }
@@ -104,12 +114,8 @@ export class ActivityComponent implements OnInit {
   }
 
 
-
-
   RemoveStudentFromGroupActivity(id: string) {
-
   }
-
 
   OpenNewActivity() {
     this.newAcivity = true;

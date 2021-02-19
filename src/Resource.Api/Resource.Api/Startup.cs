@@ -30,6 +30,7 @@ namespace Resource.Api
 
             //services.AddScoped<NinjaRepository>();
             services.AddScoped<StudentsRepository>();
+            services.AddScoped<ActivityRepository>();
             services.AddScoped<ParentsRepository>();
             services.AddScoped<TeachersRepository>();
             services.AddScoped<GroupsRepository>();

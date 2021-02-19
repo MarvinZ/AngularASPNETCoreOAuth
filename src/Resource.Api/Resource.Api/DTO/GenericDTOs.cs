@@ -87,6 +87,7 @@ namespace Resource.Api
         public string ActivityName { get; set; }
         public string ActivityDate { get; set; }
         public List<StudentDTO> Participants { get; set; }
+        public List<string> AttachmentUrls { get; set; }
     }
 
 

@@ -14,6 +14,17 @@
         <button class="button" (click)="OpenNewActivity()">
           Crear actividad grupal
         </button>
+
+        <p>Activities</p>
+
+        <div *ngFor="let item of groupActivities">
+          {{item | json}}
+
+        </div>
+
+
+
+
       </div>
 
       <div class="row" *ngIf="newAcivity">
@@ -111,8 +122,6 @@
       <a class=" " routerLink="/groups">Regresar a la lista de grupos</a>
 
       <hr>
-
-
 
 
 

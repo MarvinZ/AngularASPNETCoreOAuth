@@ -14,12 +14,14 @@ namespace Resource.Api.Controllers
     [ApiController]
     public class ThingsController : ControllerBase
     {
-        DocumentsRepository _DocumentsRepo;
         GroupsRepository _GroupsRepo;
-        public ThingsController(GroupsRepository GroupsRepo, DocumentsRepository DocumentsRepo)
+        ActivityRepository _ActivityRepo;
+
+
+        public ThingsController(GroupsRepository GroupsRepo, ActivityRepository ActivityRepo)
         {
             _GroupsRepo = GroupsRepo;
-            _DocumentsRepo = DocumentsRepo;
+            _ActivityRepo = ActivityRepo;
         }
 
 
@@ -97,6 +99,15 @@ namespace Resource.Api.Controllers
         {
             return _GroupsRepo.GetGroupDetails(request.GroupId);
         }
+
+
+        [HttpPost]
+        [Route("GetAllGroupActivities")]
+        public List<ActivityDTO> GetAllGroupActivities(GroupRequestDTO request)
+        {
+            return _ActivityRepo.GetAllGroupActivities(request.GroupId);
+        }
+        
 
         [HttpPost]
         [Route("GetCatalog")]
