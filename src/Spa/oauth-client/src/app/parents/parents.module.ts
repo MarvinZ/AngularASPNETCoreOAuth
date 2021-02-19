@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { IndexComponent } from './index/index.component';
 import { FinancialComponent } from './financial/financial.component';
+import { PaymentComponent } from './payment/payment.component';
+
 import { DetailsComponent } from './details/details.component';
 import { CreateComponent } from './create/create.component';
 import { ExistingParentComponent } from './existing/existing.component';
@@ -23,7 +25,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 
 
 @NgModule({
-  declarations: [IndexComponent, DetailsComponent, CreateComponent, ExistingParentComponent, FinancialComponent],
+  declarations: [IndexComponent, DetailsComponent, CreateComponent, ExistingParentComponent, FinancialComponent, PaymentComponent],
   providers: [ParentsService],
   imports: [
     CommonModule,

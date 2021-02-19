@@ -15,74 +15,8 @@
 
     <h3>Cobros y pagos</h3>
 
-    <div *ngIf="PAYMENTMODE">
 
-      {{selectedPayment | json}}
-
-
-      <p scope="col">Tipo : {{selectedPayment.paymentStatusName}}</p>
-
-      <p scope="col">Estado: {{selectedPayment.paymentRequestTypeName}}</p>
-
-      <p scope="col">Detalles: {{selectedPayment.details}} - {{selectedPayment.studentName}}</p>
-
-      <p>Monto a cancelar: {{selectedPayment.requestedAmount}}</p>
-
-      <p>Fecha de cobro : {{selectedPayment.requestedTime  | date}}</p>
-
-      <p>Fecha limite de pago : {{selectedPayment.dueDate | date}}</p>
-
-      <p>Monto cancelado: {{selectedPayment.paidAmount}}</p>
-
-      <p>Pagado por : {{selectedPayment.paidBy}}</p>
-
-      <p>Fecha de ultimo pago: {{selectedPayment.paidTime  | date}}</p>
-
-      <p>compronte</p>
-
-      <div *ngIf="item.paymentStatusName=='New'">
-        <button class="button" (click)="Pay(selectedPayment.id)">Pagar</button>
-      </div>
-      <div *ngIf="item.paymentStatusName=='InReview'">
-        <button class="button" (click)="ApprovePayment(selectedPayment.id)">Aprobar</button>
-      </div>
-      <div *ngIf="item.paymentStatusName=='Done'">
-        <button class="button" (click)="ReviewPayment(selectedPayment.id)">Revisar</button>
-      </div>
-
-
-      <button class="button" (click)="CancelSelectedPayment()">Regresar</button>
-
-
-
-  <hr>
-  <div class="col-4">
-    <img width="250" height="300" [src]=imageUrl alt="">
-    <div class="row">
-      <div class="col-md-3">
-        <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)"
-          style="display:none;">
-        <button type="button" class="btn btn-success" (click)="file.click()">Adjuentar comprobante del pago</button>
-      </div>
-      <div class="col-md-4">
-        <span class="upload" *ngIf="progress > 0">
-          {{progress}}%
-        </span>
-        <span class="upload" *ngIf="message">
-          {{message}}
-        </span>
-      </div>
-    </div>
-  </div>
-      <hr>
-
-
-
-
-    </div>
-
-
-    <div *ngIf="LISTMODE">
+    <div>
       <table class="table small">
         <thead>
           <tr>
@@ -111,8 +45,8 @@
             <td>{{item.paidBy}}</td>
             <td>{{item.paidTime  | date}}</td>
             <td>
-              <button class="button" (click)="PaymentDetails(item)">Detalles</button>
 
+              <a class=" " routerLink="/payment/{{selectedParent}}/{{item.id}}">Detalles del pago</a>
 
             </td>
             <td>{{item.paidTime  | date}}</td>

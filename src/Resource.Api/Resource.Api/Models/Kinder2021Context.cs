@@ -299,6 +299,11 @@ namespace Resource.Api.Models
                     .HasForeignKey(d => d.GroupId)
                     .HasConstraintName("FK__Document__GroupI__2F9A1060");
 
+                entity.HasOne(d => d.PaymentRequest)
+                    .WithMany(p => p.Documents)
+                    .HasForeignKey(d => d.PaymentRequestId)
+                    .HasConstraintName("FK__Document__Paymen__473C8FC7");
+
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.Documents)
                     .HasForeignKey(d => d.StudentId)

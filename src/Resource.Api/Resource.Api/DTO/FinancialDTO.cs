@@ -24,5 +24,8 @@ namespace Resource.Api.Models
         public DateTime CreateDatetime { get; set; }
         public string CreateUser { get; set; }
 
+        public string PaymentAttachment { get; set; }
+
+
     }
 }

@@ -31,11 +31,7 @@ export class FinancialComponent implements OnInit {
 
   selectedPayment: any;
 
-  LISTMODE = true;
 
-  PAYMENTMODE = false;
-
-  imageUrl: any;
 
 
 
@@ -92,33 +88,16 @@ export class FinancialComponent implements OnInit {
   }
 
 
-
-  PaymentDetails(payment: any) {
-    this.selectedPayment = payment;
-    this.imageUrl = this.configService.profilePicApiURI + this.selectedPayment.profilePic;
-
-    this.LISTMODE = false;
-    this.PAYMENTMODE = true;
-  }
-
-
-  CancelSelectedPayment() {
-    this.selectedPayment = null;
-    this.LISTMODE = true;
-    this.PAYMENTMODE = false;
-
-  }
-
-
   public uploadFile = (files) => {
     if (files.length === 0) {
       return;
     }
     const fileToUpload = files[0] as File;
     const formData = new FormData();
-    formData.append('StudentId', '999');
+    formData.append('StudentId', '0');
     formData.append('PaymentId', this.selectedPayment.id);  // 0 means no group, since this is a personal doc
     formData.append('GroupId', '0');  // 0 means no group, since this is a personal doc
+    formData.append('TeacherId', '0');  // 0 means no group, since this is a personal doc
     formData.append('ClientId', this.authService.clientId.toString());  // 0 means no group, since this is a personal doc
     formData.append('IsProfilePic', 'false');  // 0 means no group, since this is a personal doc
 
@@ -130,7 +109,7 @@ export class FinancialComponent implements OnInit {
         } else if (event.type === HttpEventType.Response) {
           this.message = 'Upload success.';
           this.UploadFinished.emit(event.body);
-          // this.getInitialData();
+          this.GetAllFinancialsForParent();
         }
       });
   }

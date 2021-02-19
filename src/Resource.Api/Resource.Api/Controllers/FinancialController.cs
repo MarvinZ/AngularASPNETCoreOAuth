@@ -75,5 +75,12 @@ namespace Resource.Api.Controllers
             return _PaymentsRepo.Pay(request.ClientId, request.ParentId, request.PaymentRequestId);
         }
 
+        [HttpPost]
+        [Route("PaymentDetails")]
+        public FinancialDTO PaymentDetails(PaymentsDTO request)
+        {
+            return _PaymentsRepo.PaymentDetails(request.ClientId, request.PaymentRequestId);
+        }
+
     }
 }

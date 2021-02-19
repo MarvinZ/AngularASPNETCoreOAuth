@@ -9,6 +9,7 @@ namespace Resource.Api.Models
     {
         public PaymentRequest()
         {
+            Documents = new HashSet<Document>();
             Payments = new HashSet<Payment>();
         }
 
@@ -30,6 +31,7 @@ namespace Resource.Api.Models
         public virtual PaymentStatus PaymentStatus { get; set; }
         public virtual PaymentType PaymentType { get; set; }
         public virtual Student Student { get; set; }
+        public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
     }
 }

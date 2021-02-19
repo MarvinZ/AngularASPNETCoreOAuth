@@ -21,9 +21,11 @@ namespace Resource.Api.Models
         public DateTime? DeactivateDatetime { get; set; }
         public string DeactivateUser { get; set; }
         public int? TeacherId { get; set; }
+        public int? PaymentRequestId { get; set; }
 
         public virtual Client Client { get; set; }
         public virtual Group Group { get; set; }
+        public virtual PaymentRequest PaymentRequest { get; set; }
         public virtual Student Student { get; set; }
         public virtual Teacher Teacher { get; set; }
     }

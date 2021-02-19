@@ -146,5 +146,21 @@ export class ParentsService extends BaseService {
   }
 
 
+  GetPaymentDetails(token: string, clientId: number, PaymentRequestId: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
+
+    const payload = {
+      clientId, PaymentRequestId
+    };
+    return this.http.post(this.configService.resourceApiURI + '/financial/PaymentDetails',
+      payload, httpOptions).pipe(catchError(this.handleError));
+
+  }
+
 
 }

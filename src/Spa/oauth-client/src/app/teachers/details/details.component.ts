@@ -111,6 +111,8 @@ export class DetailsComponent implements OnInit {
     formData.append('GroupId', '0');  // 0 means no group, since this is a personal doc
     formData.append('ClientId', this.authService.clientId.toString());  // 0 means no group, since this is a personal doc
     formData.append('IsProfilePic', 'true');  // 0 means no group, since this is a personal doc
+    formData.append('PaymentId', '0');  // 0 means no group, since this is a personal doc
+
 
     formData.append('file', fileToUpload, fileToUpload.name);
     this.http.post('http://localhost:5050/api/Upload', formData, { reportProgress: true, observe: 'events' })

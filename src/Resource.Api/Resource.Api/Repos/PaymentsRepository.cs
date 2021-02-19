@@ -158,6 +158,7 @@ namespace Resource.Api
                     DueDate = e.DueDate,
                     Details = e.PaymentType.Name,
                     StudentName = e.Student.Name + " " + e.Student.LastName1,
+                    PaymentAttachment = e.Documents.FirstOrDefault().Title
 
 
                 }).ToList();
@@ -192,6 +193,41 @@ namespace Resource.Api
                 return false;
             }
         }
+
+
+
+
+        internal FinancialDTO PaymentDetails(int clientId, int PaymentRequestId)
+        {
+       
+            var result = _context.PaymentRequests.Where(e => e.Id == PaymentRequestId)
+                .Select(e => new FinancialDTO()
+                {
+                    Id = e.Id,
+                    RequestedAmount = e.Amount,
+                    PaidAmount = e.Payments.FirstOrDefault() == null ? 0 : e.Payments.FirstOrDefault().Amount,
+                    RequestedTime = e.CreateDatetime,
+                    PaidTime = e.Payments.FirstOrDefault() == null ? new DateTime(1900, 1, 1) : e.Payments.FirstOrDefault().CreateDatetime,
+                    PaidBy = e.Payments.FirstOrDefault() == null ? "" : e.Payments.FirstOrDefault().Parent.Name + " " + e.Payments.FirstOrDefault().Parent.LastName1,
+                    PaymentRequestTypeName = e.PaymentType.Name,
+                    PaymentStatusName = e.PaymentStatus.Name,
+                    DueDate = e.DueDate,
+                    Details = e.PaymentType.Name,
+                    StudentName = e.Student.Name + " " + e.Student.LastName1,
+
+
+                }).FirstOrDefault();
+
+            if (result  != null)
+            {
+                result.PaymentAttachment = _context.Documents.Where(e => e.PaymentRequestId == result.Id).OrderByDescending(e => e.Id).FirstOrDefault().Title;
+
+            }
+
+            return result;
+        }
+
+
 
 
     }

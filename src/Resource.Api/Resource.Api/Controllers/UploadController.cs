@@ -28,6 +28,7 @@ namespace Resource.Api.Controllers
                 var teacherId = int.Parse(dict["TeacherId"]);
                 var groupId = int.Parse(dict["GroupId"]);
                 var clientId = int.Parse(dict["ClientId"]);
+                var paymentId = int.Parse(dict["PaymentId"]);
                 var isProfilePic = bool.Parse(dict["IsProfilePic"]);
 
                 var folderName = Path.Combine("Resources", "Images");
@@ -44,7 +45,7 @@ namespace Resource.Api.Controllers
                     {
                         file.CopyTo(stream);
                     }
-                    success = _DocumentsRepo.CreateDocument(clientId, isProfilePic,  studentId, teacherId, groupId, dbPath, fileName);
+                    success = _DocumentsRepo.CreateDocument(clientId, isProfilePic,  studentId, teacherId, groupId, paymentId, dbPath, fileName);
 
                     if (success)
                     {

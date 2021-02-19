@@ -24,7 +24,7 @@ namespace Resource.Api
             return _context.Students.ToList();
         }
 
-        public bool CreateDocument(int clientId, bool isProfilePic,  int? studentId, int? teacherId, int? groupId, string dbPath, string title)
+        public bool CreateDocument(int clientId, bool isProfilePic, int? studentId, int? teacherId, int? groupId, int? paymentRequestId, string dbPath, string title)
         {
             try
             {
@@ -37,6 +37,7 @@ namespace Resource.Api
                     StudentId = studentId == 0 ? null : studentId,
                     TeacherId = teacherId == 0 ? null : teacherId,
                     Title = title,
+                    PaymentRequestId = paymentRequestId,
                     CreateDatetime = DateTime.UtcNow,
                     CreateUser = "admin",
 

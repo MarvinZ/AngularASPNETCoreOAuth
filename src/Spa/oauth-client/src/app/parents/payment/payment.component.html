@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="row">
+    <div *ngIf="!busy" class="col-md-12">
+      <h3>Parent - Financial - Payment</h3>
+
+
+      <a class=" " routerLink="/financial/{{selectedParentId}}">Regresar a las financias del padre</a>
+
+    </div>
+  </div>
+
+
+  <div class="row">
+
+    <h3>Cobros y pagos</h3>
+
+    <div *ngIf="thePayment">
+
+      {{thePayment | json}}
+
+
+      <p scope="col">Tipo : {{thePayment.paymentStatusName}}</p>
+
+      <p scope="col">Estado: {{thePayment.paymentRequestTypeName}}</p>
+
+      <p scope="col">Detalles: {{thePayment.details}} - {{thePayment.studentName}}</p>
+
+      <p>Monto a cancelar: {{thePayment.requestedAmount}}</p>
+
+      <p>Fecha de cobro : {{thePayment.requestedTime  | date}}</p>
+
+      <p>Fecha limite de pago : {{thePayment.dueDate | date}}</p>
+
+      <p>Monto cancelado: {{thePayment.paidAmount}}</p>
+
+      <p>Pagado por : {{thePayment.paidBy}}</p>
+
+      <p>Fecha de ultimo pago: {{thePayment.paidTime  | date}}</p>
+
+      <p>compronte</p>
+
+      <div *ngIf="thePayment.paymentStatusName=='New'">
+        <button class="button" (click)="Pay(thePayment.id)">Pagar</button>
+      </div>
+      <div *ngIf="thePayment.paymentStatusName=='InReview'">
+        <button class="button" (click)="ApprovePayment(thePayment.id)">Aprobar</button>
+      </div>
+      <div *ngIf="thePayment.paymentStatusName=='Done'">
+        <button class="button" (click)="ReviewPayment(thePayment.id)">Revisar</button>
+      </div>
+
+
+
+
+
+  <hr>
+  <div class="col-4">
+    <img width="250" height="300" [src]=imageUrl alt="">
+    <div class="row">
+      <div class="col-md-3">
+        <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)"
+          style="display:none;">
+        <button type="button" class="btn btn-success" (click)="file.click()">Adjuentar comprobante del pago</button>
+      </div>
+      <div class="col-md-4">
+        <span class="upload" *ngIf="progress > 0">
+          {{progress}}%
+        </span>
+        <span class="upload" *ngIf="message">
+          {{message}}
+        </span>
+      </div>
+    </div>
+  </div>
+      <hr>
+    </div>
+
+
+  </div>
+  <hr>
+
+  <ngx-spinner></ngx-spinner>
+</div>

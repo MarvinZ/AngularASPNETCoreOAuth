@@ -9,8 +9,7 @@ RegistrationDate datetime NOT NULL,
 CreateDatetime datetime NOT NULL,
 CreateUser nvarchar(100) NOT NULL,
 LastModifiedUser nvarchar(100) NULL,
-LastModificationDatetime datetime NULL,
-DeactivateDatetime datetime NULL,
+LastModificationDatetime datetime NULL,DeactivateDatetime datetime NULL,
 DeactivateUser nvarchar(100) NULL);
 
 DROP TABLE IF EXISTS Student;
@@ -236,7 +235,8 @@ CREATE TABLE Document
  ClientId int NOT NULL,
 StudentId int null,
 TeacherId int null,
-GroupId int  null,  
+GroupId int  null, 
+PaymentRequestId int  null,
 Title nvarchar(200) NULL,
 IsProfilePic bit NULL,
 fileLocation nvarchar(400) NULL,
@@ -259,6 +259,9 @@ ADD FOREIGN KEY (GroupId) REFERENCES [Group](Id);
 
 ALTER TABLE Document
 ADD FOREIGN KEY (ClientId) REFERENCES Client(Id)
+
+ALTER TABLE Document
+ADD FOREIGN KEY (PaymentRequestId) REFERENCES PaymentRequest(Id)
 
 
 /*********************ACTIVITY***************************/
@@ -487,3 +490,8 @@ ADD FOREIGN KEY (CountryId) REFERENCES Country(Id);
 
 
 --activty tables are missing here
+
+
+
+
+--Scaffold-DbContext "Data Source=.;Initial Catalog=Kinder2021;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer   -OutputDir Models  -f
