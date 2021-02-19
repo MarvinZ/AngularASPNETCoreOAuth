@@ -194,6 +194,37 @@ namespace Resource.Api
             }
         }
 
+        internal bool SendBackToReview(int clientId, int parentId, int PaymentRequestId)
+        {
+            try
+            {
+                var originalPaymentRequest = _context.PaymentRequests.Where(e => e.Id == PaymentRequestId).FirstOrDefault();
+                originalPaymentRequest.PaymentStatusId = (int)PaymentStatusEnum.InReview;
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+
+        internal bool ApprovePayment(int clientId, int parentId, int PaymentRequestId)
+        {
+            try
+            {
+                var originalPaymentRequest = _context.PaymentRequests.Where(e => e.Id == PaymentRequestId).FirstOrDefault();
+                originalPaymentRequest.PaymentStatusId = (int)PaymentStatusEnum.Paid;
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
 
 
 
@@ -220,7 +251,7 @@ namespace Resource.Api
 
             if (result  != null)
             {
-                result.PaymentAttachment = _context.Documents.Where(e => e.PaymentRequestId == result.Id).OrderByDescending(e => e.Id).FirstOrDefault().Title;
+                result.PaymentAttachment = _context.Documents.Where(e => e.PaymentRequestId == result.Id).OrderByDescending(e => e.Id).FirstOrDefault()?.Title;
 
             }
 

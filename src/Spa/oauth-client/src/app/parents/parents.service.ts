@@ -145,6 +145,35 @@ export class ParentsService extends BaseService {
       payload, httpOptions).pipe(catchError(this.handleError));
   }
 
+  ApprovePayment(token: string, clientId: number, ParentId: number, PaymentRequestId: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
+
+    const payload = {
+      clientId, ParentId, PaymentRequestId
+    };
+    return this.http.post(this.configService.resourceApiURI + '/financial/ApprovePayment',
+      payload, httpOptions).pipe(catchError(this.handleError));
+  }
+
+  ReviewPayment(token: string, clientId: number, ParentId: number, PaymentRequestId: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token
+      })
+    };
+
+    const payload = {
+      clientId, ParentId, PaymentRequestId
+    };
+    return this.http.post(this.configService.resourceApiURI + '/financial/SendBackToReview',
+      payload, httpOptions).pipe(catchError(this.handleError));
+  }
 
   GetPaymentDetails(token: string, clientId: number, PaymentRequestId: number) {
     const httpOptions = {

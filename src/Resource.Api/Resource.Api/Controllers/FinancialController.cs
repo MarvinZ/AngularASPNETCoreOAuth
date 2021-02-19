@@ -76,6 +76,21 @@ namespace Resource.Api.Controllers
         }
 
         [HttpPost]
+        [Route("ApprovePayment")]
+        public bool ApprovePayment(PaymentsDTO request)
+        {
+            return _PaymentsRepo.ApprovePayment(request.ClientId, request.ParentId, request.PaymentRequestId);
+        }
+
+        [HttpPost]
+        [Route("SendBackToReview")]
+        public bool SendBackToReview(PaymentsDTO request)
+        {
+            return _PaymentsRepo.SendBackToReview(request.ClientId, request.ParentId, request.PaymentRequestId);
+        }
+
+
+        [HttpPost]
         [Route("PaymentDetails")]
         public FinancialDTO PaymentDetails(PaymentsDTO request)
         {

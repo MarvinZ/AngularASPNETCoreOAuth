@@ -72,20 +72,7 @@ export class FinancialComponent implements OnInit {
         });
   }
 
-  Pay(paymentRequest: number) {
-    this.service.Pay(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedParent, paymentRequest)
-      .pipe(finalize(() => {
 
-
-      })).subscribe(
-        result => {
-          this.tableItems = result;
-          this.spinner.hide();
-          this.busy = false;
-
-
-        });
-  }
 
 
   public uploadFile = (files) => {

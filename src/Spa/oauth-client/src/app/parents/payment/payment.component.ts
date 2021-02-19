@@ -35,6 +35,8 @@ export class PaymentComponent implements OnInit {
 
   imageUrl: any;
 
+  result: any;
+
 
 
   @Output() public UploadFinished = new EventEmitter();
@@ -76,15 +78,49 @@ export class PaymentComponent implements OnInit {
   }
 
   Pay(paymentRequest: number) {
-    this.service.Pay(this.authService.authorizationHeaderValue, this.authService.clientId, +this.thePayment.parentId, paymentRequest)
+    this.service.Pay(this.authService.authorizationHeaderValue, this.authService.clientId, +this.selectedParentId, paymentRequest)
       .pipe(finalize(() => {
 
 
       })).subscribe(
         result => {
-          this.thePayment = result;
+          this.result = result;
           this.spinner.hide();
           this.busy = false;
+          this.GetPaymentDetails();
+
+        });
+  }
+
+  ReviewPayment(paymentRequest: number) {
+    this.service.ReviewPayment(this.authService.authorizationHeaderValue, this.authService.clientId,
+      +this.selectedParentId, paymentRequest)
+      .pipe(finalize(() => {
+
+
+      })).subscribe(
+        result => {
+          this.result = result;
+          this.spinner.hide();
+          this.busy = false;
+          this.GetPaymentDetails();
+
+
+        });
+  }
+
+  ApprovePayment(paymentRequest: number) {
+    this.service.ApprovePayment(this.authService.authorizationHeaderValue, this.authService.clientId,
+      +this.selectedParentId, paymentRequest)
+      .pipe(finalize(() => {
+
+
+      })).subscribe(
+        result => {
+          this.result = result;
+          this.spinner.hide();
+          this.busy = false;
+          this.GetPaymentDetails();
 
 
         });

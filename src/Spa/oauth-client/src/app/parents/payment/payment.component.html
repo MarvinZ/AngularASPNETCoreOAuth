@@ -45,7 +45,7 @@
       <div *ngIf="thePayment.paymentStatusName=='InReview'">
         <button class="button" (click)="ApprovePayment(thePayment.id)">Aprobar</button>
       </div>
-      <div *ngIf="thePayment.paymentStatusName=='Done'">
+      <div *ngIf="thePayment.paymentStatusName=='Paid'">
         <button class="button" (click)="ReviewPayment(thePayment.id)">Revisar</button>
       </div>
 
