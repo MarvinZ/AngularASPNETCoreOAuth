@@ -1,4 +1,5 @@
-﻿using Resource.Api.Enums;
+﻿using AutoMapper;
+using Resource.Api.Enums;
 using Resource.Api.Models;
 using System;
 using System.Collections.Generic;
@@ -24,16 +25,24 @@ namespace Resource.Api
 
     public class GroupsRepository : IGroupRepository
     {
+        private readonly IMapper _mapper;
+
         Kinder2021Context _context;
-        public GroupsRepository(Kinder2021Context context)
+        public GroupsRepository(Kinder2021Context context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+
         }
         public List<GroupDTO> GetAllGroups()
         {
 
             //var result2 = _context.Groups.Where(e => e.DeactivateDatetime == null && e.GroupStatusId == (int)GroupStatusName.Active)
             //    .GroupJoin(_context.GroupTeachers.DefaultIfEmpty(), group => group.Id, gt => gt.GroupId,  
+
+
+            var gr = _context.Groups.Where(e => e.DeactivateDatetime == null && e.GroupStatusId == (int)GroupStatusEnum.Active).FirstOrDefault();
+            GroupDTO test = _mapper.Map<GroupDTO>(gr);
 
             var result = _context.Groups.Where(e => e.DeactivateDatetime == null && e.GroupStatusId == (int)GroupStatusEnum.Active)
                // .Join(_context.GroupTeachers.DefaultIfEmpty(), group => group.Id, gt => gt.GroupId,

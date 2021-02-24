@@ -56,6 +56,10 @@ namespace Resource.Api
                 options.AddPolicy("Consumer", policy => policy.RequireClaim(ClaimTypes.Role, "consumer"));
             });
 
+            services.AddAutoMapper(typeof(Startup));
+
+
+
             services.AddMvc(options =>
             {
                 options.EnableEndpointRouting = false;
